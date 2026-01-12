@@ -144,3 +144,42 @@
 
 **Summary**: Successfully replaced the Unsplash image URL with the local image path `/images/estrid 2025.jpg` in `components/Hero.tsx`. The local image file exists at `public/images/estrid 2025.jpg` and the build completed successfully without errors. The static site is now using the local image instead of the external Unsplash URL, which improves performance and ensures the image is always available even without internet connection.
 
+---
+
+## Fix Image Loading on GitHub Pages
+
+**Status**: Completed ✅
+**Priority**: High
+**Technology**: Next.js, GitHub Pages
+**Started**: 2026-01-12
+**Completed**: 2026-01-12
+
+**Issue**: Images in `public/images` directory not loading on GitHub Pages deployment at `https://ejazulazim88.github.io/estrid.web/`
+
+**Root Cause**:
+- Site is deployed to a subdirectory (`/estrid.web`) with `basePath` configuration
+- Image paths use absolute paths (`/images/...`) which resolve to root domain
+- Should resolve to `/estrid.web/images/...` instead
+
+**Solution**:
+1. Update Hero.tsx to use `NEXT_PUBLIC_BASE_PATH` environment variable
+2. Prepend basePath to all local image references
+3. Ensure compatibility with both local development and GitHub Pages deployment
+
+**Progress Notes**:
+- [x] Identified issue with basePath and image paths
+- [x] Update Hero.tsx with basePath-aware image paths
+- [x] Test build and verify fix
+- [x] Verified generated HTML contains correct paths with `/estrid.web` prefix
+
+**Changes Made**:
+1. Added `const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';` to Hero.tsx
+2. Updated background image path: `url('${basePath}/images/estrid-2025.jpg')`
+3. Updated logo image path: `src={`${basePath}/images/estrid-logo.png`}`
+4. Tested build with `NEXT_PUBLIC_BASE_PATH=/estrid.web` environment variable
+5. Confirmed generated HTML contains correct paths: `/estrid.web/images/estrid-logo.png` and `/estrid.web/images/estrid-2025.jpg`
+
+**Next Steps**:
+- Push changes to GitHub to trigger automatic deployment
+- Verify images load correctly on live site at https://ejazulazim88.github.io/estrid.web/
+

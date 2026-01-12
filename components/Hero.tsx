@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { ChevronDown, Play } from "lucide-react";
 
 export default function Hero() {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
   const scrollToNext = () => {
     const aboutSection = document.querySelector("#about");
     if (aboutSection) {
@@ -23,7 +25,7 @@ export default function Hero() {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage:
-              "url('/images/estrid-2025.jpg')",
+              `url('${basePath}/images/estrid-2025.jpg')`,
           }}
         />
       </div>
@@ -38,7 +40,7 @@ export default function Hero() {
         >
           <div className="mb-8 flex justify-center items-start">
             <img
-              src="/images/estrid-logo.png"
+              src={`${basePath}/images/estrid-logo.png`}
               alt="Estrid"
               className="h-64 md:h-96 lg:h-[32rem] w-auto object-contain"
             />
