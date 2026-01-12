@@ -23,7 +23,7 @@ export default function Hero() {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage:
-              "url('/images/estrid 2025.jpg')",
+              "url('/images/estrid-2025.jpg')",
           }}
         />
       </div>
@@ -38,7 +38,7 @@ export default function Hero() {
         >
           <div className="mb-8 flex justify-center items-start">
             <img
-              src="/images/estrid logo.png"
+              src="/images/estrid-logo.png"
               alt="Estrid"
               className="h-64 md:h-96 lg:h-[32rem] w-auto object-contain"
             />

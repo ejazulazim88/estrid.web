@@ -60,7 +60,7 @@ export default function Navigation() {
             }}
           >
             <img
-              src="/images/estrid logo.png"
+              src="/images/estrid-logo.png"
               alt="Estrid Logo"
               className="h-24 md:h-36 w-auto"
             />
