@@ -173,11 +173,23 @@
 - [x] Verified generated HTML contains correct paths with `/estrid.web` prefix
 
 **Changes Made**:
-1. Added `const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';` to Hero.tsx
-2. Updated background image path: `url('${basePath}/images/estrid-2025.jpg')`
-3. Updated logo image path: `src={`${basePath}/images/estrid-logo.png`}`
-4. Tested build with `NEXT_PUBLIC_BASE_PATH=/estrid.web` environment variable
-5. Confirmed generated HTML contains correct paths: `/estrid.web/images/estrid-logo.png` and `/estrid.web/images/estrid-2025.jpg`
+1. **Hero.tsx**:
+   - Added `const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';`
+   - Updated background image path: `url('${basePath}/images/estrid-2025.jpg')`
+   - Updated logo image path: `src={`${basePath}/images/estrid-logo.png`}`
+
+2. **Navigation.tsx**:
+   - Added `const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';`
+   - Updated navigation logo path: `src={`${basePath}/images/estrid-logo.png`}`
+
+3. **Testing**:
+   - Tested build with `NEXT_PUBLIC_BASE_PATH=/estrid.web` environment variable
+   - Confirmed generated HTML contains correct paths with `/estrid.web` prefix
+   - Verified all 3 instances of logo image now use basePath-aware paths
+
+**Files Modified**:
+- `components/Hero.tsx` - Hero section background and logo
+- `components/Navigation.tsx` - Navigation bar logo
 
 **Next Steps**:
 - Push changes to GitHub to trigger automatic deployment

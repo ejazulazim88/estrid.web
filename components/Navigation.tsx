@@ -16,6 +16,7 @@ const navItems = [
 ];
 
 export default function Navigation() {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -60,7 +61,7 @@ export default function Navigation() {
             }}
           >
             <img
-              src="/images/estrid-logo.png"
+              src={`${basePath}/images/estrid-logo.png`}
               alt="Estrid Logo"
               className="h-24 md:h-36 w-auto"
             />
