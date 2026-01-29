@@ -1,4 +1,4 @@
-# Rock Band Artist Portal - The Renegades
+# Rock Band Artist Portal - ESTRID
 
 A modern, responsive single-page web portal for rock band musicians and artists, built with Next.js 15, TypeScript, Tailwind CSS, and Framer Motion.
 

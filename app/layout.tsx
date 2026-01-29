@@ -15,13 +15,13 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "The Renegades | Rock Band",
-  description: "Official website of The Renegades - A rock band bringing raw energy and powerful music to stages worldwide.",
+  title: "ESTRID | Rock Band",
+  description: "Website rasmi band ESTRID.",
   keywords: ["rock band", "music", "live shows", "concerts", "tour dates"],
-  authors: [{ name: "The Renegades" }],
+  authors: [{ name: "ESTRID" }],
   openGraph: {
-    title: "The Renegades | Rock Band",
-    description: "Official website of The Renegades rock band",
+    title: "ESTRID | Rock Band",
+    description: "Website rasmi band ESTRID.",
     type: "website",
   },
 };

@@ -13,6 +13,7 @@ const stats = [
 ];
 
 export default function About() {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -40,7 +41,7 @@ export default function About() {
             <div className="relative aspect-square rounded-lg overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent z-10" />
               <img
-                src="/images/estrid-img-1.jpg"
+                src={`${basePath}/images/estrid-img-1.jpg`}
                 alt="ESTRID Band"
                 className="w-full h-full object-cover transition-all duration-500"
               />

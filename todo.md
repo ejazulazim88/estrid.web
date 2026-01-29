@@ -146,6 +146,46 @@
 
 ---
 
+## Fix About Component Image Not Appearing in Production
+
+**Status**: Completed ✅
+**Priority**: High
+**Technology**: Next.js, GitHub Pages
+**Started**: 2026-01-29
+**Completed**: 2026-01-29
+
+**Issue**: Image in About.tsx component not loading on GitHub Pages deployment at `https://ejazulazim88.github.io/estrid.web/`
+
+**Root Cause**:
+- About.tsx uses hardcoded image path `/images/estrid-img-1.jpg`
+- Site is deployed to subdirectory `/estrid.web` with basePath configuration
+- Image path resolves to root domain instead of `/estrid.web/images/estrid-img-1.jpg`
+
+**Solution**:
+1. Add basePath variable to About.tsx component
+2. Update image src to use basePath prefix: `${basePath}/images/estrid-img-1.jpg`
+3. Follow same pattern as Hero.tsx and Navigation.tsx
+
+**Progress Notes**:
+- [x] Identified issue with hardcoded image path in About.tsx
+- [x] Update About.tsx with basePath-aware image path
+- [x] Test build and verify fix
+- [ ] Deploy and verify image loads in production
+
+**Changes Made**:
+1. **About.tsx**:
+   - Added `const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';` at line 16
+   - Updated image src from `/images/estrid-img-1.jpg` to `${basePath}/images/estrid-img-1.jpg` at line 44
+
+2. **Testing**:
+   - Built with `NEXT_PUBLIC_BASE_PATH=/estrid.web` environment variable
+   - Verified generated HTML contains correct path: `/estrid.web/images/estrid-img-1.jpg`
+   - Build completed successfully without errors
+
+**Summary**: Successfully fixed the About component image loading issue by adding basePath support. The image path now correctly resolves to `/estrid.web/images/estrid-img-1.jpg` in production, matching the pattern used in Hero.tsx and Navigation.tsx components. The fix ensures the image will load correctly on GitHub Pages deployment.
+
+---
+
 ## Fix Image Loading on GitHub Pages
 
 **Status**: Completed ✅
