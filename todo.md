@@ -195,3 +195,29 @@
 - Push changes to GitHub to trigger automatic deployment
 - Verify images load correctly on live site at https://ejazulazim88.github.io/estrid.web/
 
+---
+
+## Update Hero Background Image to 2026
+
+**Status**: Completed ✅
+**Priority**: Medium
+**Technology**: Next.js, Image Assets
+**Started**: 2026-01-28
+**Completed**: 2026-01-28
+
+**Task**: Update the hero section background image from `estrid-2025.jpg` to `estrid-2026.png`
+
+**Changes Made**:
+1. Verified new image file exists: `public/images/estrid-2026.png` (1.9M)
+2. Updated `components/Hero.tsx`:
+   - Changed background image from `estrid-2025.jpg` to `estrid-2026.png`
+   - Maintained basePath prefix: `url('${basePath}/images/estrid-2026.png')`
+3. Tested build with `NEXT_PUBLIC_BASE_PATH=/estrid.web`
+4. Verified generated HTML contains correct path: `/estrid.web/images/estrid-2026.png`
+5. Confirmed new image copied to `out/images/estrid-2026.png`
+
+**File Changes**:
+- `components/Hero.tsx` - Updated background image reference
+
+**Note**: Changed file extension from `.jpg` to `.png` as the new image is in PNG format
+

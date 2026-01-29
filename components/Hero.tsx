@@ -21,11 +21,20 @@ export default function Hero() {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-background z-10" />
+        {/* Mobile Portrait Background */}
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat sm:hidden"
           style={{
             backgroundImage:
-              `url('${basePath}/images/estrid-2025.jpg')`,
+              `url('${basePath}/images/estrid-2026-portrait.png')`,
+          }}
+        />
+        {/* Desktop Landscape Background */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat hidden sm:block"
+          style={{
+            backgroundImage:
+              `url('${basePath}/images/estrid-2026.png')`,
           }}
         />
       </div>
@@ -36,17 +45,16 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="-mt-72"
         >
-          <div className="mb-8 flex justify-center items-start">
+          <div className="flex justify-center items-start">
             <img
               src={`${basePath}/images/estrid-logo.png`}
               alt="Estrid"
-              className="h-64 md:h-96 lg:h-[32rem] w-auto object-contain"
+              className="md: mt-64 lg:-mt-64 h-64 md:h-96 lg:h-[32rem] w-auto object-contain"
             />
           </div>
-          <p className="text-xl md:text-2xl lg:text-3xl text-gray-300 mb-8">
-            Raw Energy. Powerful Sound. Unforgettable Experience.
+          <p className="text-2xl md:text-2xl lg:text-3xl text-gray-300 mb-8 -mt-10 md:-mt-32 lg:-mt-32">
+            Emosi Yang Dibebaskan, Bersuara Melalui Bunyi.
           </p>
         </motion.div>
 
@@ -65,7 +73,7 @@ export default function Hero() {
             }}
           >
             <Play className="w-5 h-5" />
-            <span>Listen Now</span>
+            <span>Dengar Sekarang</span>
             <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
           </a>
 
@@ -77,7 +85,7 @@ export default function Hero() {
               document.querySelector("#tour")?.scrollIntoView({ behavior: "smooth" });
             }}
           >
-            <span>Tour Dates</span>
+            <span>Tarikh Persembahan</span>
           </a>
         </motion.div>
       </div>

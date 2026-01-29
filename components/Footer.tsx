@@ -4,20 +4,19 @@ import { motion } from "framer-motion";
 import { Facebook, Instagram, Twitter, Youtube, Music } from "lucide-react";
 
 const socialLinks = [
-  { name: "Facebook", icon: Facebook, href: "#" },
-  { name: "Instagram", icon: Instagram, href: "#" },
-  { name: "Twitter", icon: Twitter, href: "#" },
-  { name: "YouTube", icon: Youtube, href: "#" },
-  { name: "Spotify", icon: Music, href: "#" },
+  { name: "Facebook", icon: Facebook, href: "https://www.facebook.com/estrid.band" },
+  { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/estrid.my" },
+  { name: "YouTube", icon: Youtube, href: "https://www.youtube.com/@EstridBand" },
+  { name: "Spotify", icon: Music, href: "https://open.spotify.com/artist/25ABCTlTAidsKrupJUfnRu?si=jw60k9sgTRiXx6xRIoKkfQ&nd=1&dlsi=1f728258d704467c" },
 ];
 
 const footerLinks = [
-  { name: "About", href: "#about" },
-  { name: "Music", href: "#music" },
-  { name: "Tour", href: "#tour" },
-  { name: "Gallery", href: "#gallery" },
-  { name: "News", href: "#news" },
-  { name: "Contact", href: "#contact" },
+  { name: "Tentang", href: "#about" },
+  { name: "Muzik", href: "#music" },
+  { name: "Gig", href: "#tour" },
+  { name: "Galeri", href: "#gallery" },
+  { name: "Berita", href: "#news" },
+  { name: "Hubungi", href: "#contact" },
 ];
 
 export default function Footer() {
@@ -30,16 +29,16 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <h3 className="text-2xl font-bold font-[family-name:var(--font-montserrat)] text-accent mb-4">
-              THE RENEGADES
+              ESTRID
             </h3>
             <p className="text-muted-foreground mb-4">
-              Raw energy. Powerful sound. Unforgettable experience.
+              Emosi Yang Dibebaskan, Bersuara Melalui Bunyi.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-bold mb-4">Quick Links</h4>
+            <h4 className="font-bold mb-4">Pautan Pantas</h4>
             <ul className="space-y-2">
               {footerLinks.map((link) => (
                 <li key={link.name}>
@@ -60,7 +59,7 @@ export default function Footer() {
 
           {/* Social Media */}
           <div>
-            <h4 className="font-bold mb-4">Follow Us</h4>
+            <h4 className="font-bold mb-4">Ikuti Kami</h4>
             <div className="flex gap-4">
               {socialLinks.map((social) => (
                 <motion.a
@@ -78,34 +77,10 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Newsletter */}
-        <div className="border-t border-border pt-8 mb-8">
-          <div className="max-w-md mx-auto text-center">
-            <h4 className="font-bold mb-4">Stay Updated</h4>
-            <p className="text-muted-foreground mb-4">
-              Subscribe to our newsletter for the latest news and updates
-            </p>
-            <form className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:border-accent transition-colors"
-                required
-              />
-              <button
-                type="submit"
-                className="px-6 py-2 bg-accent text-white font-semibold rounded-lg hover:bg-accent/90 transition-colors"
-              >
-                Subscribe
-              </button>
-            </form>
-          </div>
-        </div>
-
         {/* Copyright */}
         <div className="text-center text-muted-foreground text-sm">
           <p>
-            &copy; {currentYear} The Renegades. All rights reserved.
+            &copy; {currentYear} ESTRID. All rights reserved.
           </p>
         </div>
       </div>

@@ -6,10 +6,10 @@ import { useRef } from "react";
 import { Users, Music, Award, Heart } from "lucide-react";
 
 const stats = [
-  { icon: Music, label: "Albums Released", value: "5" },
-  { icon: Users, label: "Band Members", value: "4" },
-  { icon: Award, label: "Awards Won", value: "12" },
-  { icon: Heart, label: "Fans Worldwide", value: "500K+" },
+  { icon: Music, label: "Jumlah Lagu", value: "3" },
+  { icon: Users, label: "Ahli Band", value: "6" },
+  { icon: Award, label: "Gig", value: "12" },
+  { icon: Heart, label: "Penggemar Setia", value: "10K+" },
 ];
 
 export default function About() {
@@ -17,7 +17,7 @@ export default function About() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="about" className="py-20 md:py-32 bg-card" ref={ref}>
+    <section id="about" className="pt-12 pb-20 md:pt-20 md:pb-32 bg-card" ref={ref}>
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -26,7 +26,7 @@ export default function About() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-[family-name:var(--font-montserrat)] mb-4">
-            About <span className="text-accent">The Band</span>
+            Tentang <span className="text-accent">ESTRID</span>
           </h2>
           <div className="w-24 h-1 bg-accent mx-auto" />
         </motion.div>
@@ -40,9 +40,9 @@ export default function About() {
             <div className="relative aspect-square rounded-lg overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent z-10" />
               <img
-                src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?q=80&w=2069"
-                alt="The Renegades Band"
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                src="/images/estrid-img-1.jpg"
+                alt="ESTRID Band"
+                className="w-full h-full object-cover transition-all duration-500"
               />
             </div>
           </motion.div>
@@ -54,22 +54,16 @@ export default function About() {
             className="space-y-6"
           >
             <h3 className="text-3xl font-bold font-[family-name:var(--font-montserrat)]">
-              Our Story
+              Cerita Kami
             </h3>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Born from the underground music scene, The Renegades emerged with a
-              mission to bring raw, unfiltered rock back to the masses. Our sound
-              is a fusion of classic rock energy and modern edge.
+              Estrid lahir dari keberanian untuk melawan kebiasaan—menyambar perhatian melalui pentas-pentas ganjil, termasuk sebuah toilet gig yang kemudian menjadi legenda. Dari situ, mereka menjelma sebagai nadi tetap scene muzik tempatan, menggegarkan malam demi malam melalui gig mingguan yang digerakkan oleh kolektif indie. Single sulung mereka, "Narsistik," membuka pintu kepada era baharu yang lebih liar, lebih jujur—dan ini baru permulaannya.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Since our formation, we&apos;ve been pushing boundaries, breaking rules,
-              and creating music that resonates with the rebellious spirit in all
-              of us. Every chord, every lyric, every performance is a testament to
-              our dedication to authentic rock and roll.
+              Didorong oleh api semangat, tujuan yang jelas, dan bisikan mitologi Norse, Estrid bukan sekadar memainkan muzik. Mereka membina perjalanan cerita dan garapan emosi dalam setiap lagu-lagu mereka.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Join us on this journey as we continue to shake stages and move
-              hearts around the world.
+              Berpangkalan di Kuala Lumpur, Malaysia, Estrid ialah sebuah kumpulan alternative rock yang bersatu dalam kekacauan terancang. Diasaskan oleh seorang pemuja roh Viking—nama dan jiwanya menjadi teras identiti band—Estrid menyalurkan tenaga dan emosi &apos;rare&apos; ke setiap pentas yang mereka pijak. Walaupun ahli-ahlinya datang dari dunia yang berbeza, namun bersatu dalam satu medan: bunyi yang keras, jujur, dan tidak berkompromi. Muzik mereka menghentam dengan grit melodik, sarat dengan luka, amarah, dan keindahan, mencerminkan pengaruh yang sekacau dan sejujur kehidupan harian mereka.
             </p>
           </motion.div>
         </div>

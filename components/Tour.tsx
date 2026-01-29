@@ -8,45 +8,10 @@ import { Calendar, MapPin, Ticket } from "lucide-react";
 const tourDates = [
   {
     id: 1,
-    date: "June 15, 2026",
-    venue: "The Roxy Theatre",
-    city: "Los Angeles, CA",
-    status: "available",
-  },
-  {
-    id: 2,
-    date: "June 22, 2026",
-    venue: "Madison Square Garden",
-    city: "New York, NY",
-    status: "available",
-  },
-  {
-    id: 3,
-    date: "June 29, 2026",
-    venue: "House of Blues",
-    city: "Chicago, IL",
-    status: "sold-out",
-  },
-  {
-    id: 4,
-    date: "July 6, 2026",
-    venue: "The Fillmore",
-    city: "San Francisco, CA",
-    status: "available",
-  },
-  {
-    id: 5,
-    date: "July 13, 2026",
-    venue: "Red Rocks Amphitheatre",
-    city: "Morrison, CO",
-    status: "available",
-  },
-  {
-    id: 6,
-    date: "July 20, 2026",
-    venue: "The Tabernacle",
-    city: "Atlanta, GA",
-    status: "available",
+    date: "12 Sepember, 2026",
+    venue: "Garage Space Ampang Hilir",
+    city: "Ampang, Selangor",
+    status: "Not On Sale",
   },
 ];
 
@@ -97,9 +62,9 @@ export default function Tour() {
                 </div>
 
                 <div className="flex items-center gap-4">
-                  {show.status === "sold-out" ? (
+                  {show.status === "Not On Sale" ? (
                     <span className="px-6 py-3 bg-muted text-muted-foreground rounded-full font-semibold">
-                      Sold Out
+                      Not On Sale
                     </span>
                   ) : (
                     <a
