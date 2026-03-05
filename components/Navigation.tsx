@@ -6,90 +6,101 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Music", href: "#music" },
-  { name: "Tour", href: "#tour" },
-  { name: "Gallery", href: "#gallery" },
-  { name: "News", href: "#news" },
-  { name: "Contact", href: "#contact" },
+  { name: "Laman Utama", href: "#home" },
+  { name: "Tentang", href: "#about" },
+  { name: "Muzik", href: "#music" },
+  { name: "Persembahan", href: "#tour" },
+  { name: "Galeri", href: "#gallery" },
+  { name: "Berita", href: "#berita" },
+  { name: "Hubungi", href: "#contact" },
 ];
 
 export default function Navigation() {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const sectionIds = navItems.map(item => item.href.replace("#", ""));
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { threshold: 0.3 }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach(o => o.disconnect());
+  }, []);
+
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsOpen(false);
-    }
+    const el = document.querySelector(href);
+    if (el) { el.scrollIntoView({ behavior: "smooth" }); setIsOpen(false); }
   };
 
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled
-          ? "bg-background/95 backdrop-blur-md shadow-lg"
-          : "bg-transparent"
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+        scrolled ? "bg-background/90 backdrop-blur-md border-b border-border/50 shadow-lg" : "bg-transparent"
       )}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
           <motion.a
             href="#home"
             className="flex items-center"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("#home");
-            }}
+            onClick={(e) => { e.preventDefault(); scrollToSection("#home"); }}
           >
-            <img
-              src={`${basePath}/images/estrid-logo.png`}
-              alt="Estrid Logo"
-              className="h-24 md:h-36 w-auto"
-            />
+            <img src={`${basePath}/images/estrid-logo.png`} alt="Estrid Logo" className="h-20 md:h-28 w-auto" />
           </motion.a>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item, index) => (
-              <motion.a
-                key={item.name}
-                href={item.href}
-                className="text-foreground hover:text-accent transition-colors duration-300 font-medium"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(item.href);
-                }}
-              >
-                {item.name}
-              </motion.a>
-            ))}
+            {navItems.map((item, index) => {
+              const isActive = activeSection === item.href.replace("#", "");
+              return (
+                <motion.a
+                  key={item.name}
+                  href={item.href}
+                  className="relative text-sm uppercase tracking-widest font-medium transition-colors duration-300 hover:text-accent"
+                  style={{ color: isActive ? "hsl(var(--accent))" : "hsl(var(--foreground))" }}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
+                  onClick={(e) => { e.preventDefault(); scrollToSection(item.href); }}
+                >
+                  {item.name}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-indicator"
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                </motion.a>
+              );
+            })}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile toggle */}
           <button
-            className="md:hidden text-foreground hover:text-accent transition-colors"
+            className="md:hidden text-foreground hover:text-accent transition-colors z-50"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
@@ -98,29 +109,26 @@ export default function Navigation() {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile full-screen overlay */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="md:hidden bg-background/98 backdrop-blur-md"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-background/98 backdrop-blur-lg md:hidden flex flex-col items-center justify-center grain"
+            initial={{ opacity: 0, clipPath: "circle(0% at 95% 5%)" }}
+            animate={{ opacity: 1, clipPath: "circle(150% at 95% 5%)" }}
+            exit={{ opacity: 0, clipPath: "circle(0% at 95% 5%)" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
           >
-            <div className="container mx-auto px-4 py-6 space-y-4">
+            <div className="flex flex-col items-center space-y-8">
               {navItems.map((item, index) => (
                 <motion.a
                   key={item.name}
                   href={item.href}
-                  className="block text-lg text-foreground hover:text-accent transition-colors duration-300 py-2"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(item.href);
-                  }}
+                  className="text-3xl font-bold uppercase tracking-widest hover:text-accent transition-colors duration-300"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.1 + index * 0.07 }}
+                  onClick={(e) => { e.preventDefault(); scrollToSection(item.href); }}
                 >
                   {item.name}
                 </motion.a>
@@ -132,4 +140,3 @@ export default function Navigation() {
     </nav>
   );
 }
-
