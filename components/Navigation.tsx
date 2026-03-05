@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 const navItems = [
   { name: "Laman Utama", href: "#home" },
@@ -16,7 +18,6 @@ const navItems = [
 ];
 
 export default function Navigation() {
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
@@ -45,10 +46,13 @@ export default function Navigation() {
     return () => observers.forEach(o => o.disconnect());
   }, []);
 
-  const scrollToSection = (href: string) => {
+  const scrollToSection = useCallback((href: string) => {
     const el = document.querySelector(href);
-    if (el) { el.scrollIntoView({ behavior: "smooth" }); setIsOpen(false); }
-  };
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+      setIsOpen(false);
+    }
+  }, []);
 
   return (
     <nav
