@@ -10,7 +10,7 @@ const tourDates = [
     date: "12 September 2026",
     venue: "Garage Space Ampang Hilir",
     city: "Ampang, Selangor",
-    status: "Not On Sale",
+    status: "Belum Dijual",
   },
 ];
 
@@ -76,7 +76,7 @@ export default function Tour() {
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
-                      {show.status === "Not On Sale" ? (
+                      {show.status === "Belum Dijual" ? (
                         <span className="px-6 py-3 bg-muted text-muted-foreground rounded-full font-semibold uppercase tracking-wider text-sm">
                           Belum Dijual
                         </span>
