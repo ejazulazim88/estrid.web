@@ -44,7 +44,7 @@ export default function Tour() {
             className="flex items-end gap-6"
           >
             <span
-              className="text-[7rem] md:text-[10rem] font-black leading-none select-none font-[family-name:var(--font-montserrat)]"
+              className="text-[5rem] md:text-[10rem] font-black leading-none select-none font-[family-name:var(--font-montserrat)] shrink-0"
               style={{ color: 'hsl(0 72.2% 50.6% / 0.12)' }}
             >
               03
@@ -53,7 +53,7 @@ export default function Tour() {
               <p className="text-accent uppercase tracking-[0.35em] text-xs font-semibold mb-1">
                 Jumpa Kami
               </p>
-              <h2 className="text-4xl md:text-6xl font-black uppercase tracking-widest font-[family-name:var(--font-montserrat)] leading-none">
+              <h2 className="text-3xl md:text-6xl font-black uppercase tracking-widest font-[family-name:var(--font-montserrat)] leading-tight">
                 Tarikh <span className="text-accent">Persembahan</span>
               </h2>
             </div>
