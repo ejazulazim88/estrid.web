@@ -61,14 +61,28 @@
   * {
     @apply border-border;
   }
+
+  /* html holds the solid fallback — if WebGL fails the page stays dark */
+  html {
+    background: hsl(var(--background));
+    scroll-behavior: smooth;
+  }
+
+  /* body is transparent so the fixed Plasma shines through */
   body {
-    @apply bg-background text-foreground;
+    background: transparent;
+    @apply text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
-  /* Smooth scroll */
-  html {
-    scroll-behavior: smooth;
+  /* Sections are dark glass panels floating above the plasma */
+  section {
+    background-color: rgba(12, 10, 9, 0.80);
+  }
+
+  /* Hero (#home) is fully transparent — maximum plasma exposure */
+  section#home {
+    background-color: transparent;
   }
 
   /* Selection color */

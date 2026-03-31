@@ -15,7 +15,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "ESTRID | Rock Band",
+  title: "ESTRID BAND| Official Website ",
   description: "Website rasmi band ESTRID.",
   keywords: ["rock band", "music", "live shows", "concerts", "tour dates"],
   authors: [{ name: "ESTRID" }],

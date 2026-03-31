@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Mail, Link2, MapPin, Send, Facebook, Instagram, Youtube, Music } from "lucide-react";
+import { Facebook, Instagram, Youtube, Music } from "lucide-react";
 
 const socialLinks = [
   { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/estrid.my" },
@@ -56,113 +56,133 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-32 bg-background" ref={ref}>
+    <section id="contact" className="py-24 md:py-32 bg-black/10 overflow-hidden" ref={ref}>
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <p className="text-accent uppercase tracking-[0.3em] text-sm font-semibold mb-4">Berhubung</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-widest font-[family-name:var(--font-montserrat)] mb-4">
-            Hubungi <span className="text-accent">Kami</span>
-          </h2>
-          <div className="w-24 h-0.5 bg-accent mx-auto mb-6" />
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Soalan atau tempahan? Kami sedia mendengar.
-          </p>
-        </motion.div>
-
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
-          {/* Contact Info */}
+        {/* Section Header */}
+        <div className="mb-16">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7 }}
+            className="flex items-end gap-6"
+          >
+            <span
+              className="text-[7rem] md:text-[10rem] font-black leading-none select-none font-[family-name:var(--font-montserrat)]"
+              style={{ color: "hsl(0 72.2% 50.6% / 0.12)" }}
+            >
+              06
+            </span>
+            <div className="pb-4">
+              <p className="text-accent uppercase tracking-[0.35em] text-xs font-semibold mb-1">Berhubung</p>
+              <h2 className="text-4xl md:text-6xl font-black uppercase tracking-widest font-[family-name:var(--font-montserrat)] leading-none">
+                Hubungi <span className="text-accent">Kami</span>
+              </h2>
+            </div>
+            <div className="flex-1 h-px bg-white/10 mb-6 hidden md:block" />
+          </motion.div>
+        </div>
+
+        {/* Two-column layout */}
+        <div className="max-w-6xl mx-auto grid md:grid-cols-[1fr_1.2fr] gap-8">
+          {/* Left — Info Panel */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-10"
+            className="bg-black/40 backdrop-blur-sm border border-white/[0.08] p-8 md:p-10"
           >
-            <div>
-              <h3 className="text-2xl font-bold uppercase tracking-wider font-[family-name:var(--font-montserrat)] mb-8">
-                Maklumat
-              </h3>
-              <div className="space-y-6">
-                {[
-                  { icon: Mail, label: "E-mel", value: "estridband.official@gmail.com", href: "mailto:estridband.official@gmail.com" },
-                  { icon: Link2, label: "Linktree", value: "linktr.ee/estrid.band", href: "https://linktr.ee/estrid.band" },
-                  { icon: MapPin, label: "Lokasi", value: "Kuala Lumpur, Malaysia", href: null },
-                ].map(({ icon: Icon, label, value, href }) => (
-                  <div key={label} className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-5 h-5 text-accent" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold uppercase tracking-wider text-xs text-muted-foreground mb-1">{label}</h4>
-                      {href ? (
-                        <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="text-foreground hover:text-accent transition-colors">
-                          {value}
-                        </a>
-                      ) : (
-                        <p className="text-foreground">{value}</p>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <p className="text-accent uppercase tracking-[0.35em] text-[10px] font-semibold mb-8">Maklumat</p>
+
+            {/* Contact table */}
+            <div className="mb-10">
+              {[
+                { label: "E-mel", value: "estridband.official@gmail.com", href: "mailto:estridband.official@gmail.com" },
+                { label: "Linktree", value: "linktr.ee/estrid.band", href: "https://linktr.ee/estrid.band" },
+                { label: "Lokasi", value: "Kuala Lumpur, Malaysia", href: null },
+              ].map(({ label, value, href }) => (
+                <div key={label} className="border-b border-white/[0.06] py-4 flex justify-between items-center gap-4">
+                  <span className="text-white/30 uppercase tracking-widest text-[10px] shrink-0">{label}</span>
+                  {href ? (
+                    <a
+                      href={href}
+                      target={href.startsWith("http") ? "_blank" : undefined}
+                      rel="noopener noreferrer"
+                      className="text-sm text-white/70 hover:text-accent transition-colors text-right"
+                    >
+                      {value}
+                    </a>
+                  ) : (
+                    <span className="text-sm text-white/70 text-right">{value}</span>
+                  )}
+                </div>
+              ))}
             </div>
 
-            {/* Social Links */}
+            {/* Social icons row */}
             <div>
-              <h4 className="font-semibold uppercase tracking-wider text-xs text-muted-foreground mb-4">Ikuti Kami</h4>
+              <p className="text-white/20 uppercase tracking-widest text-[10px] mb-5">Ikuti Kami</p>
               <div className="flex gap-3">
                 {socialLinks.map((social) => (
-                  <motion.a
+                  <a
                     key={social.name}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center hover:border-accent hover:bg-accent/10 hover:glow-red-sm transition-all duration-300"
                     aria-label={social.name}
+                    className="w-10 h-10 border border-white/10 hover:border-accent flex items-center justify-center transition-all duration-300 hover:bg-accent/5"
                   >
-                    <social.icon className="w-5 h-5 text-accent" />
-                  </motion.a>
+                    <social.icon className="w-4 h-4 text-white/50 group-hover:text-accent" />
+                  </a>
                 ))}
               </div>
             </div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Right — Form */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="bg-black/40 backdrop-blur-sm border border-white/[0.08] p-8 md:p-10"
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {[
-                { id: "name", label: "Nama", type: "text", placeholder: "Nama anda" },
-                { id: "email", label: "E-mel", type: "email", placeholder: "anda@email.com" },
-              ].map((field) => (
-                <div key={field.id}>
-                  <label htmlFor={field.id} className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
-                    {field.label}
-                  </label>
-                  <input
-                    type={field.type}
-                    id={field.id}
-                    name={field.id}
-                    value={formData[field.id as keyof typeof formData]}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-card border border-border rounded-lg focus:outline-none focus:border-accent transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(220,38,38,0.15)]"
-                    placeholder={field.placeholder}
-                  />
-                </div>
-              ))}
-
+            <form onSubmit={handleSubmit} className="space-y-8">
+              {/* Name */}
               <div>
-                <label htmlFor="message" className="block text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-2">
+                <label htmlFor="name" className="block text-[10px] uppercase tracking-[0.35em] text-white/30 mb-2">
+                  Nama
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full bg-transparent border-b border-white/20 focus:border-accent py-3 text-white/80 focus:outline-none transition-colors text-sm placeholder:text-white/20"
+                  placeholder="Nama anda"
+                />
+              </div>
+
+              {/* Email */}
+              <div>
+                <label htmlFor="email" className="block text-[10px] uppercase tracking-[0.35em] text-white/30 mb-2">
+                  E-mel
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full bg-transparent border-b border-white/20 focus:border-accent py-3 text-white/80 focus:outline-none transition-colors text-sm placeholder:text-white/20"
+                  placeholder="anda@email.com"
+                />
+              </div>
+
+              {/* Message */}
+              <div>
+                <label htmlFor="message" className="block text-[10px] uppercase tracking-[0.35em] text-white/30 mb-2">
                   Mesej
                 </label>
                 <textarea
@@ -172,24 +192,26 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 bg-card border border-border rounded-lg focus:outline-none focus:border-accent transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(220,38,38,0.15)] resize-none"
+                  className="w-full bg-transparent border-b border-white/20 focus:border-accent py-3 text-white/80 focus:outline-none transition-colors text-sm resize-none placeholder:text-white/20"
                   placeholder="Mesej anda..."
                 />
               </div>
 
+              {/* Status message */}
               {submitStatus.type && (
-                <div className={`p-4 rounded-lg text-sm ${submitStatus.type === "success" ? "bg-green-500/10 border border-green-500/20 text-green-500" : "bg-red-500/10 border border-red-500/20 text-red-400"}`}>
+                <p className={`text-xs uppercase tracking-[0.2em] ${submitStatus.type === "success" ? "text-green-400/70" : "text-red-400/70"}`}>
                   {submitStatus.message}
-                </div>
+                </p>
               )}
 
+              {/* Submit button */}
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full flex items-center justify-center gap-2 px-8 py-4 bg-accent text-white font-semibold uppercase tracking-widest text-sm rounded-lg transition-all duration-300 ${isSubmitting ? "opacity-70 cursor-not-allowed" : "hover:bg-accent/90 hover:scale-[1.02] hover:glow-red"}`}
+                className="w-full bg-accent text-white py-4 uppercase tracking-widest text-xs font-bold font-[family-name:var(--font-montserrat)] flex items-center justify-center gap-3 hover:bg-accent/80 transition-colors disabled:opacity-50"
               >
-                <Send className={`w-5 h-5 ${isSubmitting ? "animate-pulse" : ""}`} />
                 <span>{isSubmitting ? "Menghantar..." : "Hantar Mesej"}</span>
+                {!isSubmitting && <span className="text-base leading-none">→</span>}
               </button>
             </form>
           </motion.div>

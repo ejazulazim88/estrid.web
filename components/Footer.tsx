@@ -23,78 +23,79 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-card border-t border-border grain overflow-hidden">
-      <div className="container mx-auto px-4 py-16 relative z-10">
-        <div className="grid md:grid-cols-3 gap-10 mb-12">
-          {/* Brand */}
+    <footer className="relative bg-black/80 backdrop-blur-md border-t border-white/[0.06] grain overflow-hidden">
+      {/* Top section */}
+      <div className="container mx-auto px-4 py-20 border-t-2 border-accent/30">
+        <div className="grid md:grid-cols-[1fr_auto_auto] gap-12 items-start">
+          {/* Left — Brand */}
           <div>
-            <h3 className="text-3xl font-bold uppercase tracking-widest font-[family-name:var(--font-montserrat)] text-accent mb-4">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="text-[4rem] md:text-[6rem] font-black tracking-widest font-[family-name:var(--font-montserrat)] leading-none mb-4"
+              style={{ color: "hsl(0 72.2% 50.6% / 0.25)" }}
+            >
               ESTRID
-            </h3>
-            <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+            </motion.h2>
+            <p className="text-white/30 text-xs uppercase tracking-[0.2em] max-w-xs">
               Emosi Yang Dibebaskan, Bersuara Melalui Bunyi.
             </p>
-            <div className="flex gap-3">
+          </div>
+
+          {/* Center — Nav links */}
+          <nav className="flex flex-col gap-0">
+            <p className="text-white/20 uppercase tracking-[0.35em] text-[10px] mb-4">Pautan</p>
+            {footerLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="text-white/40 hover:text-accent uppercase tracking-widest text-xs transition-colors py-1 font-[family-name:var(--font-montserrat)]"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector(link.href)?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                {link.name}
+              </a>
+            ))}
+          </nav>
+
+          {/* Right — Social */}
+          <div>
+            <p className="text-white/20 uppercase tracking-[0.35em] text-[10px] mb-4">Ikuti Kami</p>
+            <div className="grid grid-cols-2 gap-2">
               {socialLinks.map((social) => (
-                <motion.a
+                <a
                   key={social.name}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.15, y: -3 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-11 h-11 rounded-full bg-background border border-border flex items-center justify-center hover:border-accent hover:bg-accent/10 transition-all duration-300 hover:glow-red-sm"
                   aria-label={social.name}
+                  className="w-11 h-11 border border-white/10 hover:border-accent flex items-center justify-center transition-all duration-300 hover:bg-accent/5"
                 >
-                  <social.icon className="w-5 h-5 text-accent" />
-                </motion.a>
+                  <social.icon className="w-4 h-4 text-white/40 hover:text-accent transition-colors" />
+                </a>
               ))}
             </div>
           </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="font-bold uppercase tracking-[0.2em] text-xs text-muted-foreground mb-6">Pautan Pantas</h4>
-            <ul className="space-y-3">
-              {footerLinks.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-accent transition-colors uppercase tracking-wider"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document.querySelector(link.href)?.scrollIntoView({ behavior: "smooth" });
-                    }}
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Tagline / Extra */}
-          <div>
-            <h4 className="font-bold uppercase tracking-[0.2em] text-xs text-muted-foreground mb-6">Ikuti Kami</h4>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-              Dapatkan berita terkini, tarikh persembahan dan kandungan eksklusif dengan mengikuti Estrid di semua platform.
-            </p>
-            <a
-              href="https://linktr.ee/estrid.band"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent text-sm uppercase tracking-wider font-semibold hover:underline"
-            >
-              linktr.ee/estrid.band
-            </a>
-          </div>
         </div>
+      </div>
 
-        {/* Divider */}
-        <div className="border-t border-border/50 pt-8 text-center">
-          <p className="text-muted-foreground text-sm uppercase tracking-widest">
-            &copy; {currentYear} ESTRID. Hak Cipta Terpelihara.
+      {/* Bottom strip */}
+      <div className="border-t border-white/10 py-6">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-white/20 text-xs uppercase tracking-widest">
+            &copy; {currentYear} ESTRID
           </p>
+          <a
+            href="https://linktr.ee/estrid.band"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent/60 hover:text-accent text-xs uppercase tracking-widest transition-colors"
+          >
+            linktr.ee/estrid.band ↗
+          </a>
         </div>
       </div>
     </footer>

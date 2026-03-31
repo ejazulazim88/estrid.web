@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { ChevronDown, Play } from "lucide-react";
 import { useRef } from "react";
 
@@ -55,8 +55,6 @@ function MagneticButton({ children, className, href, onClick }: {
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   const scrollToNext = () => {
     document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
@@ -66,20 +64,10 @@ export default function Hero() {
     <section
       id="home"
       ref={containerRef}
-      className="relative h-screen flex items-center justify-center overflow-hidden"
+      className="relative h-screen flex items-center justify-center overflow-hidden bg-black/80"
     >
-      {/* Parallax background */}
-      <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-background z-10" />
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat sm:hidden"
-          style={{ backgroundImage: `url('${basePath}/images/estrid-2026-portrait.png')` }}
-        />
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat hidden sm:block"
-          style={{ backgroundImage: `url('${basePath}/images/estrid-2026.png')` }}
-        />
-      </motion.div>
+      {/* Bottom gradient fade — blends into next section */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-transparent to-black/80" />
 
       {/* Grain overlay */}
       <div
@@ -91,6 +79,28 @@ export default function Hero() {
           backgroundSize: '128px 128px',
         }}
       />
+
+      {/* Ghost "ESTRID" — background depth / concert-poster letterform */}
+      <div
+        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
+        style={{ zIndex: 6 }}
+        aria-hidden="true"
+      >
+        <motion.span
+          className="font-black uppercase leading-none whitespace-nowrap"
+          style={{
+            fontSize: 'clamp(6rem, 22vw, 26rem)',
+            color: 'hsl(0 72.2% 50.6%)',
+            opacity: 0.05,
+            letterSpacing: '-0.02em',
+          }}
+          initial={{ opacity: 0, scale: 1.08 }}
+          animate={{ opacity: 0.05, scale: 1 }}
+          transition={{ duration: 1.4, ease: "easeOut" }}
+        >
+          ESTRID
+        </motion.span>
+      </div>
 
       {/* Floating particles */}
       {particles.map((p) => (
@@ -108,23 +118,22 @@ export default function Hero() {
       ))}
 
       {/* Content */}
-      <div className="relative z-20 text-center px-4">
+      <div className="relative z-20 flex flex-col items-center justify-center text-center px-4 gap-6">
+        {/* Logo */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
-          <div className="flex justify-center items-start">
-            <img
-              src={`${basePath}/images/estrid-logo.png`}
-              alt="Estrid"
-              className="mt-64 lg:-mt-64 h-64 md:h-96 lg:h-[32rem] w-auto object-contain"
-            />
-          </div>
+          <img
+            src={`${basePath}/images/estrid-logo.png`}
+            alt="Estrid"
+            className="h-72 sm:h-64 md:h-80 lg:h-[28rem] w-auto object-contain"
+          />
         </motion.div>
 
         {/* Tagline — word-by-word blur reveal */}
-        <div className="text-xl md:text-2xl lg:text-3xl text-gray-300 mb-8 -mt-10 md:-mt-32 lg:-mt-32 flex flex-wrap justify-center gap-x-2">
+        <div className="text-base sm:text-lg md:text-2xl lg:text-3xl text-gray-300 mb-2 flex flex-wrap justify-center gap-x-2">
           {tagline.split(" ").map((word, wi) => (
             <motion.span
               key={wi}
@@ -137,28 +146,43 @@ export default function Hero() {
           ))}
         </div>
 
+        {/* CTA buttons — sharp edges, no rounded corners */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.4 }}
         >
+          {/* Primary — filled accent */}
           <MagneticButton
             href="#music"
-            className="group relative inline-flex items-center gap-2 px-8 py-4 bg-accent text-white font-semibold uppercase tracking-widest text-sm rounded-full overflow-hidden transition-all duration-300"
-            onClick={(e) => { e.preventDefault(); document.querySelector("#music")?.scrollIntoView({ behavior: "smooth" }); }}
+            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-accent text-white border border-accent font-bold uppercase tracking-widest text-sm overflow-hidden transition-colors duration-300"
+            onClick={(e) => {
+              e.preventDefault();
+              document.querySelector("#music")?.scrollIntoView({ behavior: "smooth" });
+            }}
           >
-            <Play className="w-5 h-5" />
-            <span>Dengar Sekarang</span>
-            <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
+            <Play className="w-4 h-4 flex-shrink-0 relative z-10" />
+            <span className="relative z-10">Dengar Sekarang</span>
+            {/* Left-to-right white sheen on hover */}
+            <span className="absolute inset-0 bg-white/15 translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-out" />
           </MagneticButton>
 
+          {/* Secondary — ghost border */}
           <MagneticButton
             href="#tour"
-            className="group inline-flex items-center gap-2 px-8 py-4 border-2 border-accent text-accent font-semibold uppercase tracking-widest text-sm rounded-full transition-all duration-300 hover:bg-accent hover:text-white"
-            onClick={(e) => { e.preventDefault(); document.querySelector("#tour")?.scrollIntoView({ behavior: "smooth" }); }}
+            className="group relative inline-flex items-center gap-3 px-8 py-4 border border-accent/60 text-accent/80 font-bold uppercase tracking-widest text-sm overflow-hidden transition-colors duration-300 hover:text-white"
+            onClick={(e) => {
+              e.preventDefault();
+              document.querySelector("#tour")?.scrollIntoView({ behavior: "smooth" });
+            }}
           >
-            <span>Tarikh Persembahan</span>
+            <span className="relative z-10">Tarikh Persembahan</span>
+            {/* Fill sweep on hover */}
+            <span
+              className="absolute inset-0 translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-out"
+              style={{ backgroundColor: 'hsl(0 72.2% 50.6%)' }}
+            />
           </MagneticButton>
         </motion.div>
       </div>
@@ -168,7 +192,10 @@ export default function Hero() {
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 text-white/70 hover:text-accent transition-colors cursor-pointer"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 10, 0] }}
-        transition={{ opacity: { delay: 2, duration: 0.5 }, y: { repeat: Infinity, duration: 1.5 } }}
+        transition={{
+          opacity: { delay: 2, duration: 0.5 },
+          y: { repeat: Infinity, duration: 1.5 },
+        }}
         onClick={scrollToNext}
         aria-label="Tatal ke bawah"
       >
