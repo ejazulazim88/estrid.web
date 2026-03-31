@@ -39,6 +39,7 @@ const RAW_RUNTIME_STATE =
           ["framer-motion", "virtual:185249a603565487b52559cd4081fb484ce8514aa2d64126d603073941f8e8bc2c1d0f9458c1071713bc9c4c73c6baaba8db1aef8a250ac8b4627bb27e2d8935#npm:11.18.2"],\
           ["lucide-react", "virtual:185249a603565487b52559cd4081fb484ce8514aa2d64126d603073941f8e8bc2c1d0f9458c1071713bc9c4c73c6baaba8db1aef8a250ac8b4627bb27e2d8935#npm:0.468.0"],\
           ["next", "virtual:185249a603565487b52559cd4081fb484ce8514aa2d64126d603073941f8e8bc2c1d0f9458c1071713bc9c4c73c6baaba8db1aef8a250ac8b4627bb27e2d8935#npm:15.5.9"],\
+          ["ogl", "npm:1.0.11"],\
           ["postcss", "npm:8.5.6"],\
           ["react", "npm:19.2.3"],\
           ["react-dom", "virtual:185249a603565487b52559cd4081fb484ce8514aa2d64126d603073941f8e8bc2c1d0f9458c1071713bc9c4c73c6baaba8db1aef8a250ac8b4627bb27e2d8935#npm:19.2.3"],\
@@ -4127,6 +4128,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["ogl", [\
+      ["npm:1.0.11", {\
+        "packageLocation": "../../../.yarn/berry/cache/ogl-npm-1.0.11-a2cba13369-10c0.zip/node_modules/ogl/",\
+        "packageDependencies": [\
+          ["ogl", "npm:1.0.11"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["optionator", [\
       ["npm:0.9.4", {\
         "packageLocation": "../../../.yarn/berry/cache/optionator-npm-0.9.4-1f114b00e8-10c0.zip/node_modules/optionator/",\
@@ -4656,6 +4666,7 @@ const RAW_RUNTIME_STATE =
           ["framer-motion", "virtual:185249a603565487b52559cd4081fb484ce8514aa2d64126d603073941f8e8bc2c1d0f9458c1071713bc9c4c73c6baaba8db1aef8a250ac8b4627bb27e2d8935#npm:11.18.2"],\
           ["lucide-react", "virtual:185249a603565487b52559cd4081fb484ce8514aa2d64126d603073941f8e8bc2c1d0f9458c1071713bc9c4c73c6baaba8db1aef8a250ac8b4627bb27e2d8935#npm:0.468.0"],\
           ["next", "virtual:185249a603565487b52559cd4081fb484ce8514aa2d64126d603073941f8e8bc2c1d0f9458c1071713bc9c4c73c6baaba8db1aef8a250ac8b4627bb27e2d8935#npm:15.5.9"],\
+          ["ogl", "npm:1.0.11"],\
           ["postcss", "npm:8.5.6"],\
           ["react", "npm:19.2.3"],\
           ["react-dom", "virtual:185249a603565487b52559cd4081fb484ce8514aa2d64126d603073941f8e8bc2c1d0f9458c1071713bc9c4c73c6baaba8db1aef8a250ac8b4627bb27e2d8935#npm:19.2.3"],\

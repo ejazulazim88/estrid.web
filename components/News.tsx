@@ -9,7 +9,7 @@ const newsItems = [
   {
     id: 1,
     title: "Single Sulung 'Narsistik' Kini Tersedia!",
-    date: "15 Januari 2025",
+    date: "16 Ogos 2025",
     excerpt: "Single pertama kami akhirnya hadir. Dengar 'Narsistik' sekarang di semua platform muzik utama dan rasai tenaga mentah Estrid yang tidak berkompromi.",
     image: `${basePath}/images/estrid-2026.png`,
     featured: true,
