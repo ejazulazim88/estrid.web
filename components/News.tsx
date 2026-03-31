@@ -14,22 +14,22 @@ const newsItems = [
     image: `${basePath}/images/estrid-2026.png`,
     featured: true,
   },
-  {
-    id: 2,
-    title: "Tarikh Persembahan 2026 Diumumkan",
-    date: "1 Mac 2026",
-    excerpt: "Kami akan muncul di pentas baru. Semak tarikh persembahan dan dapatkan tiket anda sebelum kehabisan.",
-    image: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?q=80&w=800",
-    featured: false,
-  },
-  {
-    id: 3,
-    title: "Di Sebalik Tabir: Proses Rakaman Estrid",
-    date: "20 Februari 2026",
-    excerpt: "Ikuti perjalanan rakaman eksklusif kami. Rakaman video dan temu bual akan datang tidak lama lagi.",
-    image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=800",
-    featured: false,
-  },
+  // {
+  //   id: 2,
+  //   title: "Tarikh Persembahan 2026 Diumumkan",
+  //   date: "1 Mac 2026",
+  //   excerpt: "Kami akan muncul di pentas baru. Semak tarikh persembahan dan dapatkan tiket anda sebelum kehabisan.",
+  //   image: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?q=80&w=800",
+  //   featured: false,
+  // },
+  // {
+  //   id: 3,
+  //   title: "Di Sebalik Tabir: Proses Rakaman Estrid",
+  //   date: "20 Februari 2026",
+  //   excerpt: "Ikuti perjalanan rakaman eksklusif kami. Rakaman video dan temu bual akan datang tidak lama lagi.",
+  //   image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=800",
+  //   featured: false,
+  // },
 ];
 
 export default function News() {
