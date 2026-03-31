@@ -53,7 +53,7 @@ export default function Tour() {
               <p className="text-accent uppercase tracking-[0.35em] text-xs font-semibold mb-1">
                 Jumpa Kami
               </p>
-              <h2 className="text-3xl md:text-6xl font-black uppercase tracking-widest font-[family-name:var(--font-montserrat)] leading-tight">
+              <h2 className="text-2xl tracking-wide md:text-6xl md:tracking-widest font-black uppercase font-[family-name:var(--font-montserrat)] leading-tight">
                 Tarikh <span className="text-accent">Persembahan</span>
               </h2>
             </div>
