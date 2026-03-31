@@ -37,6 +37,7 @@ uniform float uScale;
 uniform float uOpacity;
 uniform vec2 uMouse;
 uniform float uMouseInteractive;
+uniform float uIterations;
 out vec4 fragColor;
 
 void mainImage(out vec4 o, vec2 C) {
@@ -49,7 +50,7 @@ void mainImage(out vec4 o, vec2 C) {
   float i, d, z, T = iTime * uSpeed * uDirection;
   vec3 O, p, S;
 
-  for (vec2 r = iResolution.xy, Q; ++i < 60.; O += o.w/d*o.xyz) {
+  for (vec2 r = iResolution.xy, Q; ++i < uIterations; O += o.w/d*o.xyz) {
     p = z*normalize(vec3(C-.5*r,r.y));
     p.z -= 4.;
     S = p;
@@ -110,6 +111,12 @@ export const Plasma = ({
     if (!containerRef.current) return;
     const containerEl = containerRef.current;
 
+    const isMobile = window.matchMedia('(pointer: coarse)').matches;
+    const iterations = isMobile ? 20.0 : 60.0;
+    const dpr = isMobile ? Math.min(window.devicePixelRatio || 1, 1) * 0.5 : Math.min(window.devicePixelRatio || 1, 2);
+    const fpsLimit = isMobile ? 30 : 60;
+    const frameInterval = 1000 / fpsLimit;
+
     const useCustomColor = color ? 1.0 : 0.0;
     const customColorRgb = color ? hexToRgb(color) : ([1, 1, 1] as [number, number, number]);
     const directionMultiplier = direction === 'reverse' ? -1.0 : 1.0;
@@ -118,13 +125,15 @@ export const Plasma = ({
       webgl: 2,
       alpha: true,
       antialias: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 2),
+      dpr,
     });
     const gl = renderer.gl;
     const canvas = gl.canvas as HTMLCanvasElement;
     canvas.style.display = 'block';
     canvas.style.width = '100%';
     canvas.style.height = '100%';
+    canvas.style.willChange = 'transform';
+    canvas.style.transform = 'translateZ(0)';
     containerEl.appendChild(canvas);
 
     const geometry = new Triangle(gl);
@@ -143,6 +152,7 @@ export const Plasma = ({
         uOpacity: { value: opacity },
         uMouse: { value: new Float32Array([0, 0]) },
         uMouseInteractive: { value: mouseInteractive ? 1.0 : 0.0 },
+        uIterations: { value: iterations },
       },
     });
 
@@ -178,8 +188,16 @@ export const Plasma = ({
     setSize();
 
     let raf = 0;
+    let lastFrameTime = 0;
+    let paused = false;
     const t0 = performance.now();
+
     const loop = (t: number) => {
+      raf = requestAnimationFrame(loop);
+      if (paused) return;
+      if (t - lastFrameTime < frameInterval) return;
+      lastFrameTime = t;
+
       let timeValue = (t - t0) * 0.001;
       if (direction === 'pingpong') {
         const pingpongDuration = 10;
@@ -194,13 +212,18 @@ export const Plasma = ({
         (program.uniforms.iTime.value as number) = timeValue;
       }
       renderer.render({ scene: mesh });
-      raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
+
+    const handleVisibility = () => {
+      paused = document.hidden;
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
 
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibility);
       if (mouseInteractive && containerEl) {
         containerEl.removeEventListener('mousemove', handleMouseMove);
       }
