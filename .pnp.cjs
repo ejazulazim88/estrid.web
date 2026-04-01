@@ -31,6 +31,7 @@ const RAW_RUNTIME_STATE =
           ["@types/node", "npm:22.19.5"],\
           ["@types/react", "npm:19.2.8"],\
           ["@types/react-dom", "virtual:185249a603565487b52559cd4081fb484ce8514aa2d64126d603073941f8e8bc2c1d0f9458c1071713bc9c4c73c6baaba8db1aef8a250ac8b4627bb27e2d8935#npm:19.2.3"],\
+          ["@vercel/analytics", "virtual:185249a603565487b52559cd4081fb484ce8514aa2d64126d603073941f8e8bc2c1d0f9458c1071713bc9c4c73c6baaba8db1aef8a250ac8b4627bb27e2d8935#npm:2.0.1"],\
           ["autoprefixer", "virtual:185249a603565487b52559cd4081fb484ce8514aa2d64126d603073941f8e8bc2c1d0f9458c1071713bc9c4c73c6baaba8db1aef8a250ac8b4627bb27e2d8935#npm:10.4.23"],\
           ["class-variance-authority", "npm:0.7.1"],\
           ["clsx", "npm:2.1.1"],\
@@ -1224,6 +1225,56 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/unplugged/@unrs-resolver-binding-win32-x64-msvc-npm-1.11.1-4121c06678/node_modules/@unrs/resolver-binding-win32-x64-msvc/",\
         "packageDependencies": [\
           ["@unrs/resolver-binding-win32-x64-msvc", "npm:1.11.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@vercel/analytics", [\
+      ["npm:2.0.1", {\
+        "packageLocation": "../../../.yarn/berry/cache/@vercel-analytics-npm-2.0.1-728d94e8b4-10c0.zip/node_modules/@vercel/analytics/",\
+        "packageDependencies": [\
+          ["@vercel/analytics", "npm:2.0.1"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:185249a603565487b52559cd4081fb484ce8514aa2d64126d603073941f8e8bc2c1d0f9458c1071713bc9c4c73c6baaba8db1aef8a250ac8b4627bb27e2d8935#npm:2.0.1", {\
+        "packageLocation": "./.yarn/__virtual__/@vercel-analytics-virtual-effd9e2d46/4/.yarn/berry/cache/@vercel-analytics-npm-2.0.1-728d94e8b4-10c0.zip/node_modules/@vercel/analytics/",\
+        "packageDependencies": [\
+          ["@remix-run/react", null],\
+          ["@sveltejs/kit", null],\
+          ["@types/next", null],\
+          ["@types/nuxt", null],\
+          ["@types/react", "npm:19.2.8"],\
+          ["@types/remix-run__react", null],\
+          ["@types/svelte", null],\
+          ["@types/sveltejs__kit", null],\
+          ["@types/vue", null],\
+          ["@types/vue-router", null],\
+          ["@vercel/analytics", "virtual:185249a603565487b52559cd4081fb484ce8514aa2d64126d603073941f8e8bc2c1d0f9458c1071713bc9c4c73c6baaba8db1aef8a250ac8b4627bb27e2d8935#npm:2.0.1"],\
+          ["next", "virtual:185249a603565487b52559cd4081fb484ce8514aa2d64126d603073941f8e8bc2c1d0f9458c1071713bc9c4c73c6baaba8db1aef8a250ac8b4627bb27e2d8935#npm:15.5.9"],\
+          ["nuxt", null],\
+          ["react", "npm:19.2.3"],\
+          ["svelte", null],\
+          ["vue", null],\
+          ["vue-router", null]\
+        ],\
+        "packagePeers": [\
+          "@remix-run/react",\
+          "@sveltejs/kit",\
+          "@types/next",\
+          "@types/nuxt",\
+          "@types/react",\
+          "@types/remix-run__react",\
+          "@types/svelte",\
+          "@types/sveltejs__kit",\
+          "@types/vue-router",\
+          "@types/vue",\
+          "next",\
+          "nuxt",\
+          "react",\
+          "svelte",\
+          "vue-router",\
+          "vue"\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4658,6 +4709,7 @@ const RAW_RUNTIME_STATE =
           ["@types/node", "npm:22.19.5"],\
           ["@types/react", "npm:19.2.8"],\
           ["@types/react-dom", "virtual:185249a603565487b52559cd4081fb484ce8514aa2d64126d603073941f8e8bc2c1d0f9458c1071713bc9c4c73c6baaba8db1aef8a250ac8b4627bb27e2d8935#npm:19.2.3"],\
+          ["@vercel/analytics", "virtual:185249a603565487b52559cd4081fb484ce8514aa2d64126d603073941f8e8bc2c1d0f9458c1071713bc9c4c73c6baaba8db1aef8a250ac8b4627bb27e2d8935#npm:2.0.1"],\
           ["autoprefixer", "virtual:185249a603565487b52559cd4081fb484ce8514aa2d64126d603073941f8e8bc2c1d0f9458c1071713bc9c4c73c6baaba8db1aef8a250ac8b4627bb27e2d8935#npm:10.4.23"],\
           ["class-variance-authority", "npm:0.7.1"],\
           ["clsx", "npm:2.1.1"],\
