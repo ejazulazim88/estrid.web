@@ -19,7 +19,7 @@ const members = [
   { name: "DARON", role: "Gitar", image: `${basePath}/images/Bandmates/Guitar%202.jpg` },
   { name: "NAZ", role: "Bass", image: `${basePath}/images/Bandmates/Bass.jpg` },
   { name: "BEN", role: "Dram", image: `${basePath}/images/Bandmates/Drummer.jpg` },
-  { name: "PEDANG", role: "Kibod", image: `${basePath}/images/Bandmates/Keys.jpg` },
+  { name: "PEDANG", role: "Keyboard", image: `${basePath}/images/Bandmates/Keys.jpg` },
 ];
 
 export default function About() {
