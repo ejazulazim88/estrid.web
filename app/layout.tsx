@@ -16,14 +16,29 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "ESTRID BAND| Official Website ",
-  description: "Website rasmi band ESTRID.",
-  keywords: ["rock band", "music", "live shows", "concerts", "tour dates"],
+  metadataBase: new URL("https://estrid.my"),
+  title: {
+    default: "ESTRID | Band Rock Malaysia",
+    template: "%s | ESTRID",
+  },
+  description:
+    "ESTRID — band rock Malaysia. Muzik, jadual persembahan, galeri, dan berita terkini.",
+  keywords: [
+    "ESTRID",
+    "band rock Malaysia",
+    "muzik rock",
+    "persembahan live",
+    "konsert Malaysia",
+    "band Malaysia",
+    "rock band",
+  ],
   authors: [{ name: "ESTRID" }],
-  openGraph: {
-    title: "ESTRID | Rock Band",
-    description: "Website rasmi band ESTRID.",
-    type: "website",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "/",
   },
 };
 
@@ -33,7 +48,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="ms" className="dark">
       <body
         className={`${inter.variable} ${montserrat.variable} font-sans antialiased`}
       >
