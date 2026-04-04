@@ -48,9 +48,9 @@ export const metadata: Metadata = {
     siteName: "ESTRID",
     images: [
       {
-        url: "/images/og-image.jpg",
-        width: 1200,
-        height: 630,
+        url: "https://estrid.my/images/og-image.png",
+        width: 1248,
+        height: 832,
         alt: "ESTRID Band",
       },
     ],
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     title: "ESTRID | Band Rock Malaysia",
     description:
       "ESTRID — band rock Malaysia. Muzik, jadual persembahan, galeri, dan berita terkini.",
-    images: ["/images/og-image.jpg"],
+    images: ["https://estrid.my/images/og-image.png"],
   },
 };
 
