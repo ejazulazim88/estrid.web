@@ -66,6 +66,18 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MusicGroup",
+  name: "ESTRID",
+  url: "https://estrid.my",
+  description:
+    "ESTRID — band rock Malaysia. Muzik, jadual persembahan, galeri, dan berita terkini.",
+  genre: ["Rock", "Malaysian Rock"],
+  image: "https://estrid.my/images/og-image.png",
+  sameAs: [] as string[],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -76,6 +88,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${montserrat.variable} font-sans antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
         <Analytics />
       </body>
