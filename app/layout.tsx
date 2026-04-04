@@ -40,6 +40,30 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  openGraph: {
+    title: "ESTRID | Band Rock Malaysia",
+    description:
+      "ESTRID — band rock Malaysia. Muzik, jadual persembahan, galeri, dan berita terkini.",
+    url: "https://estrid.my",
+    siteName: "ESTRID",
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "ESTRID Band",
+      },
+    ],
+    locale: "ms_MY",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ESTRID | Band Rock Malaysia",
+    description:
+      "ESTRID — band rock Malaysia. Muzik, jadual persembahan, galeri, dan berita terkini.",
+    images: ["/images/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({
