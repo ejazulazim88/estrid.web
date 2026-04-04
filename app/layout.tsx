@@ -40,6 +40,21 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+    other: [
+      {
+        rel: "icon",
+        url: "/favicon-192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+    ],
+  },
+  other: {
+    "theme-color": "#DC2626",
+  },
   openGraph: {
     title: "ESTRID | Band Rock Malaysia",
     description:
