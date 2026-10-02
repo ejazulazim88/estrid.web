@@ -8,10 +8,11 @@ import Tour from "@/components/sections/Tour";
 import Gallery from "@/components/sections/Gallery";
 import News from "@/components/sections/News";
 import Contact from "@/components/sections/Contact";
+import { LanguageProvider } from "@/lib/i18n";
 
 export default function Home() {
   return (
-    <>
+    <LanguageProvider>
       <PlasmaBackground />
 
       <main className="relative z-10 min-h-screen">
@@ -25,6 +26,6 @@ export default function Home() {
         <Contact />
         <Footer />
       </main>
-    </>
+    </LanguageProvider>
   );
 }

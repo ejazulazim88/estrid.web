@@ -1,0 +1,107 @@
+import type { Localized } from "@/lib/i18n";
+
+type Header = { eyebrow: Localized; title: Localized; accent: Localized };
+
+/** Interface copy (buttons, labels, headings). Band content lives in the other content/ files. */
+export const UI = {
+  common: {
+    close: { ms: "Tutup", en: "Close" },
+    previous: { ms: "Sebelumnya", en: "Previous" },
+    next: { ms: "Seterusnya", en: "Next" },
+    followUs: { ms: "Ikuti Kami", en: "Follow Us" },
+  },
+  nav: {
+    toggleMenu: { ms: "Buka/tutup menu", en: "Toggle menu" },
+    language: { ms: "Bahasa", en: "Language" },
+  },
+  hero: {
+    listenNow: { ms: "Dengar Sekarang", en: "Listen Now" },
+    showDates: { ms: "Tarikh Persembahan", en: "Show Dates" },
+    scrollDown: { ms: "Tatal ke bawah", en: "Scroll down" },
+  },
+  about: {
+    header: {
+      eyebrow: { ms: "Siapa Kami", en: "Who We Are" },
+      title: { ms: "Tentang", en: "About" },
+      accent: { ms: "ESTRID", en: "ESTRID" },
+    } satisfies Header,
+    story: { ms: "CERITA KAMI", en: "OUR STORY" },
+    members: { ms: "AHLI BAND", en: "BAND MEMBERS" },
+  },
+  music: {
+    header: {
+      eyebrow: { ms: "Dengar Kami", en: "Listen" },
+      title: { ms: "Muzik", en: "Our" },
+      accent: { ms: "Kami", en: "Music" },
+    } satisfies Header,
+    latestRelease: { ms: "— Keluaran Terkini", en: "— Latest Release" },
+    listenNow: { ms: "Dengar sekarang", en: "Listen now" },
+    officialVideo: { ms: "Video Muzik Rasmi", en: "Official Music Video" },
+    previousReleases: { ms: "Keluaran Terdahulu", en: "Previous Releases" },
+    availableOn: { ms: "Tersedia Di", en: "Available On" },
+  },
+  tour: {
+    header: {
+      eyebrow: { ms: "Jumpa Kami", en: "See Us Live" },
+      title: { ms: "Tarikh", en: "Show" },
+      accent: { ms: "Persembahan", en: "Dates" },
+    } satisfies Header,
+    viewDetails: { ms: "Lihat Butiran ↗", en: "View Details ↗" },
+    comingSoon: { ms: "Akan Datang", en: "Coming Soon" },
+    emptyTitle: { ms: "Tiada Persembahan Dijadualkan", en: "No Shows Scheduled" },
+    emptySubtitle: { ms: "Nantikan Pengumuman Baharu", en: "Stay Tuned for Announcements" },
+    stayUpdated: { ms: "IKUTI BERITA TERKINI", en: "STAY UPDATED" },
+    mailingList: { ms: "Sertai Senarai Mel Kami ↗", en: "Join Our Mailing List ↗" },
+  },
+  gallery: {
+    header: {
+      eyebrow: { ms: "Kenangan Kami", en: "Memories" },
+      title: { ms: "Galeri", en: "Photo" },
+      accent: { ms: "Foto", en: "Gallery" },
+    } satisfies Header,
+  },
+  news: {
+    header: {
+      eyebrow: { ms: "Terkini", en: "Latest" },
+      title: { ms: "Berita", en: "Our" },
+      accent: { ms: "Kami", en: "News" },
+    } satisfies Header,
+    readMore: { ms: "Baca Selanjutnya ↗", en: "Read More ↗" },
+    moreNews: { ms: "Berita Lain", en: "More News" },
+  },
+  contact: {
+    header: {
+      eyebrow: { ms: "Berhubung", en: "Get In Touch" },
+      title: { ms: "Hubungi", en: "Contact" },
+      accent: { ms: "Kami", en: "Us" },
+    } satisfies Header,
+    info: { ms: "Maklumat", en: "Info" },
+    email: { ms: "E-mel", en: "Email" },
+    location: { ms: "Lokasi", en: "Location" },
+    whatsappUs: { ms: "WhatsApp Kami", en: "WhatsApp Us" },
+    orderMerch: { ms: "Tempah Merch", en: "Order Merch" },
+    nameLabel: { ms: "Nama", en: "Name" },
+    namePlaceholder: { ms: "Nama anda", en: "Your name" },
+    emailPlaceholder: { ms: "anda@email.com", en: "you@email.com" },
+    messageLabel: { ms: "Mesej", en: "Message" },
+    messagePlaceholder: { ms: "Mesej anda...", en: "Your message..." },
+    send: { ms: "Hantar Mesej", en: "Send Message" },
+    sending: { ms: "Menghantar...", en: "Sending..." },
+    success: {
+      ms: "Mesej berjaya dihantar! Kami akan menghubungi anda tidak lama lagi.",
+      en: "Message sent! We'll get back to you soon.",
+    },
+    error: {
+      ms: "Maaf, terdapat masalah menghantar mesej. Sila cuba lagi.",
+      en: "Sorry, something went wrong sending your message. Please try again.",
+    },
+  },
+  footer: {
+    links: { ms: "Pautan", en: "Links" },
+  },
+  releaseModal: {
+    eyebrow: { ms: "Lagu Baharu", en: "New Release" },
+    subtitle: { ms: "Kini di semua platform", en: "Out now on all platforms" },
+    watchMv: { ms: "Tonton MV ↗", en: "Watch MV ↗" },
+  },
+};
