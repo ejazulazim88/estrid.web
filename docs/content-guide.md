@@ -46,6 +46,8 @@ export const SHOWS: Show[] = [
 
 Newest first. The **first item** is the large featured story; any others appear in the "Berita Lain" list below it (that list is hidden when there's only one item).
 
+⚠️ Keep **at least one** item — an empty `NEWS` list breaks the build.
+
 ```ts
 {
   title: "Single Sulung 'Narsistik' Kini Tersedia!",
