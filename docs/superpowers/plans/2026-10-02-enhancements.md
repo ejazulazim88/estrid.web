@@ -384,9 +384,9 @@ export const SITE = {
   name: "ESTRID",
   url: "https://estrid.my",
   // SEO metadata stays BM-only (see design spec)
-  title: "ESTRID | Band Rock Malaysia",
+  title: "ESTRID",
   description:
-    "ESTRID — band rock Malaysia. Muzik, jadual persembahan, galeri, dan berita terkini.",
+    "ESTRID. Muzik, jadual persembahan, galeri, dan berita terkini.",
   tagline: {
     ms: "Emosi Yang Dibebaskan, Bersuara Melalui Bunyi.",
     en: "Emotions Unleashed, Given Voice Through Sound.",

@@ -5,9 +5,9 @@ export const SITE = {
   name: "ESTRID",
   url: "https://estrid.my",
   // SEO metadata stays BM-only (see design spec)
-  title: "ESTRID | Band Rock Malaysia",
+  title: "ESTRID",
   description:
-    "ESTRID — band rock Malaysia. Muzik, jadual persembahan, galeri, dan berita terkini.",
+    "ESTRID. Muzik, jadual persembahan, galeri, dan berita terkini.",
   tagline: {
     ms: "Emosi Yang Dibebaskan, Bersuara Melalui Bunyi.",
     en: "Emotions Unleashed, Given Voice Through Sound.",
@@ -20,7 +20,7 @@ export const SITE = {
     merch: "https://wa.me/60173308974?text=Hi%2C%20I%20want%20to%20order%20ESTRID%20merch",
   },
   themeColor: "#DC2626",
-  ogImage: "/images/og-image.jpg",
+  ogImage: "/images/og-image.png",
 };
 
 /** Page sections in scroll order — drives the nav and footer links */
