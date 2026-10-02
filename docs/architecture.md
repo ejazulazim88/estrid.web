@@ -18,50 +18,62 @@
 ```
 estrid.web/
 ├── app/
-│   ├── layout.tsx          # Root layout — fonts, metadata, dark class
-│   ├── page.tsx            # Entry point — mounts all sections + fixed Plasma bg
-│   └── globals.css         # Global styles, CSS variables, utility classes
+│   ├── layout.tsx          # Root layout — fonts, metadata, JSON-LD (reads content/site.ts)
+│   ├── page.tsx            # Server component — mounts the background + all sections
+│   ├── robots.ts           # robots.txt (static)
+│   ├── sitemap.ts          # sitemap.xml (static)
+│   └── globals.css         # CSS variables, .grain / .bg-noise / .particle utilities
+│
+├── content/                # ← All editable site content lives here (see content-guide.md)
+│   ├── site.ts             # Name, URL, tagline, contact info, NAV_SECTIONS, SOCIAL_LINKS
+│   ├── about.ts            # Story, stats, band members
+│   ├── music.ts            # Featured release, music video, streaming platforms
+│   ├── shows.ts            # Show dates
+│   ├── gallery.ts          # Gallery photos
+│   └── news.ts             # News items
 │
 ├── components/
-│   ├── Plasma.tsx          # WebGL animated background (OGL)
-│   ├── Plasma.css          # Plasma container styles
-│   ├── Navigation.tsx      # Sticky nav, mobile hamburger menu
-│   ├── Hero.tsx            # Full-screen hero, CTA buttons
-│   ├── About.tsx           # Band story, stats strip, member grid
-│   ├── Music.tsx           # Featured release, Spotify embed, YouTube MV
-│   ├── Tour.tsx            # Show dates with detail links
-│   ├── Gallery.tsx         # Masonry photo grid + lightbox
-│   ├── News.tsx            # Featured article + secondary stories
-│   ├── Contact.tsx         # Contact form (Web3Forms) + info panel
-│   └── Footer.tsx          # Brand, nav links, social icons
+│   ├── layout/
+│   │   ├── Navigation.tsx  # Sticky nav + mobile full-screen menu
+│   │   └── Footer.tsx      # Brand, section links, social icons
+│   ├── sections/           # One file per page section, in page order
+│   │   ├── Hero.tsx        # #home
+│   │   ├── About.tsx       # #about
+│   │   ├── Music.tsx       # #music
+│   │   ├── Tour.tsx        # #tour
+│   │   ├── Gallery.tsx     # #gallery
+│   │   ├── News.tsx        # #berita  ← note: not #news
+│   │   └── Contact.tsx     # #contact
+│   ├── ui/                 # Small shared building blocks
+│   │   ├── SectionHeader.tsx   # Ghost number + eyebrow + title (01–06)
+│   │   ├── CornerBrackets.tsx  # Red corner brackets: "frame" or "hover" variant
+│   │   ├── LabelDivider.tsx    # Red bar + small label + hairline rule
+│   │   └── MagneticButton.tsx  # Cursor-following CTA link (Hero)
+│   └── background/
+│       ├── Plasma.tsx          # WebGL animated background (OGL)
+│       └── PlasmaBackground.tsx # Client-only fixed wrapper used by page.tsx
 │
-├── public/
-│   └── images/
-│       ├── estrid-logo.png
-│       ├── estrid-2026.png          # Hero desktop bg
-│       ├── estrid-2026-portrait.png # Hero mobile bg
-│       ├── estrid-img-1.jpg         # About section photo
-│       ├── narsistik artwork.png    # Music section artwork
-│       ├── Bandmates/               # Member photos (Vocalist, Guitar 1, etc.)
-│       └── Galeri/                  # Gallery photos (image1–image6.jpg)
+├── lib/
+│   └── utils.ts            # cn(), asset(), scrollToId()
 │
-├── .env.local              # Local env vars (not committed)
-├── .env.local.example      # Template for env vars
+├── public/images/          # Logo, photos, Bandmates/, Galeri/
 ├── next.config.ts          # Static export, basePath, image config
-├── tailwind.config.ts      # Theme tokens, custom colors
+├── tailwind.config.ts      # Theme tokens (accent, font-display, …)
 └── .github/workflows/
     └── deploy.yml          # GitHub Actions — build + deploy to Pages
 ```
+
+**Rule of thumb:** text, links and image paths go in `content/`; markup and styling stay in `components/`.
 
 ## Page Architecture
 
 `app/page.tsx` renders a fixed WebGL background (z-index 0) behind a scrollable `<main>` (z-index 10) containing all sections in order:
 
 ```
-Navigation (sticky, z-50)
-├── Fixed: <Plasma /> bg (z-0, pointer-events-none)
+PlasmaBackground (fixed, z-0, pointer-events-none)
 └── main (z-10)
-    ├── Hero        bg-black/80
+    ├── Navigation  (fixed, z-50; mobile menu overlay is a sibling at z-40)
+    ├── Hero        transparent — full plasma exposure
     ├── About       bg-black/80 backdrop-blur grain
     ├── Music       bg-black/10
     ├── Tour        bg-black/80 backdrop-blur grain
@@ -71,32 +83,31 @@ Navigation (sticky, z-50)
     └── Footer      bg-black/80 backdrop-blur grain
 ```
 
-Alternating `bg-black/80` (opaque glass) and `bg-black/10` (near-transparent) lets the Plasma background bleed through on transparent sections.
+Alternating `bg-black/80` (opaque glass) and `bg-black/10` (near-transparent) lets the Plasma background bleed through. Each section sets its own background class; there is no global `section` rule.
 
 ## Design System
 
-**Accent color:** `hsl(0 72.2% 50.6%)` — referenced as `text-accent`, `bg-accent`, `border-accent` via Tailwind config.
+**Accent color:** `hsl(0 72.2% 50.6%)` (`--accent`) — use `text-accent`, `bg-accent`, `border-accent`, with opacity modifiers like `text-accent/[0.12]`. Avoid inline `style={{ color }}`: it overrides `hover:` classes.
 
-**Background:** `hsl(20 5% 7%)` — warm near-black set as `--background` CSS variable.
+**Background:** `hsl(20 5% 7%)` — warm near-black `--background`. The site is dark-only; the palette lives on `:root`.
+
+**Typography:**
+- `font-display` → Montserrat (headings, labels, all-caps)
+- `font-sans` → Inter (body, default)
+- Both loaded via `next/font` in `app/layout.tsx`.
 
 **Key CSS utilities (globals.css):**
-- `.grain` — SVG noise texture via `::after` pseudo-element at 4% opacity
-- `.glow-red` / `.glow-red-sm` — red radial glow shadows
+- `.grain` — SVG noise via `::after` at 4% opacity. The element must be positioned (`relative`/`fixed`); `.grain` sets no position itself.
+- `.bg-noise` — the raw noise background, for places that need their own z-index (Hero)
 - `.particle` — floating dot animation with `--duration` and `--delay` CSS props
 
-**Section header pattern** (used across all sections):
-- Ghost section number (`01`–`06`) at `hsl(0 72.2% 50.6% / 0.12)` opacity
-- Small red label above (`text-accent uppercase tracking-[0.35em]`)
-- Large black heading with accent-colored last word
-- Horizontal rule `bg-white/10` filling remaining space
-
-**Typography:** Montserrat (headings, all-caps) + Geist (body). Both loaded via `next/font`.
+**Section header:** use `<SectionHeader number="0X" eyebrow="…" title="…" accent="…" inView={isInView} />`. Pass `compact` for long titles (Tour), and `className="container mx-auto px-4"` when the section has no outer container.
 
 ## Environment Variables
 
 | Variable | Purpose |
 |---|---|
 | `NEXT_PUBLIC_BASE_PATH` | Set to `/estrid.web` for GitHub Pages subdirectory deployment. Empty for custom domain. |
-| `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` | Web3Forms API key for contact form email delivery. |
+| `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` | Web3Forms API key for contact form email delivery. Passed to the CI build from the repo secret. |
 
-All image paths use `const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''` at module scope in each component.
+Image paths go through `asset("/images/…")` from `lib/utils.ts`, which prefixes `NEXT_PUBLIC_BASE_PATH`.

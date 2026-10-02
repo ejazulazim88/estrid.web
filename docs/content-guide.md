@@ -2,108 +2,92 @@
 
 How to update the website content without touching the layout or design.
 
+**Everything editable is in the `content/` folder.** You never need to open `components/` to change text, dates, links or photos.
+
+Images go in `public/images/…` and are referenced as `asset("/images/…")` so they work on GitHub Pages. File names with spaces must be written as `%20` (e.g. `Guitar%201.jpg`).
+
 ---
 
-## Tour Dates — `components/Tour.tsx`
-
-Add or edit shows in the `tourDates` array at the top of the file:
+## Show Dates — `content/shows.ts`
 
 ```ts
-const tourDates = [
+export const SHOWS: Show[] = [
   {
-    id: 1,
     date: "16 Mei 2026",
-    title: "FOR FUN GIG 3.0",          // Show name (optional — omit or set "" to hide)
+    title: "FOR FUN GIG 3.0",          // Event name — "" to hide
     venue: "Sarang Suara Studio",
     city: "Seri Kembangan, Selangor",
-    link: "https://...",               // Set to null if no link yet → shows "Akan Datang"
+    link: "https://...",               // null → shows "Akan Datang"
   },
 ];
 ```
 
 - `link: "https://..."` → shows a **Lihat Butiran ↗** button
 - `link: null` → shows **Akan Datang** (dim placeholder)
+- Empty list (`[]`) → shows "Tiada Persembahan Dijadualkan"
 
 ---
 
-## Gallery — `components/Gallery.tsx`
-
-Photos are loaded from `/public/images/Galeri/`. To update:
+## Gallery — `content/gallery.ts`
 
 1. Drop new images into `public/images/Galeri/`
-2. Update the `photos` array in `Gallery.tsx`:
+2. Add a line to `PHOTOS`:
 
 ```ts
-{ id: 1, url: `${basePath}/images/Galeri/image1.jpg`, alt: "Description", tall: true },
+{ src: asset("/images/Galeri/image7.jpg"), alt: "Description", tall: false },
 ```
 
-- `tall: true` → renders as portrait (3:4 aspect ratio)
-- `tall: false` → renders as square (1:1 aspect ratio)
+- `tall: true` → portrait (3:4)
+- `tall: false` → square (1:1)
 
 ---
 
-## News / Berita — `components/News.tsx`
+## News / Berita — `content/news.ts`
 
-Update the `newsItems` array. The **first item** (`featured: true`) is displayed as the large hero article.
+Newest first. The **first item** is the large featured story; any others appear in the "Berita Lain" list below it (that list is hidden when there's only one item).
 
 ```ts
 {
-  id: 1,
   title: "Single Sulung 'Narsistik' Kini Tersedia!",
-  date: "15 Januari 2025",
+  date: "16 Ogos 2025",
   excerpt: "Short description...",
-  image: `${basePath}/images/your-image.jpg`,  // or external URL
-  featured: true,
+  image: asset("/images/your-image.jpg"),   // or a full https:// URL
+  link: "https://...",                       // article the story links to
 },
 ```
 
-To link a story to an external article, update the `href` on the `<a>` tag inside the featured article block (line ~104) or on secondary story rows.
-
 ---
 
-## Band Members — `components/About.tsx`
+## About — `content/about.ts`
 
-Members are defined in the `members` array:
+- **Story:** `STORY` — one string per paragraph
+- **Band photo:** `BAND_PHOTO`
+- **Stats:** `STATS` — `{ label, value }`
+- **Members:** `MEMBERS` — photos live in `public/images/Bandmates/`
 
 ```ts
-{ name: "MONO", role: "Vokalis", image: `${basePath}/images/Bandmates/Vocalist.jpg` },
+{ name: "MONO", role: "Vokalis", image: asset("/images/Bandmates/Vocalist.jpg") },
 ```
 
-Photo files live in `public/images/Bandmates/`. To add/change a photo:
-1. Place the image in `public/images/Bandmates/`
-2. Update the `image` path in the array
+Leave out `image` to show a placeholder icon.
 
 ---
 
-## Music / Featured Release — `components/Music.tsx`
+## Music — `content/music.ts`
 
-- **Artwork image:** update `src` on the `<img>` tag (~line 66)
-- **Spotify embed:** update the `src` URL on the `<iframe>` (~line 101) — get embed URL from Spotify → Share → Embed
-- **YouTube MV:** update the `src` URL on the `<iframe>` (~line 155) — use `youtube.com/embed/VIDEO_ID`
-- **Platform links:** edit the `platforms` array at the top of the file
-
----
-
-## Social Links
-
-Two places to update when social links change:
-
-1. **Contact section** — `components/Contact.tsx`, `socialLinks` array (top of file)
-2. **Footer** — `components/Footer.tsx`, social links in the JSX (~line 60+)
+- **`FEATURED_RELEASE`** — title (two parts; the second is shown in red), label, artwork, description, and `spotifyEmbed` (Spotify → Share → Embed track → copy the `src` URL)
+- **`MUSIC_VIDEO`** — `youtubeId` is the part after `watch?v=` in the YouTube URL
+- **`PLATFORMS`** — streaming links in the "Tersedia Di" strip
 
 ---
 
-## Stats — `components/About.tsx`
+## Site Info & Social Links — `content/site.ts`
 
-The four stats (Jumlah Lagu, Ahli Band, Gig, Penggemar Setia) are in the `stats` array:
+One place for things used across the site:
 
-```ts
-const stats = [
-  { icon: Music, label: "Jumlah Lagu", value: "3" },
-  { icon: Users, label: "Ahli Band", value: "6" },
-  ...
-];
-```
+- `SITE` — name, URL, tagline, description (SEO), email, Linktree, location
+- `SOCIAL_LINKS` — used by **both** the Contact section and the Footer
+- `NAV_SECTIONS` — menu labels; also drives the footer links
 
 ---
 
@@ -111,9 +95,9 @@ const stats = [
 
 Form submissions are sent via Web3Forms to the email registered at [web3forms.com](https://web3forms.com).
 
-The access key is stored in `.env.local`:
+Local: put the key in `.env.local`:
 ```
 NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your-key-here
 ```
 
-For production (GitHub Pages), add the key as a repository secret: **Settings → Secrets → Actions → `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`**.
+Production (GitHub Pages): add it as a repository secret — **Settings → Secrets → Actions → `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`**. The deploy workflow passes it to the build.
