@@ -15,6 +15,7 @@ export default function ReleaseModal() {
   const { t } = useLang();
   const [open, setOpen] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const ctaRef = useRef<HTMLAnchorElement>(null);
   const storageKey = `release-seen-${NEW_RELEASE.slug}`;
   const [titleStart, titleEnd] = NEW_RELEASE.title;
 
@@ -27,6 +28,7 @@ export default function ReleaseModal() {
     const timer = setTimeout(() => {
       setOpen(true);
       try {
+        // Write the flag only when the modal actually opens — writing it in the effect body would hide it forever under React StrictMode (dev double-mount)
         sessionStorage.setItem(storageKey, "1");
       } catch {
         // ignore
@@ -35,11 +37,20 @@ export default function ReleaseModal() {
     return () => clearTimeout(timer);
   }, [storageKey]);
 
-  // Esc to close + move focus into the dialog
+  // Esc to close, keep Tab inside the dialog, focus the close button
   useEffect(() => {
     if (!open) return;
     closeRef.current?.focus();
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Tab") {
+        const first = closeRef.current;
+        const last = ctaRef.current;
+        if (!first || !last) return;
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
@@ -79,7 +90,7 @@ export default function ReleaseModal() {
 
             <img
               src={NEW_RELEASE.artwork}
-              alt={titleStart + titleEnd}
+              alt=""
               className="w-full aspect-square object-cover"
             />
 
@@ -94,10 +105,11 @@ export default function ReleaseModal() {
                 {titleStart}
                 <span className="text-accent">{titleEnd}</span>
               </h2>
-              <p className="text-white/40 uppercase tracking-[0.3em] text-[9px] font-semibold mb-6">
+              <p className="text-white/60 uppercase tracking-[0.3em] text-[10px] font-semibold mb-6">
                 {t(UI.releaseModal.subtitle)}
               </p>
               <a
+                ref={ctaRef}
                 href={NEW_RELEASE.youtubeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
