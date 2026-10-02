@@ -5,9 +5,12 @@ import { useRef, useState, useCallback } from "react";
 import SectionHeader from "@/components/ui/SectionHeader";
 import CornerBrackets from "@/components/ui/CornerBrackets";
 import { PHOTOS } from "@/content/gallery";
+import { UI } from "@/content/ui";
+import { useLang } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 export default function Gallery() {
+  const { t } = useLang();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -24,9 +27,9 @@ export default function Gallery() {
     <section id="gallery" className="py-24 md:py-32 bg-black/10 overflow-hidden" ref={ref}>
       <SectionHeader
         number="04"
-        eyebrow="Kenangan Kami"
-        title="Galeri"
-        accent="Foto"
+        eyebrow={t(UI.gallery.header.eyebrow)}
+        title={t(UI.gallery.header.title)}
+        accent={t(UI.gallery.header.accent)}
         inView={isInView}
         className="container mx-auto px-4"
       />
@@ -83,7 +86,7 @@ export default function Gallery() {
             <button
               className="absolute top-6 right-8 text-white/50 hover:text-accent transition-colors z-10 text-3xl font-light leading-none"
               onClick={() => setSelectedIndex(null)}
-              aria-label="Tutup"
+              aria-label={t(UI.common.close)}
             >
               ×
             </button>
@@ -92,7 +95,7 @@ export default function Gallery() {
             <button
               className="absolute left-6 top-1/2 -translate-y-1/2 text-white/40 hover:text-accent transition-colors z-10 text-2xl font-light px-3 py-2 border border-white/10 hover:border-accent"
               onClick={(e) => { e.stopPropagation(); prev(); }}
-              aria-label="Sebelumnya"
+              aria-label={t(UI.common.previous)}
             >
               ←
             </button>
@@ -119,7 +122,7 @@ export default function Gallery() {
             <button
               className="absolute right-6 top-1/2 -translate-y-1/2 text-white/40 hover:text-accent transition-colors z-10 text-2xl font-light px-3 py-2 border border-white/10 hover:border-accent"
               onClick={(e) => { e.stopPropagation(); next(); }}
-              aria-label="Seterusnya"
+              aria-label={t(UI.common.next)}
             >
               →
             </button>
