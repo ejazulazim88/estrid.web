@@ -41,78 +41,81 @@ export default function Navigation() {
   }, []);
 
   return (
-    <nav
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        scrolled
-          ? "bg-black/80 backdrop-blur-md border-b border-white/10 shadow-lg"
-          : "bg-transparent"
-      )}
-    >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <motion.a
-            href="#home"
-            className="flex items-center"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            onClick={(e) => { e.preventDefault(); goTo("home"); }}
-          >
-            <img
-              src={asset("/images/estrid-logo.png")}
-              alt="Estrid Logo"
-              className="h-20 md:h-28 w-auto"
-            />
-          </motion.a>
+    <>
+      <nav
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+          scrolled
+            ? "bg-black/80 backdrop-blur-md border-b border-white/10 shadow-lg"
+            : "bg-transparent"
+        )}
+      >
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-20">
+            {/* Logo */}
+            <motion.a
+              href="#home"
+              className="flex items-center"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              onClick={(e) => { e.preventDefault(); goTo("home"); }}
+            >
+              <img
+                src={asset("/images/estrid-logo.png")}
+                alt="Estrid Logo"
+                className="h-20 md:h-28 w-auto"
+              />
+            </motion.a>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-8">
-            {NAV_SECTIONS.map((item, index) => {
-              const isActive = activeSection === item.id;
-              return (
-                <motion.a
-                  key={item.id}
-                  href={`#${item.id}`}
-                  className="relative text-sm uppercase tracking-widest font-medium transition-colors duration-300 hover:text-accent pt-3"
-                  style={{ color: isActive ? "hsl(var(--accent))" : "hsl(var(--foreground))" }}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.08 }}
-                  onClick={(e) => { e.preventDefault(); goTo(item.id); }}
-                >
-                  {/* Active indicator — small red square dot above text */}
-                  {isActive && (
-                    <motion.span
-                      layoutId="nav-indicator"
-                      className="absolute -top-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-accent"
-                      style={{ borderRadius: 0 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                  {item.label}
-                </motion.a>
-              );
-            })}
+            {/* Desktop Nav */}
+            <div className="hidden md:flex items-center space-x-8">
+              {NAV_SECTIONS.map((item, index) => {
+                const isActive = activeSection === item.id;
+                return (
+                  <motion.a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    className="relative text-sm uppercase tracking-widest font-medium transition-colors duration-300 hover:text-accent pt-3"
+                    style={{ color: isActive ? "hsl(var(--accent))" : "hsl(var(--foreground))" }}
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.08 }}
+                    onClick={(e) => { e.preventDefault(); goTo(item.id); }}
+                  >
+                    {/* Active indicator — small red square dot above text */}
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-indicator"
+                        className="absolute -top-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-accent"
+                        style={{ borderRadius: 0 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                    {item.label}
+                  </motion.a>
+                );
+              })}
+            </div>
+
+            {/* Mobile hamburger toggle */}
+            <button
+              className="md:hidden text-foreground hover:text-accent transition-colors z-50"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
           </div>
-
-          {/* Mobile hamburger toggle */}
-          <button
-            className="md:hidden text-foreground hover:text-accent transition-colors z-50"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile full-screen overlay */}
+      {/* Mobile full-screen overlay — a sibling of <nav>, not a child: the nav's
+          backdrop-blur would otherwise become the containing block for `fixed` */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 bg-black/95 backdrop-blur-lg md:hidden flex flex-col items-center justify-center grain"
+            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-lg md:hidden flex flex-col items-center justify-center grain"
             initial={{ opacity: 0, clipPath: "circle(0% at 95% 5%)" }}
             animate={{ opacity: 1, clipPath: "circle(150% at 95% 5%)" }}
             exit={{ opacity: 0, clipPath: "circle(0% at 95% 5%)" }}
@@ -145,6 +148,6 @@ export default function Navigation() {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 }

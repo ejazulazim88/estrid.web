@@ -46,10 +46,8 @@
     background-size: 128px 128px;
   }
 
-  /* Grain overlay — apply .grain to any section for cinematic texture */
-  .grain {
-    position: relative;
-  }
+  /* Grain overlay — apply .grain to any positioned element (relative/fixed)
+     for cinematic texture. Deliberately sets no position of its own. */
   .grain::after {
     @apply bg-noise;
     content: '';
