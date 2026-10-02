@@ -35,9 +35,10 @@ export default function SectionHeader({
         className="flex items-end gap-6"
       >
         <span
+          // Size classes must come before leading-none — twMerge lets a later text-size drop it
           className={cn(
-            "md:text-[10rem] font-black leading-none select-none font-display text-accent/[0.12]",
-            compact ? "text-[5rem] shrink-0" : "text-[7rem]"
+            compact ? "text-[5rem] shrink-0" : "text-[7rem]",
+            "md:text-[10rem] font-black leading-none select-none font-display text-accent/[0.12]"
           )}
         >
           {number}
