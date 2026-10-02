@@ -7,9 +7,12 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import CornerBrackets from "@/components/ui/CornerBrackets";
 import LabelDivider from "@/components/ui/LabelDivider";
 import { BAND_PHOTO, MEMBERS, STATS, STORY } from "@/content/about";
+import { UI } from "@/content/ui";
+import { useLang } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 export default function About() {
+  const { t } = useLang();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const statsRef = useRef(null);
@@ -24,7 +27,13 @@ export default function About() {
       ref={ref}
     >
       <div className="container mx-auto px-4 relative z-10">
-        <SectionHeader number="01" eyebrow="Siapa Kami" title="Tentang" accent="ESTRID" inView={isInView} />
+        <SectionHeader
+          number="01"
+          eyebrow={t(UI.about.header.eyebrow)}
+          title={t(UI.about.header.title)}
+          accent={t(UI.about.header.accent)}
+          inView={isInView}
+        />
 
         {/* ── Story + Photo Block ── */}
         <div className="grid md:grid-cols-2 gap-12 items-center mb-24">
@@ -64,10 +73,10 @@ export default function About() {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="space-y-6"
           >
-            <LabelDivider label="CERITA KAMI" className="mb-2" />
+            <LabelDivider label={t(UI.about.story)} className="mb-2" />
             {STORY.map((paragraph, i) => (
               <p key={i} className="text-white/60 leading-relaxed text-sm">
-                {paragraph}
+                {t(paragraph)}
               </p>
             ))}
           </motion.div>
@@ -84,7 +93,7 @@ export default function About() {
             <div className="grid grid-cols-2 md:grid-cols-4">
               {STATS.map((stat, index) => (
                 <motion.div
-                  key={stat.label}
+                  key={stat.label.ms}
                   initial={{ opacity: 0, y: 20 }}
                   animate={statsInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: index * 0.08 }}
@@ -100,7 +109,7 @@ export default function About() {
                     {stat.value}
                   </div>
                   <div className="text-white/30 uppercase tracking-[0.35em] text-[9px] font-semibold">
-                    {stat.label}
+                    {t(stat.label)}
                   </div>
                 </motion.div>
               ))}
@@ -111,7 +120,7 @@ export default function About() {
         {/* ── Members Section ── */}
         <div ref={membersRef}>
           <LabelDivider
-            label="AHLI BAND"
+            label={t(UI.about.members)}
             className="mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={membersInView ? { opacity: 1, y: 0 } : {}}
@@ -152,7 +161,7 @@ export default function About() {
                       {member.name}
                     </p>
                     <p className="text-[9px] uppercase tracking-[0.3em] font-semibold text-accent">
-                      {member.role}
+                      {t(member.role)}
                     </p>
                   </div>
                 </div>
