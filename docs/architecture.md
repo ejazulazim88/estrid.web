@@ -11,7 +11,7 @@
 | Icons | Lucide React |
 | WebGL | OGL (Plasma background) |
 | Forms | Web3Forms API |
-| Hosting | GitHub Pages (static export) |
+| Hosting | Vercel (static export, auto-deploys `main`) |
 
 ## Project Structure
 
@@ -61,13 +61,11 @@ estrid.web/
 │   ├── dates.ts            # Pure date parsing/formatting (ms-MY / en-GB)
 │   ├── i18n.tsx            # LanguageProvider, useLang(), Localized, date formatting
 │   ├── shows.ts            # Past/upcoming ordering
-│   └── utils.ts            # cn(), asset(), scrollToId()
+│   └── utils.ts            # cn(), scrollToId()
 │
 ├── public/images/          # Logo, photos, Bandmates/, Galeri/
-├── next.config.ts          # Static export, basePath, image config
-├── tailwind.config.ts      # Theme tokens (accent, font-display, …)
-└── .github/workflows/
-    └── deploy.yml          # GitHub Actions — build + deploy to Pages
+├── next.config.ts          # Static export, image config
+└── tailwind.config.ts      # Theme tokens (accent, font-display, …)
 ```
 
 **Rule of thumb:** text, links and image paths go in `content/`; markup and styling stay in `components/`.
@@ -122,7 +120,6 @@ Alternating `bg-black/80` (opaque glass) and `bg-black/10` (near-transparent) le
 
 | Variable | Purpose |
 |---|---|
-| `NEXT_PUBLIC_BASE_PATH` | Set to `/estrid.web` for GitHub Pages subdirectory deployment. Empty for custom domain. |
-| `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` | Web3Forms API key for contact form email delivery. Passed to the CI build from the repo secret. |
+| `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` | Web3Forms API key for contact form email delivery. Set in Vercel → Settings → Environment Variables (Production); redeploy after changing it. |
 
-Image paths go through `asset("/images/…")` from `lib/utils.ts`, which prefixes `NEXT_PUBLIC_BASE_PATH`.
+Images in `public/images/` are referenced by absolute path (`"/images/…"`); the site is served from the domain root.

@@ -1,66 +1,40 @@
 # Deployment
 
-The site deploys automatically to GitHub Pages via GitHub Actions on every push to `main`.
+The site is hosted on **Vercel** and deploys automatically on every push to `main`.
 
-Live URL: `https://ejazulazim88.github.io/estrid.web/`
+Live URL: `https://estrid.my` (Vercel project: **estrid-web**)
 
 ---
 
 ## How It Works
 
-1. Push to `main` triggers `.github/workflows/deploy.yml`
-2. Workflow runs `yarn build` with `NEXT_PUBLIC_BASE_PATH=/estrid.web`
-3. Next.js generates a static export into `/out`
-4. `/out` is uploaded and deployed to GitHub Pages
+1. Push to `main` → Vercel's Git integration starts a production build
+2. Vercel runs `yarn build`; Next.js generates a static export (`output: 'export'`)
+3. The static files are served from the domain root — no server code
 
-No server required — the site is fully static HTML/CSS/JS.
+Pushing any other branch creates a **preview deployment** with its own URL — handy for checking changes on a phone before merging to `main`.
 
----
-
-## First-Time GitHub Pages Setup
-
-1. Go to your repo on GitHub
-2. **Settings → Pages**
-3. Set Source to **GitHub Actions**
-4. Push to `main` — the first deployment will run automatically
+Deployment status per commit is visible on GitHub (commit checks → "Vercel") or in the Vercel dashboard.
 
 ---
 
-## Environment Variables for Production
+## Environment Variables
 
-Add these as repository secrets (**Settings → Secrets and variables → Actions**):
+Set in **Vercel → estrid-web → Settings → Environment Variables** (Production):
 
-| Secret | Value |
+| Variable | Value |
 |---|---|
-| `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` | Web3Forms key for contact form |
+| `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` | Web3Forms key for the contact form |
 
-`NEXT_PUBLIC_BASE_PATH` is hardcoded in the workflow as `/estrid.web` — no secret needed.
+`NEXT_PUBLIC_*` variables are baked in at **build time** — after adding or changing one, **redeploy** (Deployments → latest → Redeploy) or the live site keeps the old value.
 
 ---
 
 ## Local Build Test
-
-To test the production build locally:
 
 ```bash
 yarn build          # generates /out
 npx serve out       # serves at http://localhost:3000
 ```
 
-To test with the base path:
-
-```bash
-NEXT_PUBLIC_BASE_PATH=/estrid.web yarn build
-npx serve out
-```
-
----
-
-## Custom Domain
-
-To use a custom domain (e.g. `estrid.my`):
-
-1. Set `NEXT_PUBLIC_BASE_PATH=` (empty) in the workflow
-2. Add a `CNAME` file to `public/` containing your domain
-3. Configure DNS with your registrar to point to GitHub Pages
-4. Enable HTTPS in **Settings → Pages**
+If the build fails with a strange `PageNotFoundError` after switching branches, delete the stale cache: `rm -rf .next`.

@@ -2,7 +2,7 @@
 
 Official website for ESTRID, a Kuala Lumpur-based alternative rock band.
 
-Live: [ejazulazim88.github.io/estrid.web](https://ejazulazim88.github.io/estrid.web)
+Live: [estrid.my](https://estrid.my)
 
 ## Quick Start
 
@@ -16,4 +16,4 @@ yarn build      # static export → /out
 
 - [Architecture](docs/architecture.md) — project structure, components, design system
 - [Content Guide](docs/content-guide.md) — how to update shows, photos, news, etc.
-- [Deployment](docs/deployment.md) — GitHub Pages CI/CD setup
+- [Deployment](docs/deployment.md) — Vercel setup

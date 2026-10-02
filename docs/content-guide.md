@@ -4,7 +4,7 @@ How to update the website content without touching the layout or design.
 
 **Everything editable is in the `content/` folder.** You never need to open `components/` to change text, dates, links or photos.
 
-Images go in `public/images/…` and are referenced as `asset("/images/…")` so they work on GitHub Pages. File names with spaces must be written as `%20` (e.g. `Guitar%201.jpg`).
+Images go in `public/images/…` and are referenced as `"/images/…"`. File names with spaces should be written as `%20` (e.g. `Guitar%201.jpg`).
 
 ### Two languages (BM / EN)
 
@@ -42,7 +42,7 @@ Dates are written as `"YYYY-MM-DD"` (e.g. `"2026-10-24"`) and shown automaticall
 2. Add a line to `PHOTOS`:
 
 ```ts
-{ src: asset("/images/Galeri/image7.jpg"), alt: "Description", tall: false },
+{ src: "/images/Galeri/image7.jpg", alt: "Description", tall: false },
 ```
 
 - `tall: true` → portrait (3:4)
@@ -61,7 +61,7 @@ Newest first. The **first item** is the large featured story; any others appear 
   title: { ms: "...", en: "..." },
   date: "2026-09-26",                     // YYYY-MM-DD
   excerpt: { ms: "...", en: "..." },
-  image: asset("/images/your-image.jpg"),   // or a full https:// URL
+  image: "/images/your-image.jpg",   // or a full https:// URL
   link: "https://...",                       // article the story links to
 },
 ```
@@ -78,7 +78,7 @@ The featured image should be 16:9 landscape (e.g. 1280×720), as with `akhir-art
 - **Members:** `MEMBERS` — photos live in `public/images/Bandmates/`
 
 ```ts
-{ name: "MONO", role: "Vokalis", image: asset("/images/Bandmates/Vocalist.jpg") },
+{ name: "MONO", role: "Vokalis", image: "/images/Bandmates/Vocalist.jpg" },
 ```
 
 Leave out `image` to show a placeholder icon.
@@ -118,4 +118,4 @@ Local: put the key in `.env.local`:
 NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your-key-here
 ```
 
-Production (GitHub Pages): add it as a repository secret — **Settings → Secrets → Actions → `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`**. The deploy workflow passes it to the build.
+Production (Vercel): add it under **Vercel → estrid-web → Settings → Environment Variables** (Production), then **redeploy** — the key is baked in at build time.
