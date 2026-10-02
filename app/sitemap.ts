@@ -1,46 +1,27 @@
 import { MetadataRoute } from "next";
+import { SITE } from "@/content/site";
 
 export const dynamic = "force-static";
 
+type Entry = Pick<MetadataRoute.Sitemap[number], "changeFrequency" | "priority">;
+
+const SECTIONS: Record<string, Entry> = {
+  about: { changeFrequency: "monthly", priority: 0.8 },
+  music: { changeFrequency: "weekly", priority: 0.9 },
+  tour: { changeFrequency: "weekly", priority: 0.9 },
+  berita: { changeFrequency: "weekly", priority: 0.8 },
+  contact: { changeFrequency: "monthly", priority: 0.6 },
+};
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://estrid.my";
+  const lastModified = new Date();
 
   return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/#about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/#music`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/#tour`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/#berita`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/#contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
+    { url: SITE.url, lastModified, changeFrequency: "weekly", priority: 1 },
+    ...Object.entries(SECTIONS).map(([id, entry]) => ({
+      url: `${SITE.url}/#${id}`,
+      lastModified,
+      ...entry,
+    })),
   ];
 }

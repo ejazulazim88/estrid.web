@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { SITE } from "@/content/site";
 
 export const dynamic = "force-static";
 
@@ -8,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://estrid.my/sitemap.xml",
+    sitemap: `${SITE.url}/sitemap.xml`,
   };
 }

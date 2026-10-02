@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { SITE } from "@/content/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -15,14 +16,15 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
+const ogImage = `${SITE.url}${SITE.ogImage}`;
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://estrid.my"),
+  metadataBase: new URL(SITE.url),
   title: {
-    default: "ESTRID | Band Rock Malaysia",
-    template: "%s | ESTRID",
+    default: SITE.title,
+    template: `%s | ${SITE.name}`,
   },
-  description:
-    "ESTRID — band rock Malaysia. Muzik, jadual persembahan, galeri, dan berita terkini.",
+  description: SITE.description,
   keywords: [
     "ESTRID",
     "band rock Malaysia",
@@ -32,7 +34,7 @@ export const metadata: Metadata = {
     "band Malaysia",
     "rock band",
   ],
-  authors: [{ name: "ESTRID" }],
+  authors: [{ name: SITE.name }],
   robots: {
     index: true,
     follow: true,
@@ -53,20 +55,19 @@ export const metadata: Metadata = {
     ],
   },
   other: {
-    "theme-color": "#DC2626",
+    "theme-color": SITE.themeColor,
   },
   openGraph: {
-    title: "ESTRID | Band Rock Malaysia",
-    description:
-      "ESTRID — band rock Malaysia. Muzik, jadual persembahan, galeri, dan berita terkini.",
-    url: "https://estrid.my",
-    siteName: "ESTRID",
+    title: SITE.title,
+    description: SITE.description,
+    url: SITE.url,
+    siteName: SITE.name,
     images: [
       {
-        url: "https://estrid.my/images/og-image.png",
-        width: 1248,
-        height: 832,
-        alt: "ESTRID Band",
+        url: ogImage,
+        width: 1200,
+        height: 630,
+        alt: `${SITE.name} Band`,
       },
     ],
     locale: "ms_MY",
@@ -74,22 +75,20 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ESTRID | Band Rock Malaysia",
-    description:
-      "ESTRID — band rock Malaysia. Muzik, jadual persembahan, galeri, dan berita terkini.",
-    images: ["https://estrid.my/images/og-image.png"],
+    title: SITE.title,
+    description: SITE.description,
+    images: [ogImage],
   },
 };
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "MusicGroup",
-  name: "ESTRID",
-  url: "https://estrid.my",
-  description:
-    "ESTRID — band rock Malaysia. Muzik, jadual persembahan, galeri, dan berita terkini.",
+  name: SITE.name,
+  url: SITE.url,
+  description: SITE.description,
   genre: ["Rock", "Malaysian Rock"],
-  image: "https://estrid.my/images/og-image.png",
+  image: ogImage,
   sameAs: [] as string[],
 };
 
@@ -113,4 +112,3 @@ export default function RootLayout({
     </html>
   );
 }
-
