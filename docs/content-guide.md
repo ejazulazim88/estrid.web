@@ -72,7 +72,7 @@ The featured image should be 16:9 landscape (e.g. 1280×720), as with `akhir-art
 
 ## About — `content/about.ts`
 
-- **Story:** `STORY` — one string per paragraph
+- **Story:** `STORY` — one `{ ms, en }` per paragraph
 - **Band photo:** `BAND_PHOTO`
 - **Stats:** `STATS` — `{ label, value }`
 - **Members:** `MEMBERS` — photos live in `public/images/Bandmates/`
