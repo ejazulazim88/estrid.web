@@ -33,6 +33,7 @@ Dates are written as `"YYYY-MM-DD"` (e.g. `"2026-10-24"`) and shown automaticall
 - Dates render poster-style: a big day number with the month and year below it.
 - Past shows show no visible status, but carry a screen-reader-only "past show" label.
 - Empty list (`[]`) → "Tiada Persembahan Dijadualkan"
+- Every show is also published to Google as a `MusicEvent` (JSON-LD) automatically — same for releases and members.
 
 ---
 

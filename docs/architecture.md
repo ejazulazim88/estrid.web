@@ -17,10 +17,10 @@
 ```
 estrid.web/
 ├── app/
-│   ├── layout.tsx          # Root layout — fonts, metadata, JSON-LD (reads content/site.ts)
+│   ├── layout.tsx          # Root layout — fonts, metadata, JSON-LD (from lib/structuredData.ts)
 │   ├── page.tsx            # Server component — mounts the background + all sections
 │   ├── robots.ts           # robots.txt (static)
-│   ├── sitemap.ts          # sitemap.xml (static)
+│   ├── sitemap.ts          # sitemap.xml (root URL only)
 │   └── globals.css         # CSS variables, .grain / .bg-noise / .particle utilities
 │
 ├── content/                # ← All editable site content lives here (see content-guide.md)
@@ -60,6 +60,7 @@ estrid.web/
 │   ├── dates.ts            # Pure date parsing/formatting (ms-MY / en-GB)
 │   ├── i18n.tsx            # LanguageProvider, useLang(), Localized, date formatting
 │   ├── shows.ts            # Past/upcoming ordering
+│   ├── structuredData.ts   # JSON-LD (band, members, tracks, shows) built from content/
 │   └── utils.ts            # cn(), scrollToId()
 │
 ├── public/images/          # Logo, photos, Bandmates/, Galeri/
