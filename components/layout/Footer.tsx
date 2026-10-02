@@ -1,23 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Facebook, Instagram, Youtube, Music } from "lucide-react";
+import { NAV_SECTIONS, SITE, SOCIAL_LINKS } from "@/content/site";
+import { scrollToId } from "@/lib/utils";
 
-const socialLinks = [
-  { name: "Facebook", icon: Facebook, href: "https://www.facebook.com/estrid.band" },
-  { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/estrid.my" },
-  { name: "YouTube", icon: Youtube, href: "https://www.youtube.com/@EstridBand" },
-  { name: "Spotify", icon: Music, href: "https://open.spotify.com/artist/25ABCTlTAidsKrupJUfnRu" },
-];
-
-const footerLinks = [
-  { name: "Tentang", href: "#about" },
-  { name: "Muzik", href: "#music" },
-  { name: "Persembahan", href: "#tour" },
-  { name: "Galeri", href: "#gallery" },
-  { name: "Berita", href: "#berita" },
-  { name: "Hubungi", href: "#contact" },
-];
+const footerLinks = NAV_SECTIONS.filter((section) => section.id !== "home");
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -35,10 +22,10 @@ export default function Footer() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-[4rem] md:text-[6rem] font-black tracking-widest font-display leading-none mb-4 text-accent/25"
             >
-              ESTRID
+              {SITE.name}
             </motion.h2>
             <p className="text-white/30 text-xs uppercase tracking-[0.2em] max-w-xs">
-              Emosi Yang Dibebaskan, Bersuara Melalui Bunyi.
+              {SITE.tagline}
             </p>
           </div>
 
@@ -47,15 +34,12 @@ export default function Footer() {
             <p className="text-white/20 uppercase tracking-[0.35em] text-[10px] mb-4">Pautan</p>
             {footerLinks.map((link) => (
               <a
-                key={link.name}
-                href={link.href}
+                key={link.id}
+                href={`#${link.id}`}
                 className="text-white/40 hover:text-accent uppercase tracking-widest text-xs transition-colors py-1 font-display"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector(link.href)?.scrollIntoView({ behavior: "smooth" });
-                }}
+                onClick={(e) => { e.preventDefault(); scrollToId(link.id); }}
               >
-                {link.name}
+                {link.label}
               </a>
             ))}
           </nav>
@@ -64,7 +48,7 @@ export default function Footer() {
           <div>
             <p className="text-white/20 uppercase tracking-[0.35em] text-[10px] mb-4">Ikuti Kami</p>
             <div className="grid grid-cols-2 gap-2">
-              {socialLinks.map((social) => (
+              {SOCIAL_LINKS.map((social) => (
                 <a
                   key={social.name}
                   href={social.href}
@@ -85,15 +69,15 @@ export default function Footer() {
       <div className="border-t border-white/10 py-6">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-white/20 text-xs uppercase tracking-widest">
-            &copy; {currentYear} ESTRID
+            &copy; {currentYear} {SITE.name}
           </p>
           <a
-            href="https://linktr.ee/estrid.band"
+            href={SITE.linktree}
             target="_blank"
             rel="noopener noreferrer"
             className="text-accent/60 hover:text-accent text-xs uppercase tracking-widest transition-colors"
           >
-            linktr.ee/estrid.band ↗
+            {SITE.linktree.replace("https://", "")} ↗
           </a>
         </div>
       </div>

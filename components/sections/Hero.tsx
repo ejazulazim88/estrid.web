@@ -1,12 +1,10 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 import { ChevronDown, Play } from "lucide-react";
-import { useRef } from "react";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
-
-const tagline = "Emosi Yang Dibebaskan, Bersuara Melalui Bunyi.";
+import MagneticButton from "@/components/ui/MagneticButton";
+import { SITE } from "@/content/site";
+import { asset, scrollToId } from "@/lib/utils";
 
 const particles = Array.from({ length: 12 }, (_, i) => ({
   id: i,
@@ -16,68 +14,19 @@ const particles = Array.from({ length: 12 }, (_, i) => ({
   delay: `${(i * 0.4) % 4}s`,
 }));
 
-function MagneticButton({ children, className, href, onClick }: {
-  children: React.ReactNode;
-  className: string;
-  href: string;
-  onClick: (e: React.MouseEvent) => void;
-}) {
-  const ref = useRef<HTMLAnchorElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 300, damping: 20 });
-  const springY = useSpring(y, { stiffness: 300, damping: 20 });
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return;
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    x.set((e.clientX - cx) * 0.2);
-    y.set((e.clientY - cy) * 0.2);
-  };
-  const handleMouseLeave = () => { x.set(0); y.set(0); };
-
-  return (
-    <motion.a
-      ref={ref}
-      href={href}
-      className={className}
-      style={{ x: springX, y: springY }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onClick={onClick}
-    >
-      {children}
-    </motion.a>
-  );
-}
-
 export default function Hero() {
-  const containerRef = useRef<HTMLElement>(null);
-
-  const scrollToNext = () => {
-    document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <section
       id="home"
-      ref={containerRef}
       className="relative h-screen flex items-center justify-center overflow-hidden bg-black/80"
     >
       {/* Bottom gradient fade — blends into next section */}
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-transparent to-black/80" />
 
-      {/* Grain overlay */}
+      {/* Grain overlay — inline (not .grain) for precise z-index stacking */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.04]"
-        style={{
-          zIndex: 5,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-          backgroundRepeat: 'repeat',
-          backgroundSize: '128px 128px',
-        }}
+        className="absolute inset-0 pointer-events-none opacity-[0.04] bg-noise"
+        style={{ zIndex: 5 }}
       />
 
       {/* Ghost "ESTRID" — background depth / concert-poster letterform */}
@@ -97,7 +46,7 @@ export default function Hero() {
           animate={{ opacity: 0.05, scale: 1 }}
           transition={{ duration: 1.4, ease: "easeOut" }}
         >
-          ESTRID
+          {SITE.name}
         </motion.span>
       </div>
 
@@ -125,7 +74,7 @@ export default function Hero() {
           transition={{ duration: 1, ease: "easeOut" }}
         >
           <img
-            src={`${basePath}/images/estrid-logo.png`}
+            src={asset("/images/estrid-logo.png")}
             alt="Estrid"
             className="h-72 sm:h-64 md:h-80 lg:h-[28rem] w-auto object-contain"
           />
@@ -133,7 +82,7 @@ export default function Hero() {
 
         {/* Tagline — word-by-word blur reveal */}
         <div className="text-base sm:text-lg md:text-2xl lg:text-3xl text-gray-300 mb-2 flex flex-wrap justify-center gap-x-2">
-          {tagline.split(" ").map((word, wi) => (
+          {SITE.tagline.split(" ").map((word, wi) => (
             <motion.span
               key={wi}
               initial={{ opacity: 0, filter: "blur(8px)", y: 10 }}
@@ -156,10 +105,7 @@ export default function Hero() {
           <MagneticButton
             href="#music"
             className="group relative inline-flex items-center gap-3 px-8 py-4 bg-accent text-white border border-accent font-bold uppercase tracking-widest text-sm overflow-hidden transition-colors duration-300"
-            onClick={(e) => {
-              e.preventDefault();
-              document.querySelector("#music")?.scrollIntoView({ behavior: "smooth" });
-            }}
+            onClick={(e) => { e.preventDefault(); scrollToId("music"); }}
           >
             <Play className="w-4 h-4 flex-shrink-0 relative z-10" />
             <span className="relative z-10">Dengar Sekarang</span>
@@ -171,16 +117,11 @@ export default function Hero() {
           <MagneticButton
             href="#tour"
             className="group relative inline-flex items-center gap-3 px-8 py-4 border border-accent/60 text-accent/80 font-bold uppercase tracking-widest text-sm overflow-hidden transition-colors duration-300 hover:text-white"
-            onClick={(e) => {
-              e.preventDefault();
-              document.querySelector("#tour")?.scrollIntoView({ behavior: "smooth" });
-            }}
+            onClick={(e) => { e.preventDefault(); scrollToId("tour"); }}
           >
             <span className="relative z-10">Tarikh Persembahan</span>
             {/* Fill sweep on hover */}
-            <span
-              className="absolute inset-0 bg-accent translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-out"
-            />
+            <span className="absolute inset-0 bg-accent translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-out" />
           </MagneticButton>
         </motion.div>
       </div>
@@ -194,7 +135,7 @@ export default function Hero() {
           opacity: { delay: 2, duration: 0.5 },
           y: { repeat: Infinity, duration: 1.5 },
         }}
-        onClick={scrollToNext}
+        onClick={() => scrollToId("about")}
         aria-label="Tatal ke bawah"
       >
         <ChevronDown size={40} />

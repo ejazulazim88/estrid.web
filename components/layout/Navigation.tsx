@@ -3,19 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@/lib/utils";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
-
-const navItems = [
-  { name: "Laman Utama", href: "#home" },
-  { name: "Tentang", href: "#about" },
-  { name: "Muzik", href: "#music" },
-  { name: "Persembahan", href: "#tour" },
-  { name: "Galeri", href: "#gallery" },
-  { name: "Berita", href: "#berita" },
-  { name: "Hubungi", href: "#contact" },
-];
+import { NAV_SECTIONS } from "@/content/site";
+import { asset, cn, scrollToId } from "@/lib/utils";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,11 +17,11 @@ export default function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Highlight whichever section is currently on screen
   useEffect(() => {
-    const sectionIds = navItems.map(item => item.href.replace("#", ""));
     const observers: IntersectionObserver[] = [];
 
-    sectionIds.forEach((id) => {
+    NAV_SECTIONS.forEach(({ id }) => {
       const el = document.getElementById(id);
       if (!el) return;
       const observer = new IntersectionObserver(
@@ -46,12 +35,9 @@ export default function Navigation() {
     return () => observers.forEach(o => o.disconnect());
   }, []);
 
-  const scrollToSection = useCallback((href: string) => {
-    const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-      setIsOpen(false);
-    }
+  const goTo = useCallback((id: string) => {
+    scrollToId(id);
+    setIsOpen(false);
   }, []);
 
   return (
@@ -72,10 +58,10 @@ export default function Navigation() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            onClick={(e) => { e.preventDefault(); scrollToSection("#home"); }}
+            onClick={(e) => { e.preventDefault(); goTo("home"); }}
           >
             <img
-              src={`${basePath}/images/estrid-logo.png`}
+              src={asset("/images/estrid-logo.png")}
               alt="Estrid Logo"
               className="h-20 md:h-28 w-auto"
             />
@@ -83,18 +69,18 @@ export default function Navigation() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item, index) => {
-              const isActive = activeSection === item.href.replace("#", "");
+            {NAV_SECTIONS.map((item, index) => {
+              const isActive = activeSection === item.id;
               return (
                 <motion.a
-                  key={item.name}
-                  href={item.href}
+                  key={item.id}
+                  href={`#${item.id}`}
                   className="relative text-sm uppercase tracking-widest font-medium transition-colors duration-300 hover:text-accent pt-3"
                   style={{ color: isActive ? "hsl(var(--accent))" : "hsl(var(--foreground))" }}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.08 }}
-                  onClick={(e) => { e.preventDefault(); scrollToSection(item.href); }}
+                  onClick={(e) => { e.preventDefault(); goTo(item.id); }}
                 >
                   {/* Active indicator — small red square dot above text */}
                   {isActive && (
@@ -105,7 +91,7 @@ export default function Navigation() {
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                   )}
-                  {item.name}
+                  {item.label}
                 </motion.a>
               );
             })}
@@ -133,26 +119,25 @@ export default function Navigation() {
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
             <div className="flex flex-col items-center space-y-8">
-              {navItems.map((item, index) => {
-                const isActive = activeSection === item.href.replace("#", "");
-                const indexLabel = String(index + 1).padStart(2, "0");
+              {NAV_SECTIONS.map((item, index) => {
+                const isActive = activeSection === item.id;
                 return (
                   <motion.a
-                    key={item.name}
-                    href={item.href}
+                    key={item.id}
+                    href={`#${item.id}`}
                     className="group flex items-baseline gap-3 text-3xl font-bold uppercase tracking-widest transition-colors duration-300 hover:text-accent"
                     style={{ color: isActive ? "hsl(var(--accent))" : "hsl(var(--foreground))" }}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.1 + index * 0.07 }}
-                    onClick={(e) => { e.preventDefault(); scrollToSection(item.href); }}
+                    onClick={(e) => { e.preventDefault(); goTo(item.id); }}
                   >
                     {/* Numeric index prefix */}
                     <span className="text-sm font-mono tracking-widest tabular-nums text-accent opacity-70">
-                      {indexLabel}
+                      {String(index + 1).padStart(2, "0")}
                     </span>
                     <span className="text-white/30 text-base font-light">—</span>
-                    <span>{item.name}</span>
+                    <span>{item.label}</span>
                   </motion.a>
                 );
               })}
