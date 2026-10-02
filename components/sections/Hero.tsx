@@ -6,7 +6,7 @@ import MagneticButton from "@/components/ui/MagneticButton";
 import { SITE } from "@/content/site";
 import { UI } from "@/content/ui";
 import { useLang } from "@/lib/i18n";
-import { asset, scrollToId } from "@/lib/utils";
+import { scrollToId } from "@/lib/utils";
 
 const particles = Array.from({ length: 12 }, (_, i) => ({
   id: i,
@@ -78,7 +78,7 @@ export default function Hero() {
           transition={{ duration: 1, ease: "easeOut" }}
         >
           <img
-            src={asset("/images/estrid-logo.png")}
+            src={"/images/estrid-logo.png"}
             alt="Estrid"
             className="h-72 sm:h-64 md:h-80 lg:h-[28rem] w-auto object-contain"
           />

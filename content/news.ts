@@ -1,5 +1,4 @@
 import type { Localized } from "@/lib/i18n";
-import { asset } from "@/lib/utils";
 import { NEW_RELEASE } from "@/content/music";
 
 export type NewsItem = {
@@ -24,7 +23,7 @@ export const NEWS: NewsItem[] = [
       ms: "'Akhir.' kini boleh didengar di semua platform muzik utama. Tonton video muzik rasminya sekarang.",
       en: "'Akhir.' is out now on all major music platforms. Watch the official music video now.",
     },
-    image: asset("/images/akhir-artwork-landscape.jpg"),
+    image: "/images/akhir-artwork-landscape.jpg",
     link: NEW_RELEASE.youtubeUrl,
   },
   {
@@ -37,7 +36,7 @@ export const NEWS: NewsItem[] = [
       ms: "Single pertama kami akhirnya hadir. Dengar 'Narsistik' sekarang di semua platform muzik utama dan rasai tenaga mentah Estrid yang tidak berkompromi.",
       en: "Our first single is finally here. Listen to 'Narsistik' now on all major music platforms and feel Estrid's raw, uncompromising energy.",
     },
-    image: asset("/images/estrid-2026.png"),
+    image: "/images/estrid-2026.png",
     link: "https://musicaddicts.my/estrid-meledak-lembaran-baharu-muzik-rock-alternatif-tempatan-dengan-narsistik/",
   },
 ];

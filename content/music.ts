@@ -1,6 +1,5 @@
 import { Disc3, Music2, Youtube } from "lucide-react";
 import type { Localized } from "@/lib/i18n";
-import { asset } from "@/lib/utils";
 
 /** The big card at the top of the Music section */
 export const FEATURED_RELEASE: {
@@ -13,7 +12,7 @@ export const FEATURED_RELEASE: {
   /** Rendered as one word; the second part is shown in red */
   title: ["Akhir", "."],
   label: "Single · 2026",
-  artwork: asset("/images/akhir-artwork.jpg"),
+  artwork: "/images/akhir-artwork.jpg",
   description: {
     ms: "Single terbaharu Estrid — kini tersedia di semua platform muzik.",
     en: "Estrid’s newest single — out now on all music platforms.",
@@ -41,7 +40,7 @@ export const PAST_RELEASES = [
   {
     title: "Narsistik",
     label: "Single · 2025",
-    artwork: asset("/images/narsistik artwork.png"),
+    artwork: "/images/narsistik artwork.png",
     spotifyUrl: "https://open.spotify.com/track/10qy02MuJQsxXM4sAOwo1A",
     youtubeUrl: "https://youtu.be/Pw14pde3heQ",
   },

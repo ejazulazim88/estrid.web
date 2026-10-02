@@ -7,7 +7,7 @@ import LanguageToggle from "@/components/ui/LanguageToggle";
 import { NAV_SECTIONS } from "@/content/site";
 import { UI } from "@/content/ui";
 import { useLang } from "@/lib/i18n";
-import { asset, cn, scrollToId } from "@/lib/utils";
+import { cn, scrollToId } from "@/lib/utils";
 
 export default function Navigation() {
   const { t } = useLang();
@@ -66,7 +66,7 @@ export default function Navigation() {
               onClick={(e) => { e.preventDefault(); goTo("home"); }}
             >
               <img
-                src={asset("/images/estrid-logo.png")}
+                src={"/images/estrid-logo.png"}
                 alt="Estrid Logo"
                 className="h-20 md:h-28 w-auto"
               />

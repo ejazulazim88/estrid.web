@@ -1,5 +1,4 @@
 import type { Localized } from "@/lib/i18n";
-import { asset } from "@/lib/utils";
 
 /** Band story — one entry per paragraph */
 export const STORY: Localized[] = [
@@ -17,7 +16,7 @@ export const STORY: Localized[] = [
   },
 ];
 
-export const BAND_PHOTO = asset("/images/estrid-img-1.jpg");
+export const BAND_PHOTO = "/images/estrid-img-1.jpg";
 
 export const STATS: { label: Localized; value: string }[] = [
   { label: { ms: "Jumlah Lagu", en: "Songs" }, value: "3" },
@@ -28,10 +27,10 @@ export const STATS: { label: Localized; value: string }[] = [
 
 /** Photos live in public/images/Bandmates/. Leave `image` out to show a placeholder icon. */
 export const MEMBERS: { name: string; role: Localized; image?: string }[] = [
-  { name: "MONO", role: { ms: "Vokalis", en: "Vocals" }, image: asset("/images/Bandmates/Vocalist.jpg") },
-  { name: "AGYM", role: { ms: "Gitar", en: "Guitar" }, image: asset("/images/Bandmates/Guitar%201.jpg") },
-  { name: "DARON", role: { ms: "Gitar", en: "Guitar" }, image: asset("/images/Bandmates/Guitar%202.jpg") },
-  { name: "NAZ", role: { ms: "Bass", en: "Bass" }, image: asset("/images/Bandmates/Bass.jpg") },
-  { name: "BEN", role: { ms: "Dram", en: "Drums" }, image: asset("/images/Bandmates/Drummer.jpg") },
-  { name: "PEDANG", role: { ms: "Keyboard", en: "Keys" }, image: asset("/images/Bandmates/Keys.jpg") },
+  { name: "MONO", role: { ms: "Vokalis", en: "Vocals" }, image: "/images/Bandmates/Vocalist.jpg" },
+  { name: "AGYM", role: { ms: "Gitar", en: "Guitar" }, image: "/images/Bandmates/Guitar%201.jpg" },
+  { name: "DARON", role: { ms: "Gitar", en: "Guitar" }, image: "/images/Bandmates/Guitar%202.jpg" },
+  { name: "NAZ", role: { ms: "Bass", en: "Bass" }, image: "/images/Bandmates/Bass.jpg" },
+  { name: "BEN", role: { ms: "Dram", en: "Drums" }, image: "/images/Bandmates/Drummer.jpg" },
+  { name: "PEDANG", role: { ms: "Keyboard", en: "Keys" }, image: "/images/Bandmates/Keys.jpg" },
 ];
