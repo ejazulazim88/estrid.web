@@ -8,6 +8,7 @@ import Tour from "@/components/sections/Tour";
 import Gallery from "@/components/sections/Gallery";
 import News from "@/components/sections/News";
 import Contact from "@/components/sections/Contact";
+import ReleaseModal from "@/components/ui/ReleaseModal";
 import { LanguageProvider } from "@/lib/i18n";
 
 export default function Home() {
@@ -26,6 +27,8 @@ export default function Home() {
         <Contact />
         <Footer />
       </main>
+
+      <ReleaseModal />
     </LanguageProvider>
   );
 }
