@@ -1,16 +1,29 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MapPin } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
 import LabelDivider from "@/components/ui/LabelDivider";
 import { SHOWS, type Show } from "@/content/shows";
-import { scrollToId } from "@/lib/utils";
+import { UI } from "@/content/ui";
+import { useLang } from "@/lib/i18n";
+import { orderShows } from "@/lib/shows";
+import { cn, scrollToId } from "@/lib/utils";
 
 export default function Tour() {
+  const { t } = useLang();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  // "Today" is only known in the browser — read it after mount
+  const [today, setToday] = useState<Date | null>(null);
+  useEffect(() => setToday(new Date()), []);
+  const { upcoming, past } = orderShows(SHOWS, today);
+  const rows = [
+    ...upcoming.map((show) => ({ show, isPast: false })),
+    ...past.map((show) => ({ show, isPast: true })),
+  ];
 
   return (
     <section
@@ -21,25 +34,31 @@ export default function Tour() {
       <div className="container mx-auto px-4 relative z-10">
         <SectionHeader
           number="03"
-          eyebrow="Jumpa Kami"
-          title="Tarikh"
-          accent="Persembahan"
+          eyebrow={t(UI.tour.header.eyebrow)}
+          title={t(UI.tour.header.title)}
+          accent={t(UI.tour.header.accent)}
           inView={isInView}
           compact
         />
 
-        {SHOWS.length === 0 ? (
+        {rows.length === 0 ? (
           <EmptyState inView={isInView} />
         ) : (
           <div className="max-w-5xl mx-auto space-y-3 mb-16">
-            {SHOWS.map((show, index) => (
-              <ShowRow key={`${show.date}-${show.venue}`} show={show} index={index} inView={isInView} />
+            {rows.map(({ show, isPast }, index) => (
+              <ShowRow
+                key={`${show.date}-${show.venue}`}
+                show={show}
+                isPast={isPast}
+                index={index}
+                inView={isInView}
+              />
             ))}
           </div>
         )}
 
         <LabelDivider
-          label="IKUTI BERITA TERKINI"
+          label={t(UI.tour.stayUpdated)}
           className="mb-10 max-w-5xl mx-auto"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
@@ -58,7 +77,7 @@ export default function Tour() {
             className="text-accent/60 uppercase tracking-[0.4em] text-xs hover:text-accent transition-colors duration-200 font-semibold"
             onClick={(e) => { e.preventDefault(); scrollToId("contact"); }}
           >
-            Sertai Senarai Mel Kami ↗
+            {t(UI.tour.mailingList)}
           </a>
         </motion.div>
 
@@ -67,25 +86,33 @@ export default function Tour() {
   );
 }
 
-function ShowRow({ show, index, inView }: { show: Show; index: number; inView: boolean }) {
+function ShowRow({ show, isPast, index, inView }: { show: Show; isPast: boolean; index: number; inView: boolean }) {
+  const { t, formatDate } = useLang();
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -40 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
+      animate={inView ? { opacity: isPast ? 0.5 : 1, x: 0 } : {}}
       transition={{ duration: 0.6, delay: 0.15 + index * 0.1 }}
-      className="group flex items-stretch border border-white/10 hover:border-accent/40 bg-black/40 transition-all duration-300"
+      className={cn(
+        "group flex items-stretch border border-white/10 bg-black/40 transition-all duration-300",
+        !isPast && "hover:border-accent/40"
+      )}
     >
-      {/* Red left edge bar */}
-      <div className="w-1 bg-accent flex-shrink-0" />
+      {/* Left edge bar — red for upcoming, muted for past */}
+      <div className={cn("w-1 flex-shrink-0", isPast ? "bg-white/20" : "bg-accent")} />
 
       <div className="flex-1 flex flex-col md:flex-row md:items-center gap-4 md:gap-8 px-6 py-5">
 
         {/* Date — LEFT */}
         <div className="flex-shrink-0 md:w-56">
           <p
-            className="text-3xl md:text-5xl font-black leading-none font-display text-accent"
+            className={cn(
+              "text-3xl md:text-5xl font-black leading-none font-display",
+              isPast ? "text-white/60" : "text-accent"
+            )}
           >
-            {show.date}
+            {formatDate(show.date)}
           </p>
         </div>
 
@@ -108,29 +135,33 @@ function ShowRow({ show, index, inView }: { show: Show; index: number; inView: b
           </div>
         </div>
 
-        {/* Detail link — RIGHT */}
-        <div className="flex items-center md:justify-end flex-shrink-0">
-          {show.link ? (
-            <a
-              href={show.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 border border-accent/60 px-5 py-2.5 text-accent uppercase tracking-widest text-xs font-black font-display hover:bg-accent hover:text-white transition-all duration-200"
-            >
-              Lihat Butiran ↗
-            </a>
-          ) : (
-            <span className="border border-white/10 px-4 py-2 text-white/30 uppercase tracking-widest text-xs font-semibold font-display">
-              Akan Datang
-            </span>
-          )}
-        </div>
+        {/* Detail link / status — RIGHT (upcoming shows only) */}
+        {!isPast && (
+          <div className="flex items-center md:justify-end flex-shrink-0">
+            {show.link ? (
+              <a
+                href={show.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 border border-accent/60 px-5 py-2.5 text-accent uppercase tracking-widest text-xs font-black font-display hover:bg-accent hover:text-white transition-all duration-200"
+              >
+                {t(UI.tour.viewDetails)}
+              </a>
+            ) : (
+              <span className="border border-white/10 px-4 py-2 text-white/30 uppercase tracking-widest text-xs font-semibold font-display">
+                {t(UI.tour.comingSoon)}
+              </span>
+            )}
+          </div>
+        )}
       </div>
     </motion.div>
   );
 }
 
 function EmptyState({ inView }: { inView: boolean }) {
+  const { t } = useLang();
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -142,10 +173,10 @@ function EmptyState({ inView }: { inView: boolean }) {
         —
       </span>
       <p className="text-white/30 uppercase tracking-[0.4em] text-xs font-semibold">
-        Tiada Persembahan Dijadualkan
+        {t(UI.tour.emptyTitle)}
       </p>
       <p className="text-white/20 uppercase tracking-[0.3em] text-[9px]">
-        Nantikan Pengumuman Baharu
+        {t(UI.tour.emptySubtitle)}
       </p>
     </motion.div>
   );
