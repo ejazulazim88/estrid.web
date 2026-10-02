@@ -4,30 +4,33 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { SITE, SOCIAL_LINKS } from "@/content/site";
+import { UI } from "@/content/ui";
+import { useLang, type Localized } from "@/lib/i18n";
 
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 
-const contactInfo = [
-  { label: "E-mel", value: SITE.email, href: `mailto:${SITE.email}` },
-  { label: "Linktree", value: SITE.linktree.replace("https://", ""), href: SITE.linktree },
-  { label: "Lokasi", value: SITE.location, href: null },
+const contactInfo: { label: Localized; value: string; href: string | null }[] = [
+  { label: UI.contact.email, value: SITE.email, href: `mailto:${SITE.email}` },
+  { label: { ms: "Linktree", en: "Linktree" }, value: SITE.linktree.replace("https://", ""), href: SITE.linktree },
+  { label: UI.contact.location, value: SITE.location, href: null },
 ];
 
 const EMPTY_FORM = { name: "", email: "", message: "" };
 type FormData = typeof EMPTY_FORM;
-type SubmitStatus = { type: "success" | "error" | null; message: string };
+type SubmitStatus = "success" | "error" | null;
 
 export default function Contact() {
+  const { t } = useLang();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [formData, setFormData] = useState<FormData>(EMPTY_FORM);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>({ type: null, message: "" });
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus({ type: null, message: "" });
+    setSubmitStatus(null);
     try {
       const response = await fetch(WEB3FORMS_ENDPOINT, {
         method: "POST",
@@ -35,6 +38,7 @@ export default function Contact() {
         body: JSON.stringify({
           access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "YOUR_ACCESS_KEY_HERE",
           ...formData,
+          // Email to the band stays in BM regardless of the visitor's language
           subject: `Mesej dari ${formData.name}`,
           from_name: "Laman Web Estrid",
           to_email: SITE.email,
@@ -42,13 +46,13 @@ export default function Contact() {
       });
       const result = await response.json();
       if (result.success) {
-        setSubmitStatus({ type: "success", message: "Mesej berjaya dihantar! Kami akan menghubungi anda tidak lama lagi." });
+        setSubmitStatus("success");
         setFormData(EMPTY_FORM);
       } else {
         throw new Error(result.message || "Submission failed");
       }
     } catch (error) {
-      setSubmitStatus({ type: "error", message: "Maaf, terdapat masalah menghantar mesej. Sila cuba lagi." });
+      setSubmitStatus("error");
       console.error("Form submission error:", error);
     } finally {
       setIsSubmitting(false);
@@ -62,7 +66,13 @@ export default function Contact() {
   return (
     <section id="contact" className="py-24 md:py-32 bg-black/10 overflow-hidden" ref={ref}>
       <div className="container mx-auto px-4">
-        <SectionHeader number="06" eyebrow="Berhubung" title="Hubungi" accent="Kami" inView={isInView} />
+        <SectionHeader
+          number="06"
+          eyebrow={t(UI.contact.header.eyebrow)}
+          title={t(UI.contact.header.title)}
+          accent={t(UI.contact.header.accent)}
+          inView={isInView}
+        />
 
         {/* Two-column layout */}
         <div className="max-w-6xl mx-auto grid md:grid-cols-[1fr_1.2fr] gap-8">
@@ -73,12 +83,14 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="bg-black/40 backdrop-blur-sm border border-white/[0.08] p-8 md:p-10"
           >
-            <p className="text-accent uppercase tracking-[0.35em] text-[10px] font-semibold mb-8">Maklumat</p>
+            <p className="text-accent uppercase tracking-[0.35em] text-[10px] font-semibold mb-8">{t(UI.contact.info)}</p>
+
+            {/* WHATSAPP_BUTTONS — added in Task 6 */}
 
             <div className="mb-10">
               {contactInfo.map(({ label, value, href }) => (
-                <div key={label} className="border-b border-white/[0.06] py-4 flex justify-between items-center gap-4">
-                  <span className="text-white/30 uppercase tracking-widest text-[10px] shrink-0">{label}</span>
+                <div key={label.ms} className="border-b border-white/[0.06] py-4 flex justify-between items-center gap-4">
+                  <span className="text-white/30 uppercase tracking-widest text-[10px] shrink-0">{t(label)}</span>
                   {href ? (
                     <a
                       href={href}
@@ -97,7 +109,7 @@ export default function Contact() {
 
             {/* Social icons row */}
             <div>
-              <p className="text-white/20 uppercase tracking-widest text-[10px] mb-5">Ikuti Kami</p>
+              <p className="text-white/20 uppercase tracking-widest text-[10px] mb-5">{t(UI.common.followUs)}</p>
               <div className="flex gap-3">
                 {SOCIAL_LINKS.map((social) => (
                   <a
@@ -123,13 +135,13 @@ export default function Contact() {
             className="bg-black/40 backdrop-blur-sm border border-white/[0.08] p-8 md:p-10"
           >
             <form onSubmit={handleSubmit} className="space-y-8">
-              <Field label="Nama" name="name" placeholder="Nama anda" value={formData.name} onChange={handleChange} />
-              <Field label="E-mel" name="email" type="email" placeholder="anda@email.com" value={formData.email} onChange={handleChange} />
-              <Field label="Mesej" name="message" multiline placeholder="Mesej anda..." value={formData.message} onChange={handleChange} />
+              <Field label={t(UI.contact.nameLabel)} name="name" placeholder={t(UI.contact.namePlaceholder)} value={formData.name} onChange={handleChange} />
+              <Field label={t(UI.contact.email)} name="email" type="email" placeholder={t(UI.contact.emailPlaceholder)} value={formData.email} onChange={handleChange} />
+              <Field label={t(UI.contact.messageLabel)} name="message" multiline placeholder={t(UI.contact.messagePlaceholder)} value={formData.message} onChange={handleChange} />
 
-              {submitStatus.type && (
-                <p className={`text-xs uppercase tracking-[0.2em] ${submitStatus.type === "success" ? "text-green-400/70" : "text-red-400/70"}`}>
-                  {submitStatus.message}
+              {submitStatus && (
+                <p className={`text-xs uppercase tracking-[0.2em] ${submitStatus === "success" ? "text-green-400/70" : "text-red-400/70"}`}>
+                  {t(submitStatus === "success" ? UI.contact.success : UI.contact.error)}
                 </p>
               )}
 
@@ -138,7 +150,7 @@ export default function Contact() {
                 disabled={isSubmitting}
                 className="w-full bg-accent text-white py-4 uppercase tracking-widest text-xs font-bold font-display flex items-center justify-center gap-3 hover:bg-accent/80 transition-colors disabled:opacity-50"
               >
-                <span>{isSubmitting ? "Menghantar..." : "Hantar Mesej"}</span>
+                <span>{t(isSubmitting ? UI.contact.sending : UI.contact.send)}</span>
                 {!isSubmitting && <span className="text-base leading-none">→</span>}
               </button>
             </form>
