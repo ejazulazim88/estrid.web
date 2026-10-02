@@ -25,6 +25,7 @@ estrid.web/
 │   └── globals.css         # CSS variables, .grain / .bg-noise / .particle utilities
 │
 ├── content/                # ← All editable site content lives here (see content-guide.md)
+│   ├── ui.ts               # Buttons, headings, labels (BM/EN)
 │   ├── site.ts             # Name, URL, tagline, contact info, NAV_SECTIONS, SOCIAL_LINKS
 │   ├── about.ts            # Story, stats, band members
 │   ├── music.ts            # Featured release, music video, streaming platforms
@@ -34,7 +35,7 @@ estrid.web/
 │
 ├── components/
 │   ├── layout/
-│   │   ├── Navigation.tsx  # Sticky nav + mobile full-screen menu
+│   │   ├── Navigation.tsx  # Sticky nav (desktop links from 1024px / lg; hamburger menu below)
 │   │   └── Footer.tsx      # Brand, section links, social icons
 │   ├── sections/           # One file per page section, in page order
 │   │   ├── Hero.tsx        # #home
@@ -48,12 +49,18 @@ estrid.web/
 │   │   ├── SectionHeader.tsx   # Ghost number + eyebrow + title (01–06)
 │   │   ├── CornerBrackets.tsx  # Red corner brackets: "frame" or "hover" variant
 │   │   ├── LabelDivider.tsx    # Red bar + small label + hairline rule
+│   │   ├── LanguageToggle.tsx  # BM | EN switch
+│   │   ├── ReleaseModal.tsx    # New-release pop-up (once per session)
+│   │   ├── WhatsAppIcon.tsx    # Brand icon (Lucide has none)
 │   │   └── MagneticButton.tsx  # Cursor-following CTA link (Hero)
 │   └── background/
 │       ├── Plasma.tsx          # WebGL animated background (OGL)
 │       └── PlasmaBackground.tsx # Client-only fixed wrapper used by page.tsx
 │
 ├── lib/
+│   ├── dates.ts            # Pure date parsing/formatting (ms-MY / en-GB)
+│   ├── i18n.tsx            # LanguageProvider, useLang(), Localized, date formatting
+│   ├── shows.ts            # Past/upcoming ordering
 │   └── utils.ts            # cn(), asset(), scrollToId()
 │
 ├── public/images/          # Logo, photos, Bandmates/, Galeri/
@@ -102,6 +109,14 @@ Alternating `bg-black/80` (opaque glass) and `bg-black/10` (near-transparent) le
 - `.particle` — floating dot animation with `--duration` and `--delay` CSS props
 
 **Section header:** use `<SectionHeader number="0X" eyebrow="…" title="…" accent="…" inView={isInView} />`. Pass `compact` for long titles (Tour), and `className="container mx-auto px-4"` when the section has no outer container.
+
+## Languages (BM / EN)
+
+- `LanguageProvider` (in `app/page.tsx`) holds the language; components call `const { t, formatDate, formatMonthYear } = useLang()`.
+- `t(value)` picks `value.ms` / `value.en`; `formatDate("2026-10-24")` uses `Intl` (`ms-MY` / `en-GB`). The pure parsing/formatting helpers (`parseIsoDate`, `formatDateIn`, `formatMonthYearIn`) live in `lib/dates.ts`, a plain module (not `"use client"`); `lib/i18n.tsx` wraps them for the context.
+- The static HTML is always BM; a stored choice (`localStorage["estrid-lang"]`) is applied after mount. SEO metadata is BM-only.
+- Anything that depends on the browser (stored language, today's date for past shows, the release pop-up) is read in `useEffect`, so the static HTML and the first client render always match.
+- The BM | EN toggle sits in the desktop nav from 1024px (`lg`); below that it is at the bottom of the hamburger menu.
 
 ## Environment Variables
 
