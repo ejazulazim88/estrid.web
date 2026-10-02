@@ -82,6 +82,7 @@ export default function Music() {
               <iframe
                 style={{ borderRadius: '8px', display: 'block' }}
                 src={FEATURED_RELEASE.spotifyEmbed}
+                title={`${titleStart}${titleEnd} — Spotify`}
                 width="100%"
                 height="152"
                 frameBorder="0"
@@ -170,19 +171,21 @@ export default function Music() {
                   <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 shrink-0 pr-2">
                     <a
                       href={release.spotifyUrl}
+                      aria-label={`${release.title} — Spotify`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white/50 hover:text-accent uppercase tracking-widest text-xs font-semibold font-display transition-colors"
                     >
-                      Spotify ↗
+                      Spotify <span aria-hidden="true">↗</span>
                     </a>
                     <a
                       href={release.youtubeUrl}
+                      aria-label={`${release.title} — YouTube`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-white/50 hover:text-accent uppercase tracking-widest text-xs font-semibold font-display transition-colors"
                     >
-                      YouTube ↗
+                      YouTube <span aria-hidden="true">↗</span>
                     </a>
                   </div>
                 </div>
@@ -214,7 +217,7 @@ export default function Music() {
                 <span className="uppercase tracking-widest text-xs font-semibold font-display">
                   {platform.name}
                 </span>
-                <span className="text-accent opacity-0 group-hover:opacity-100 transition-opacity text-xs ml-1">↗</span>
+                <span className="text-accent opacity-0 group-hover:opacity-100 transition-opacity text-xs ml-1" aria-hidden="true">↗</span>
               </a>
             ))}
           </div>

@@ -23,7 +23,7 @@ export const FEATURED_RELEASE: {
 };
 
 export const MUSIC_VIDEO = {
-  title: "Akhir.",
+  title: FEATURED_RELEASE.title.join(""),
   /** The id from youtu.be/<id> or youtube.com/watch?v=<id> */
   youtubeId: "pLnVxlmiMF4",
 };
