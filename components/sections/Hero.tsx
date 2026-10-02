@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { ChevronDown, Play } from "lucide-react";
 import MagneticButton from "@/components/ui/MagneticButton";
 import { SITE } from "@/content/site";
+import { UI } from "@/content/ui";
+import { useLang } from "@/lib/i18n";
 import { asset, scrollToId } from "@/lib/utils";
 
 const particles = Array.from({ length: 12 }, (_, i) => ({
@@ -15,6 +17,7 @@ const particles = Array.from({ length: 12 }, (_, i) => ({
 }));
 
 export default function Hero() {
+  const { t } = useLang();
   return (
     <section
       id="home"
@@ -82,9 +85,9 @@ export default function Hero() {
 
         {/* Tagline — word-by-word blur reveal */}
         <div className="text-base sm:text-lg md:text-2xl lg:text-3xl text-gray-300 mb-2 flex flex-wrap justify-center gap-x-2">
-          {SITE.tagline.split(" ").map((word, wi) => (
+          {t(SITE.tagline).split(" ").map((word, wi) => (
             <motion.span
-              key={wi}
+              key={`${t(SITE.tagline)}-${wi}`}
               initial={{ opacity: 0, filter: "blur(8px)", y: 10 }}
               animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 + wi * 0.08, ease: "easeOut" }}
@@ -108,7 +111,7 @@ export default function Hero() {
             onClick={(e) => { e.preventDefault(); scrollToId("music"); }}
           >
             <Play className="w-4 h-4 flex-shrink-0 relative z-10" />
-            <span className="relative z-10">Dengar Sekarang</span>
+            <span className="relative z-10">{t(UI.hero.listenNow)}</span>
             {/* Left-to-right white sheen on hover */}
             <span className="absolute inset-0 bg-white/15 translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-out" />
           </MagneticButton>
@@ -119,7 +122,7 @@ export default function Hero() {
             className="group relative inline-flex items-center gap-3 px-8 py-4 border border-accent/60 text-accent/80 font-bold uppercase tracking-widest text-sm overflow-hidden transition-colors duration-300 hover:text-white"
             onClick={(e) => { e.preventDefault(); scrollToId("tour"); }}
           >
-            <span className="relative z-10">Tarikh Persembahan</span>
+            <span className="relative z-10">{t(UI.hero.showDates)}</span>
             {/* Fill sweep on hover */}
             <span className="absolute inset-0 bg-accent translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-out" />
           </MagneticButton>
@@ -136,7 +139,7 @@ export default function Hero() {
           y: { repeat: Infinity, duration: 1.5 },
         }}
         onClick={() => scrollToId("about")}
-        aria-label="Tatal ke bawah"
+        aria-label={t(UI.hero.scrollDown)}
       >
         <ChevronDown size={40} />
       </motion.button>

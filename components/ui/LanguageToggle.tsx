@@ -22,7 +22,7 @@ export default function LanguageToggle({ className }: { className?: string }) {
     >
       {OPTIONS.map((option, i) => (
         <Fragment key={option.value}>
-          {i > 0 && <span className="text-white/20">|</span>}
+          {i > 0 && <span aria-hidden="true" className="text-white/20">|</span>}
           <button
             type="button"
             aria-pressed={lang === option.value}

@@ -2,11 +2,14 @@
 
 import { motion } from "framer-motion";
 import { NAV_SECTIONS, SITE, SOCIAL_LINKS } from "@/content/site";
+import { UI } from "@/content/ui";
+import { useLang } from "@/lib/i18n";
 import { scrollToId } from "@/lib/utils";
 
 const footerLinks = NAV_SECTIONS.filter((section) => section.id !== "home");
 
 export default function Footer() {
+  const { t } = useLang();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -26,13 +29,13 @@ export default function Footer() {
               {SITE.name}
             </motion.h2>
             <p className="text-white/30 text-xs uppercase tracking-[0.2em] max-w-xs">
-              {SITE.tagline}
+              {t(SITE.tagline)}
             </p>
           </div>
 
           {/* Center — Nav links */}
           <nav className="flex flex-col gap-0">
-            <p className="text-white/20 uppercase tracking-[0.35em] text-[10px] mb-4">Pautan</p>
+            <p className="text-white/20 uppercase tracking-[0.35em] text-[10px] mb-4">{t(UI.footer.links)}</p>
             {footerLinks.map((link) => (
               <a
                 key={link.id}
@@ -40,14 +43,14 @@ export default function Footer() {
                 className="text-white/40 hover:text-accent uppercase tracking-widest text-xs transition-colors py-1 font-display"
                 onClick={(e) => { e.preventDefault(); scrollToId(link.id); }}
               >
-                {link.label}
+                {t(link.label)}
               </a>
             ))}
           </nav>
 
           {/* Right — Social */}
           <div>
-            <p className="text-white/20 uppercase tracking-[0.35em] text-[10px] mb-4">Ikuti Kami</p>
+            <p className="text-white/20 uppercase tracking-[0.35em] text-[10px] mb-4">{t(UI.common.followUs)}</p>
             <div className="grid grid-cols-2 gap-2">
               {SOCIAL_LINKS.map((social) => (
                 <a

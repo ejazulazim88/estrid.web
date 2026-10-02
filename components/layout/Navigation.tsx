@@ -3,10 +3,14 @@
 import { useState, useEffect, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import LanguageToggle from "@/components/ui/LanguageToggle";
 import { NAV_SECTIONS } from "@/content/site";
+import { UI } from "@/content/ui";
+import { useLang } from "@/lib/i18n";
 import { asset, cn, scrollToId } from "@/lib/utils";
 
 export default function Navigation() {
+  const { t } = useLang();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
@@ -94,17 +98,18 @@ export default function Navigation() {
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       />
                     )}
-                    {item.label}
+                    {t(item.label)}
                   </motion.a>
                 );
               })}
+              <LanguageToggle className="pt-3 pl-8 border-l border-white/10" />
             </div>
 
             {/* Mobile hamburger toggle */}
             <button
               className="md:hidden text-foreground hover:text-accent transition-colors z-50"
               onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle menu"
+              aria-label={t(UI.nav.toggleMenu)}
             >
               {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
@@ -144,11 +149,12 @@ export default function Navigation() {
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <span className="text-white/30 text-base font-light">—</span>
-                    <span>{item.label}</span>
+                    <span>{t(item.label)}</span>
                   </motion.a>
                 );
               })}
             </div>
+            <LanguageToggle className="mt-14 text-base" />
           </motion.div>
         )}
       </AnimatePresence>
