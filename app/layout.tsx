@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SITE } from "@/content/site";
+import { buildJsonLd } from "@/lib/structuredData";
 import "./globals.css";
 
 const inter = Inter({
@@ -81,16 +82,7 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "MusicGroup",
-  name: SITE.name,
-  url: SITE.url,
-  description: SITE.description,
-  genre: ["Rock", "Malaysian Rock"],
-  image: ogImage,
-  sameAs: [] as string[],
-};
+const jsonLd = buildJsonLd();
 
 export default function RootLayout({
   children,
