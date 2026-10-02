@@ -7,7 +7,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import LabelDivider from "@/components/ui/LabelDivider";
 import { SHOWS, type Show } from "@/content/shows";
 import { UI } from "@/content/ui";
-import { useLang } from "@/lib/i18n";
+import { useLang, parseIsoDate } from "@/lib/i18n";
 import { orderShows } from "@/lib/shows";
 import { cn, scrollToId } from "@/lib/utils";
 
@@ -87,7 +87,7 @@ export default function Tour() {
 }
 
 function ShowRow({ show, isPast, index, inView }: { show: Show; isPast: boolean; index: number; inView: boolean }) {
-  const { t, formatDate } = useLang();
+  const { t, formatMonthYear } = useLang();
 
   return (
     <motion.div
@@ -105,15 +105,25 @@ function ShowRow({ show, isPast, index, inView }: { show: Show; isPast: boolean;
       <div className="flex-1 flex flex-col md:flex-row md:items-center gap-4 md:gap-8 px-6 py-5">
 
         {/* Date — LEFT */}
-        <div className="flex-shrink-0 md:w-56">
-          <p
-            className={cn(
-              "text-3xl md:text-5xl font-black leading-none font-display",
-              isPast ? "text-white/60" : "text-accent"
-            )}
-          >
-            {formatDate(show.date)}
-          </p>
+        <div className="flex-shrink-0 md:w-48">
+          <time dateTime={show.date} className="block">
+            <span
+              className={cn(
+                "block text-5xl md:text-6xl font-black leading-none font-display",
+                isPast ? "text-white/60" : "text-accent"
+              )}
+            >
+              {parseIsoDate(show.date).getDate()}
+            </span>
+            <span
+              className={cn(
+                "block mt-2 text-xs md:text-sm font-semibold uppercase tracking-[0.3em]",
+                isPast ? "text-white/40" : "text-white/70"
+              )}
+            >
+              {formatMonthYear(show.date)}
+            </span>
+          </time>
         </div>
 
         {/* Thin vertical rule — desktop only */}

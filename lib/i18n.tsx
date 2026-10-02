@@ -16,6 +16,8 @@ type LangContextValue = {
   t: (value: Localized) => string;
   /** "2026-10-24" → "24 Oktober 2026" / "24 October 2026" */
   formatDate: (isoDate: string) => string;
+  /** "2026-10-24" → "Oktober 2026" / "October 2026" */
+  formatMonthYear: (isoDate: string) => string;
 };
 
 const LangContext = createContext<LangContextValue | null>(null);
@@ -32,6 +34,11 @@ export function formatDateIn(isoDate: string, lang: Lang) {
     month: "long",
     year: "numeric",
   }).format(parseIsoDate(isoDate));
+}
+
+/** "2026-10-24" → "Oktober 2026" / "October 2026" */
+export function formatMonthYearIn(isoDate: string, lang: Lang) {
+  return new Intl.DateTimeFormat(INTL_LOCALE[lang], { month: "long", year: "numeric" }).format(parseIsoDate(isoDate));
 }
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
@@ -66,6 +73,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       setLang,
       t: (v) => v[lang],
       formatDate: (iso) => formatDateIn(iso, lang),
+      formatMonthYear: (iso) => formatMonthYearIn(iso, lang),
     }),
     [lang, setLang]
   );
