@@ -98,7 +98,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ms" className="dark">
+    <html lang="ms">
       <body
         className={`${inter.variable} ${montserrat.variable} font-sans antialiased`}
       >

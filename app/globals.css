@@ -3,59 +3,15 @@
 @tailwind utilities;
 
 @layer base {
+  /* Dark-only palette (HSL channels, consumed as hsl(var(--x)) in tailwind.config.ts) */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 72.2% 50.6%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 72.2% 50.6%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 72.2% 50.6%;
-    --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-  }
-
-  .dark {
     --background: 20 5% 7%;
     --foreground: 0 0% 96%;
-    --card: 20 5% 10%;
-    --card-foreground: 0 0% 96%;
-    --popover: 20 5% 10%;
-    --popover-foreground: 0 0% 96%;
     --primary: 0 72.2% 50.6%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 20 5% 15%;
-    --secondary-foreground: 0 0% 96%;
-    --muted: 20 5% 15%;
-    --muted-foreground: 0 0% 60%;
     --accent: 0 72.2% 50.6%;
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
     --border: 20 5% 18%;
-    --input: 20 5% 18%;
-    --ring: 0 72.2% 50.6%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
   }
 
   * {
@@ -68,24 +24,14 @@
     scroll-behavior: smooth;
   }
 
-  /* body is transparent so the fixed Plasma shines through */
+  /* body is transparent so the fixed Plasma shines through.
+     Each section sets its own bg-black/* glass level; the Hero has none. */
   body {
     background: transparent;
     @apply text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
-  /* Sections are dark glass panels floating above the plasma */
-  section {
-    background-color: rgba(12, 10, 9, 0.80);
-  }
-
-  /* Hero (#home) is fully transparent — maximum plasma exposure */
-  section#home {
-    background-color: transparent;
-  }
-
-  /* Selection color */
   ::selection {
     background-color: hsl(var(--accent));
     color: hsl(var(--accent-foreground));
@@ -93,10 +39,6 @@
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-
   /* SVG noise texture — used by .grain and directly where z-index matters (Hero) */
   .bg-noise {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
@@ -117,15 +59,7 @@
     opacity: 0.04;
   }
 
-  /* Red glow utilities */
-  .glow-red {
-    box-shadow: 0 0 20px rgba(220, 38, 38, 0.3), 0 0 40px rgba(220, 38, 38, 0.1);
-  }
-  .glow-red-sm {
-    box-shadow: 0 0 10px rgba(220, 38, 38, 0.2);
-  }
-
-  /* Floating particle */
+  /* Floating particle (Hero) — set --duration and --delay inline */
   .particle {
     position: absolute;
     width: 3px;

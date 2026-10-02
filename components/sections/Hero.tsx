@@ -18,7 +18,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative h-screen flex items-center justify-center overflow-hidden bg-black/80"
+      className="relative h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Bottom gradient fade — blends into next section */}
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-transparent to-black/80" />
