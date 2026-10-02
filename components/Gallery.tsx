@@ -38,14 +38,13 @@ export default function Gallery() {
           className="flex items-end gap-6"
         >
           <span
-            className="text-[7rem] md:text-[10rem] font-black leading-none select-none font-[family-name:var(--font-montserrat)]"
-            style={{ color: "hsl(0 72.2% 50.6% / 0.12)" }}
+            className="text-[7rem] md:text-[10rem] font-black leading-none select-none font-display text-accent/[0.12]"
           >
             04
           </span>
           <div className="pb-4">
             <p className="text-accent uppercase tracking-[0.35em] text-xs font-semibold mb-1">Kenangan Kami</p>
-            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-widest font-[family-name:var(--font-montserrat)] leading-none">
+            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-widest font-display leading-none">
               Galeri <span className="text-accent">Foto</span>
             </h2>
           </div>
@@ -79,7 +78,7 @@ export default function Gallery() {
                 0{index + 1}
               </span>
               {/* Alt label on hover */}
-              <span className="absolute bottom-3 left-3 text-[10px] uppercase tracking-[0.25em] text-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-[family-name:var(--font-montserrat)]">
+              <span className="absolute bottom-3 left-3 text-[10px] uppercase tracking-[0.25em] text-white/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-display">
                 {photo.alt}
               </span>
             </motion.div>

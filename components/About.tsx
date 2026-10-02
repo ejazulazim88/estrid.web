@@ -47,8 +47,7 @@ export default function About() {
             className="flex items-end gap-6"
           >
             <span
-              className="text-[7rem] md:text-[10rem] font-black leading-none select-none font-[family-name:var(--font-montserrat)]"
-              style={{ color: 'hsl(0 72.2% 50.6% / 0.12)' }}
+              className="text-[7rem] md:text-[10rem] font-black leading-none select-none font-display text-accent/[0.12]"
             >
               01
             </span>
@@ -56,7 +55,7 @@ export default function About() {
               <p className="text-accent uppercase tracking-[0.35em] text-xs font-semibold mb-1">
                 Siapa Kami
               </p>
-              <h2 className="text-4xl md:text-6xl font-black uppercase tracking-widest font-[family-name:var(--font-montserrat)] leading-none">
+              <h2 className="text-4xl md:text-6xl font-black uppercase tracking-widest font-display leading-none">
                 Tentang <span className="text-accent">ESTRID</span>
               </h2>
             </div>
@@ -93,7 +92,7 @@ export default function About() {
 
               {/* Bottom label tag */}
               <div className="absolute bottom-0 left-0 z-20 bg-accent px-3 py-1">
-                <p className="text-white text-[9px] font-black uppercase tracking-[0.35em] font-[family-name:var(--font-montserrat)]">
+                <p className="text-white text-[9px] font-black uppercase tracking-[0.35em] font-display">
                   ESTRID — KL
                 </p>
               </div>
@@ -149,7 +148,7 @@ export default function About() {
                   `}
                 >
                   <div
-                    className="text-4xl md:text-5xl font-black leading-none font-[family-name:var(--font-montserrat)] mb-2 transition-colors duration-300 group-hover:text-accent"
+                    className="text-4xl md:text-5xl font-black leading-none font-display mb-2 transition-colors duration-300 group-hover:text-accent"
                     style={{ color: 'hsl(0 72.2% 50.6%)' }}
                   >
                     {stat.value}
@@ -215,13 +214,10 @@ export default function About() {
 
                   {/* Name + role overlay */}
                   <div className="absolute bottom-0 left-0 right-0 z-20 p-3">
-                    <p className="text-white text-xs font-black uppercase tracking-widest font-[family-name:var(--font-montserrat)] leading-none mb-1">
+                    <p className="text-white text-xs font-black uppercase tracking-widest font-display leading-none mb-1">
                       {member.name}
                     </p>
-                    <p
-                      className="text-[9px] uppercase tracking-[0.3em] font-semibold"
-                      style={{ color: 'hsl(0 72.2% 50.6%)' }}
-                    >
+                    <p className="text-[9px] uppercase tracking-[0.3em] font-semibold text-accent">
                       {member.role}
                     </p>
                   </div>

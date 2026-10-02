@@ -33,8 +33,7 @@ export default function Footer() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-[4rem] md:text-[6rem] font-black tracking-widest font-[family-name:var(--font-montserrat)] leading-none mb-4"
-              style={{ color: "hsl(0 72.2% 50.6% / 0.25)" }}
+              className="text-[4rem] md:text-[6rem] font-black tracking-widest font-display leading-none mb-4 text-accent/25"
             >
               ESTRID
             </motion.h2>
@@ -50,7 +49,7 @@ export default function Footer() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-white/40 hover:text-accent uppercase tracking-widest text-xs transition-colors py-1 font-[family-name:var(--font-montserrat)]"
+                className="text-white/40 hover:text-accent uppercase tracking-widest text-xs transition-colors py-1 font-display"
                 onClick={(e) => {
                   e.preventDefault();
                   document.querySelector(link.href)?.scrollIntoView({ behavior: "smooth" });

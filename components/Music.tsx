@@ -28,14 +28,13 @@ export default function Music() {
           className="flex items-end gap-6"
         >
           <span
-            className="text-[7rem] md:text-[10rem] font-black leading-none select-none font-[family-name:var(--font-montserrat)]"
-            style={{ color: 'hsl(0 72.2% 50.6% / 0.12)' }}
+            className="text-[7rem] md:text-[10rem] font-black leading-none select-none font-display text-accent/[0.12]"
           >
             02
           </span>
           <div className="pb-4">
             <p className="text-accent uppercase tracking-[0.35em] text-xs font-semibold mb-1">Dengar Kami</p>
-            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-widest font-[family-name:var(--font-montserrat)] leading-none">
+            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-widest font-display leading-none">
               Muzik <span className="text-accent">Kami</span>
             </h2>
           </div>
@@ -82,7 +81,7 @@ export default function Music() {
             <div>
               {/* Oversized title */}
               <h3
-                className="font-black uppercase font-[family-name:var(--font-montserrat)] leading-[0.9] mb-6"
+                className="font-black uppercase font-display leading-[0.9] mb-6"
                 style={{ fontSize: 'clamp(3.5rem, 7vw, 6rem)', letterSpacing: '-0.02em' }}
               >
                 Narsi
@@ -133,7 +132,7 @@ export default function Music() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <h3 className="text-xl md:text-2xl font-black uppercase tracking-widest font-[family-name:var(--font-montserrat)] mb-6 flex items-center gap-4">
+          <h3 className="text-xl md:text-2xl font-black uppercase tracking-widest font-display mb-6 flex items-center gap-4">
             <span className="text-accent/40 text-sm font-normal tracking-widest">MV</span>
             Narsistik
           </h3>
@@ -182,7 +181,7 @@ export default function Music() {
                 className="flex items-center gap-2 pr-8 mr-8 border-r border-white/10 last:border-r-0 last:mr-0 last:pr-0 text-white/50 hover:text-accent transition-colors duration-300 group"
               >
                 <platform.icon className="w-4 h-4 shrink-0" />
-                <span className="uppercase tracking-widest text-xs font-semibold font-[family-name:var(--font-montserrat)]">
+                <span className="uppercase tracking-widest text-xs font-semibold font-display">
                   {platform.name}
                 </span>
                 <span className="text-accent opacity-0 group-hover:opacity-100 transition-opacity text-xs ml-1">↗</span>

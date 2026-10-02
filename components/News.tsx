@@ -54,14 +54,13 @@ export default function News() {
             className="flex items-end gap-6"
           >
             <span
-              className="text-[7rem] md:text-[10rem] font-black leading-none select-none font-[family-name:var(--font-montserrat)]"
-              style={{ color: "hsl(0 72.2% 50.6% / 0.12)" }}
+              className="text-[7rem] md:text-[10rem] font-black leading-none select-none font-display text-accent/[0.12]"
             >
               05
             </span>
             <div className="pb-4">
               <p className="text-accent uppercase tracking-[0.35em] text-xs font-semibold mb-1">Terkini</p>
-              <h2 className="text-4xl md:text-6xl font-black uppercase tracking-widest font-[family-name:var(--font-montserrat)] leading-none">
+              <h2 className="text-4xl md:text-6xl font-black uppercase tracking-widest font-display leading-none">
                 Berita <span className="text-accent">Kami</span>
               </h2>
             </div>
@@ -97,7 +96,7 @@ export default function News() {
             <time className="block text-accent/60 text-xs uppercase tracking-[0.3em] mb-4 font-mono">
               {featured.date}
             </time>
-            <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tight font-[family-name:var(--font-montserrat)] mb-5 hover:text-accent transition-colors cursor-default leading-tight">
+            <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tight font-display mb-5 hover:text-accent transition-colors cursor-default leading-tight">
               {featured.title}
             </h3>
             <p className="text-white/50 text-sm leading-relaxed max-w-2xl mb-6">
@@ -121,7 +120,7 @@ export default function News() {
           transition={{ duration: 0.5, delay: 0.35 }}
           className="flex items-center gap-6 mb-8"
         >
-          <span className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-[family-name:var(--font-montserrat)] shrink-0">
+          <span className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-display shrink-0">
             Berita Lain
           </span>
           <div className="flex-1 h-px bg-white/10" />
@@ -146,7 +145,7 @@ export default function News() {
                 </time>
                 {/* Title */}
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-bold uppercase tracking-wider text-sm font-[family-name:var(--font-montserrat)] group-hover:text-accent transition-colors leading-snug">
+                  <h3 className="font-bold uppercase tracking-wider text-sm font-display group-hover:text-accent transition-colors leading-snug">
                     {item.title}
                   </h3>
                 </div>

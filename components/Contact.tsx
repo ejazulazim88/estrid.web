@@ -67,14 +67,13 @@ export default function Contact() {
             className="flex items-end gap-6"
           >
             <span
-              className="text-[7rem] md:text-[10rem] font-black leading-none select-none font-[family-name:var(--font-montserrat)]"
-              style={{ color: "hsl(0 72.2% 50.6% / 0.12)" }}
+              className="text-[7rem] md:text-[10rem] font-black leading-none select-none font-display text-accent/[0.12]"
             >
               06
             </span>
             <div className="pb-4">
               <p className="text-accent uppercase tracking-[0.35em] text-xs font-semibold mb-1">Berhubung</p>
-              <h2 className="text-4xl md:text-6xl font-black uppercase tracking-widest font-[family-name:var(--font-montserrat)] leading-none">
+              <h2 className="text-4xl md:text-6xl font-black uppercase tracking-widest font-display leading-none">
                 Hubungi <span className="text-accent">Kami</span>
               </h2>
             </div>
@@ -208,7 +207,7 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-accent text-white py-4 uppercase tracking-widest text-xs font-bold font-[family-name:var(--font-montserrat)] flex items-center justify-center gap-3 hover:bg-accent/80 transition-colors disabled:opacity-50"
+                className="w-full bg-accent text-white py-4 uppercase tracking-widest text-xs font-bold font-display flex items-center justify-center gap-3 hover:bg-accent/80 transition-colors disabled:opacity-50"
               >
                 <span>{isSubmitting ? "Menghantar..." : "Hantar Mesej"}</span>
                 {!isSubmitting && <span className="text-base leading-none">→</span>}

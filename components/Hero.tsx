@@ -87,10 +87,9 @@ export default function Hero() {
         aria-hidden="true"
       >
         <motion.span
-          className="font-black uppercase leading-none whitespace-nowrap"
+          className="font-black uppercase leading-none whitespace-nowrap text-accent"
           style={{
             fontSize: 'clamp(6rem, 22vw, 26rem)',
-            color: 'hsl(0 72.2% 50.6%)',
             opacity: 0.05,
             letterSpacing: '-0.02em',
           }}
@@ -180,8 +179,7 @@ export default function Hero() {
             <span className="relative z-10">Tarikh Persembahan</span>
             {/* Fill sweep on hover */}
             <span
-              className="absolute inset-0 translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-out"
-              style={{ backgroundColor: 'hsl(0 72.2% 50.6%)' }}
+              className="absolute inset-0 bg-accent translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300 ease-out"
             />
           </MagneticButton>
         </motion.div>

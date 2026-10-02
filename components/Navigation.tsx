@@ -148,10 +148,7 @@ export default function Navigation() {
                     onClick={(e) => { e.preventDefault(); scrollToSection(item.href); }}
                   >
                     {/* Numeric index prefix */}
-                    <span
-                      className="text-sm font-mono tracking-widest tabular-nums"
-                      style={{ color: 'hsl(0 72.2% 50.6%)', opacity: 0.7 }}
-                    >
+                    <span className="text-sm font-mono tracking-widest tabular-nums text-accent opacity-70">
                       {indexLabel}
                     </span>
                     <span className="text-white/30 text-base font-light">—</span>

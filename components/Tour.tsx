@@ -44,8 +44,7 @@ export default function Tour() {
             className="flex items-end gap-6"
           >
             <span
-              className="text-[5rem] md:text-[10rem] font-black leading-none select-none font-[family-name:var(--font-montserrat)] shrink-0"
-              style={{ color: 'hsl(0 72.2% 50.6% / 0.12)' }}
+              className="text-[5rem] md:text-[10rem] font-black leading-none select-none font-display shrink-0 text-accent/[0.12]"
             >
               03
             </span>
@@ -53,7 +52,7 @@ export default function Tour() {
               <p className="text-accent uppercase tracking-[0.35em] text-xs font-semibold mb-1">
                 Jumpa Kami
               </p>
-              <h2 className="text-2xl tracking-wide md:text-6xl md:tracking-widest font-black uppercase font-[family-name:var(--font-montserrat)] leading-tight">
+              <h2 className="text-2xl tracking-wide md:text-6xl md:tracking-widest font-black uppercase font-display leading-tight">
                 Tarikh <span className="text-accent">Persembahan</span>
               </h2>
             </div>
@@ -70,8 +69,7 @@ export default function Tour() {
             className="flex flex-col items-center justify-center py-24 gap-4"
           >
             <span
-              className="text-[8rem] font-black leading-none select-none font-[family-name:var(--font-montserrat)]"
-              style={{ color: 'hsl(0 72.2% 50.6% / 0.10)' }}
+              className="text-[8rem] font-black leading-none select-none font-display text-accent/10"
             >
               —
             </span>
@@ -101,7 +99,7 @@ export default function Tour() {
                   {/* Date — LEFT */}
                   <div className="flex-shrink-0 md:w-56">
                     <p
-                      className="text-3xl md:text-5xl font-black leading-none font-[family-name:var(--font-montserrat)] transition-colors duration-300 group-hover:text-accent"
+                      className="text-3xl md:text-5xl font-black leading-none font-display transition-colors duration-300 group-hover:text-accent"
                       style={{ color: 'hsl(0 72.2% 50.6%)' }}
                     >
                       {show.date}
@@ -118,7 +116,7 @@ export default function Tour() {
                         {show.title}
                       </p>
                     )}
-                    <p className="text-lg font-bold uppercase tracking-wider font-[family-name:var(--font-montserrat)] leading-tight">
+                    <p className="text-lg font-bold uppercase tracking-wider font-display leading-tight">
                       {show.venue}
                     </p>
                     <div className="flex items-center gap-2 text-white/50">
@@ -134,12 +132,12 @@ export default function Tour() {
                         href={show.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 border border-accent/60 px-5 py-2.5 text-accent uppercase tracking-widest text-xs font-black font-[family-name:var(--font-montserrat)] hover:bg-accent hover:text-white transition-all duration-200"
+                        className="flex items-center gap-2 border border-accent/60 px-5 py-2.5 text-accent uppercase tracking-widest text-xs font-black font-display hover:bg-accent hover:text-white transition-all duration-200"
                       >
                         Lihat Butiran ↗
                       </a>
                     ) : (
-                      <span className="border border-white/10 px-4 py-2 text-white/30 uppercase tracking-widest text-xs font-semibold font-[family-name:var(--font-montserrat)]">
+                      <span className="border border-white/10 px-4 py-2 text-white/30 uppercase tracking-widest text-xs font-semibold font-display">
                         Akan Datang
                       </span>
                     )}
