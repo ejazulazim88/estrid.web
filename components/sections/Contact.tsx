@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import SectionHeader from "@/components/ui/SectionHeader";
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import { SITE, SOCIAL_LINKS } from "@/content/site";
 import { UI } from "@/content/ui";
 import { useLang, type Localized } from "@/lib/i18n";
@@ -85,7 +86,27 @@ export default function Contact() {
           >
             <p className="text-accent uppercase tracking-[0.35em] text-[10px] font-semibold mb-8">{t(UI.contact.info)}</p>
 
-            {/* WHATSAPP_BUTTONS — added in Task 6 */}
+            {/* WhatsApp — primary contact + merch orders */}
+            <div className="grid gap-3 mb-10">
+              <a
+                href={SITE.whatsapp.contact}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-3 bg-accent text-white py-4 uppercase tracking-widest text-xs font-bold font-display hover:bg-accent/80 transition-colors"
+              >
+                <WhatsAppIcon className="w-4 h-4 shrink-0" />
+                {t(UI.contact.whatsappUs)}
+              </a>
+              <a
+                href={SITE.whatsapp.merch}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-3 border border-accent/60 text-accent py-4 uppercase tracking-widest text-xs font-bold font-display hover:bg-accent hover:text-white transition-colors"
+              >
+                <WhatsAppIcon className="w-4 h-4 shrink-0" />
+                {t(UI.contact.orderMerch)}
+              </a>
+            </div>
 
             <div className="mb-10">
               {contactInfo.map(({ label, value, href }) => (
