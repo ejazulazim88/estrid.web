@@ -76,8 +76,10 @@ export default function Navigation() {
                   <motion.a
                     key={item.id}
                     href={`#${item.id}`}
-                    className="relative text-sm uppercase tracking-widest font-medium transition-colors duration-300 hover:text-accent pt-3"
-                    style={{ color: isActive ? "hsl(var(--accent))" : "hsl(var(--foreground))" }}
+                    className={cn(
+                      "relative text-sm uppercase tracking-widest font-medium transition-colors duration-300 pt-3",
+                      isActive ? "text-accent" : "text-foreground hover:text-accent"
+                    )}
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.08 }}
@@ -128,8 +130,10 @@ export default function Navigation() {
                   <motion.a
                     key={item.id}
                     href={`#${item.id}`}
-                    className="group flex items-baseline gap-3 text-3xl font-bold uppercase tracking-widest transition-colors duration-300 hover:text-accent"
-                    style={{ color: isActive ? "hsl(var(--accent))" : "hsl(var(--foreground))" }}
+                    className={cn(
+                      "group flex items-baseline gap-3 text-3xl font-bold uppercase tracking-widest transition-colors duration-300",
+                      isActive ? "text-accent" : "text-foreground hover:text-accent"
+                    )}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.1 + index * 0.07 }}

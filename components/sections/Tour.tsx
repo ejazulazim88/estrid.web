@@ -83,8 +83,7 @@ function ShowRow({ show, index, inView }: { show: Show; index: number; inView: b
         {/* Date — LEFT */}
         <div className="flex-shrink-0 md:w-56">
           <p
-            className="text-3xl md:text-5xl font-black leading-none font-display transition-colors duration-300 group-hover:text-accent"
-            style={{ color: 'hsl(0 72.2% 50.6%)' }}
+            className="text-3xl md:text-5xl font-black leading-none font-display text-accent"
           >
             {show.date}
           </p>

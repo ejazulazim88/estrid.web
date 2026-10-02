@@ -95,8 +95,7 @@ export default function About() {
                   )}
                 >
                   <div
-                    className="text-4xl md:text-5xl font-black leading-none font-display mb-2 transition-colors duration-300 group-hover:text-accent"
-                    style={{ color: 'hsl(0 72.2% 50.6%)' }}
+                    className="text-4xl md:text-5xl font-black leading-none font-display mb-2 text-accent"
                   >
                     {stat.value}
                   </div>

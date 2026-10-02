@@ -151,7 +151,6 @@ export default function Music() {
                 href={platform.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ color: 'hsl(0 72.2% 50.6%)' }}
                 className="flex items-center gap-2 pr-8 mr-8 border-r border-white/10 last:border-r-0 last:mr-0 last:pr-0 text-white/50 hover:text-accent transition-colors duration-300 group"
               >
                 <platform.icon className="w-4 h-4 shrink-0" />
