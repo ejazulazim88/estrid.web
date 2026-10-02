@@ -77,11 +77,14 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
-          <img
-            src={"/images/estrid-logo.png"}
-            alt="Estrid"
-            className="h-72 sm:h-64 md:h-80 lg:h-[28rem] w-auto object-contain"
-          />
+          {/* The logo is the page's only h1 — its alt text is the heading */}
+          <h1>
+            <img
+              src={"/images/estrid-logo.png"}
+              alt="ESTRID — Band Rock Malaysia"
+              className="h-72 sm:h-64 md:h-80 lg:h-[28rem] w-auto object-contain"
+            />
+          </h1>
         </motion.div>
 
         {/* Tagline — word-by-word blur reveal */}
