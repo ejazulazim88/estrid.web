@@ -2,45 +2,26 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Music2, Youtube, Disc3 } from "lucide-react";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
-
-const platforms = [
-  { name: "Spotify", icon: Disc3, url: "https://open.spotify.com/artist/25ABCTlTAidsKrupJUfnRu?si=jw60k9sgTRiXx6xRIoKkfQ" },
-  { name: "Apple Music", icon: Music2, url: "https://music.apple.com/my/artist/estrid/1831023443" },
-  { name: "YouTube", icon: Youtube, url: "https://www.youtube.com/@EstridBand" },
-];
+import SectionHeader from "@/components/ui/SectionHeader";
+import CornerBrackets from "@/components/ui/CornerBrackets";
+import LabelDivider from "@/components/ui/LabelDivider";
+import { FEATURED_RELEASE, MUSIC_VIDEO, PLATFORMS } from "@/content/music";
 
 export default function Music() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [titleStart, titleEnd] = FEATURED_RELEASE.title;
 
   return (
     <section id="music" className="py-24 md:py-32 bg-black/10 overflow-hidden" ref={ref}>
-
-      {/* ── Section Header ── */}
-      <div className="container mx-auto px-4 mb-16">
-        <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="flex items-end gap-6"
-        >
-          <span
-            className="text-[7rem] md:text-[10rem] font-black leading-none select-none font-display text-accent/[0.12]"
-          >
-            02
-          </span>
-          <div className="pb-4">
-            <p className="text-accent uppercase tracking-[0.35em] text-xs font-semibold mb-1">Dengar Kami</p>
-            <h2 className="text-4xl md:text-6xl font-black uppercase tracking-widest font-display leading-none">
-              Muzik <span className="text-accent">Kami</span>
-            </h2>
-          </div>
-          <div className="flex-1 h-px bg-white/10 mb-6 hidden md:block" />
-        </motion.div>
-      </div>
+      <SectionHeader
+        number="02"
+        eyebrow="Dengar Kami"
+        title="Muzik"
+        accent="Kami"
+        inView={isInView}
+        className="container mx-auto px-4"
+      />
 
       {/* ── Featured Release ── */}
       <div className="container mx-auto px-4 mb-20">
@@ -62,8 +43,8 @@ export default function Music() {
           {/* Artwork — sharp, no rounding */}
           <div className="relative aspect-square md:aspect-auto overflow-hidden">
             <img
-              src={`${basePath}/images/narsistik artwork.png`}
-              alt="Narsistik"
+              src={FEATURED_RELEASE.artwork}
+              alt={titleStart + titleEnd}
               className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-[1.03]"
             />
             {/* Red edge bleed */}
@@ -72,7 +53,7 @@ export default function Music() {
 
             {/* Floating label on artwork */}
             <div className="absolute top-4 left-4 border border-white/20 px-3 py-1 backdrop-blur-sm bg-black/40">
-              <p className="text-white/70 uppercase tracking-[0.25em] text-[9px] font-semibold">Single · 2025</p>
+              <p className="text-white/70 uppercase tracking-[0.25em] text-[9px] font-semibold">{FEATURED_RELEASE.label}</p>
             </div>
           </div>
 
@@ -84,11 +65,11 @@ export default function Music() {
                 className="font-black uppercase font-display leading-[0.9] mb-6"
                 style={{ fontSize: 'clamp(3.5rem, 7vw, 6rem)', letterSpacing: '-0.02em' }}
               >
-                Narsi
-                <span className="text-accent">stik</span>
+                {titleStart}
+                <span className="text-accent">{titleEnd}</span>
               </h3>
               <p className="text-white/50 leading-relaxed text-sm max-w-sm">
-                Single sulung Estrid — mentah, jujur, dan tidak berkompromi. Tersedia di semua platform muzik.
+                {FEATURED_RELEASE.description}
               </p>
             </div>
 
@@ -97,7 +78,7 @@ export default function Music() {
               <p className="text-white/30 uppercase tracking-[0.3em] text-[9px] mb-3">Dengar sekarang</p>
               <iframe
                 style={{ borderRadius: '8px', display: 'block' }}
-                src="https://open.spotify.com/embed/track/10qy02MuJQsxXM4sAOwo1A?utm_source=generator&theme=0"
+                src={FEATURED_RELEASE.spotifyEmbed}
                 width="100%"
                 height="152"
                 frameBorder="0"
@@ -112,16 +93,13 @@ export default function Music() {
 
       {/* ── Divider ── */}
       <div className="container mx-auto px-4 mb-16">
-        <motion.div
+        <LabelDivider
+          label="Video Muzik Rasmi"
+          className="origin-left"
           initial={{ scaleX: 0 }}
           animate={isInView ? { scaleX: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="flex items-center gap-6 origin-left"
-        >
-          <div className="w-8 h-px bg-accent" />
-          <p className="text-white/30 uppercase tracking-[0.4em] text-[9px] font-semibold whitespace-nowrap">Video Muzik Rasmi</p>
-          <div className="flex-1 h-px bg-white/10" />
-        </motion.div>
+        />
       </div>
 
       {/* ── Music Video ── */}
@@ -134,25 +112,21 @@ export default function Music() {
         >
           <h3 className="text-xl md:text-2xl font-black uppercase tracking-widest font-display mb-6 flex items-center gap-4">
             <span className="text-accent/40 text-sm font-normal tracking-widest">MV</span>
-            Narsistik
+            {MUSIC_VIDEO.title}
           </h3>
 
-          {/* Red corner bracket frame */}
           <div className="relative">
-            {/* Corner brackets */}
-            <span className="absolute -top-2 -left-2 w-6 h-6 border-t-2 border-l-2 border-accent z-10" />
-            <span className="absolute -top-2 -right-2 w-6 h-6 border-t-2 border-r-2 border-accent z-10" />
-            <span className="absolute -bottom-2 -left-2 w-6 h-6 border-b-2 border-l-2 border-accent z-10" />
-            <span className="absolute -bottom-2 -right-2 w-6 h-6 border-b-2 border-r-2 border-accent z-10" />
+            <CornerBrackets />
 
+            {/* 16:9 responsive embed */}
             <div
               className="relative w-full overflow-hidden border border-white/10"
               style={{ paddingBottom: '56.25%' }}
             >
               <iframe
                 className="absolute top-0 left-0 w-full h-full"
-                src="https://www.youtube.com/embed/Pw14pde3heQ"
-                title="Narsistik - Video Muzik Rasmi"
+                src={`https://www.youtube.com/embed/${MUSIC_VIDEO.youtubeId}`}
+                title={`${MUSIC_VIDEO.title} - Video Muzik Rasmi`}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
@@ -171,7 +145,7 @@ export default function Music() {
         >
           <p className="text-white/30 uppercase tracking-[0.4em] text-[9px] font-semibold mb-6">Tersedia Di</p>
           <div className="flex flex-wrap items-center gap-0">
-            {platforms.map((platform, index) => (
+            {PLATFORMS.map((platform) => (
               <motion.a
                 key={platform.name}
                 href={platform.url}
