@@ -1,32 +1,18 @@
-"use client";
-
-import dynamic from "next/dynamic";
-import Navigation from "@/components/Navigation";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Music from "@/components/Music";
-import Tour from "@/components/Tour";
-import Gallery from "@/components/Gallery";
-import News from "@/components/News";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
-
-const Plasma = dynamic(() => import("@/components/Plasma"), { ssr: false });
+import PlasmaBackground from "@/components/background/PlasmaBackground";
+import Navigation from "@/components/layout/Navigation";
+import Footer from "@/components/layout/Footer";
+import Hero from "@/components/sections/Hero";
+import About from "@/components/sections/About";
+import Music from "@/components/sections/Music";
+import Tour from "@/components/sections/Tour";
+import Gallery from "@/components/sections/Gallery";
+import News from "@/components/sections/News";
+import Contact from "@/components/sections/Contact";
 
 export default function Home() {
   return (
     <>
-      {/* Fixed plasma — lives behind the entire page */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <Plasma
-          color="#DC2626"
-          speed={0.5}
-          direction="forward"
-          scale={1.1}
-          opacity={0.85}
-          mouseInteractive={false}
-        />
-      </div>
+      <PlasmaBackground />
 
       <main className="relative z-10 min-h-screen">
         <Navigation />

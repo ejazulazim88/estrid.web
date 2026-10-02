@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
-import './Plasma.css';
 
 const hexToRgb = (hex: string): [number, number, number] => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -105,7 +104,6 @@ export const Plasma = ({
   mouseInteractive = true,
 }: PlasmaProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const mousePos = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -161,11 +159,9 @@ export const Plasma = ({
     const handleMouseMove = (e: MouseEvent) => {
       if (!mouseInteractive || !containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
-      mousePos.current.x = e.clientX - rect.left;
-      mousePos.current.y = e.clientY - rect.top;
       const mouseUniform = program.uniforms.uMouse.value as Float32Array;
-      mouseUniform[0] = mousePos.current.x;
-      mouseUniform[1] = mousePos.current.y;
+      mouseUniform[0] = e.clientX - rect.left;
+      mouseUniform[1] = e.clientY - rect.top;
     };
 
     if (mouseInteractive) {
@@ -235,7 +231,12 @@ export const Plasma = ({
     };
   }, [color, speed, direction, scale, opacity, mouseInteractive]);
 
-  return <div ref={containerRef} className="plasma-container" />;
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full h-full overflow-hidden will-change-transform [transform:translateZ(0)]"
+    />
+  );
 };
 
 export default Plasma;
