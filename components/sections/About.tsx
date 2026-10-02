@@ -52,6 +52,8 @@ export default function About() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10" />
                 <img
                   src={BAND_PHOTO}
+                  loading="lazy"
+                  decoding="async"
                   alt="ESTRID Band"
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
@@ -143,6 +145,8 @@ export default function About() {
                   {member.image ? (
                     <img
                       src={member.image}
+                      loading="lazy"
+                      decoding="async"
                       alt={member.name}
                       className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
                     />

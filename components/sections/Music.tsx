@@ -47,6 +47,8 @@ export default function Music() {
           <div className="relative aspect-square md:aspect-auto overflow-hidden">
             <img
               src={FEATURED_RELEASE.artwork}
+              loading="lazy"
+              decoding="async"
               alt={titleStart + titleEnd}
               className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-[1.03]"
             />
@@ -157,6 +159,8 @@ export default function Music() {
                 >
                   <img
                     src={release.artwork}
+                    loading="lazy"
+                    decoding="async"
                     alt={release.title}
                     className="w-16 h-16 md:w-20 md:h-20 object-cover grayscale group-hover:grayscale-0 transition-all duration-500 shrink-0"
                   />

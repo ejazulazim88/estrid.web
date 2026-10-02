@@ -41,6 +41,8 @@ export default function News() {
             <div className="relative aspect-video overflow-hidden">
               <img
                 src={featured.image}
+                loading="lazy"
+                decoding="async"
                 alt=""
                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
               />
