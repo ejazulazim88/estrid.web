@@ -18,7 +18,8 @@ export default function Footer() {
           <div>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-[4rem] md:text-[6rem] font-black tracking-widest font-display leading-none mb-4 text-accent/25"
             >
