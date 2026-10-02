@@ -1,5 +1,6 @@
 import type { Localized } from "@/lib/i18n";
 import { asset } from "@/lib/utils";
+import { NEW_RELEASE } from "@/content/music";
 
 export type NewsItem = {
   title: Localized;
@@ -24,7 +25,7 @@ export const NEWS: NewsItem[] = [
       en: "'Akhir.' is out now on all major music platforms. Watch the official music video now.",
     },
     image: asset("/images/akhir-artwork-landscape.jpg"),
-    link: "https://youtu.be/pLnVxlmiMF4",
+    link: NEW_RELEASE.youtubeUrl,
   },
   {
     title: {
