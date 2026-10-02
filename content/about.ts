@@ -5,15 +5,15 @@ import { asset } from "@/lib/utils";
 export const STORY: Localized[] = [
   {
     ms: "Estrid lahir dari keberanian untuk melawan kebiasaan—menyambar perhatian melalui pentas-pentas ganjil, termasuk sebuah toilet gig yang kemudian menjadi legenda. Dari situ, mereka menjelma sebagai nadi tetap scene muzik tempatan, menggegarkan malam demi malam melalui gig mingguan yang digerakkan oleh kolektif indie.",
-    en: "Estrid was born from the nerve to break convention—grabbing attention on unlikely stages, including a toilet gig that went on to become legend. From there they became a steady pulse of the local music scene, shaking night after night at weekly gigs run by indie collectives.",
+    en: "Estrid was born from the nerve to defy convention—grabbing attention on unlikely stages, including a toilet gig that went on to become legend. From there they became a steady heartbeat of the local music scene, rocking night after night at weekly gigs run by indie collectives.",
   },
   {
     ms: "Single sulung mereka, “Narsistik,” membuka pintu kepada era baharu yang lebih liar, lebih jujur—dan ini baru permulaannya. Didorong oleh api semangat, tujuan yang jelas, dan bisikan mitologi Norse, Estrid bukan sekadar memainkan muzik. Mereka membina perjalanan cerita dan garapan emosi dalam setiap lagu.",
-    en: "Their debut single, “Narsistik,” opened the door to a wilder, more honest era—and this is only the beginning. Driven by fire, clear purpose and whispers of Norse mythology, Estrid don’t just play music. They build a journey of story and emotion into every song.",
+    en: "Their debut single, “Narsistik,” opened the door to a wilder, more honest era—and this is only the beginning. Fuelled by fire, clear purpose and whispers of Norse mythology, Estrid don’t just play music. They weave story and emotion into every song.",
   },
   {
     ms: "Berpangkalan di Kuala Lumpur, Estrid ialah kumpulan alternative rock yang menyalurkan tenaga dan emosi ‘rare’ ke setiap pentas yang mereka pijak. Muzik mereka menghentam dengan grit melodik, sarat dengan luka, amarah, dan keindahan.",
-    en: "Based in Kuala Lumpur, Estrid is an alternative rock band channelling raw energy and emotion into every stage they step on. Their music hits with melodic grit—heavy with wounds, rage and beauty.",
+    en: "Based in Kuala Lumpur, Estrid are an alternative rock band channelling a ‘rare’ kind of energy and emotion into every stage they step on. Their music hits with melodic grit—heavy with wounds, rage and beauty.",
   },
 ];
 

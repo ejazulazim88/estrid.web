@@ -41,7 +41,7 @@ export default function News() {
             <div className="relative aspect-video overflow-hidden">
               <img
                 src={featured.image}
-                alt={t(featured.title)}
+                alt=""
                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -89,7 +89,7 @@ export default function News() {
             <div>
               {rest.map((item, index) => (
                 <motion.article
-                  key={item.date}
+                  key={item.link}
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.45 + index * 0.1 }}
@@ -100,7 +100,7 @@ export default function News() {
                     rel="noopener noreferrer"
                     className="group border-b border-white/10 py-5 flex gap-6 items-start hover:bg-white/[0.02] transition-colors px-2"
                   >
-                    <time dateTime={item.date} className="text-accent/40 text-xs font-mono w-32 shrink-0 mt-1 uppercase tracking-wider">
+                    <time dateTime={item.date} className="text-accent/40 text-xs font-mono w-36 shrink-0 mt-1 uppercase tracking-wider">
                       {formatDate(item.date)}
                     </time>
                     <div className="flex-1 min-w-0">
