@@ -18,18 +18,6 @@ Deployment status per commit is visible on GitHub (commit checks → "Vercel") o
 
 ---
 
-## Environment Variables
-
-Set in **Vercel → estrid-web → Settings → Environment Variables** (Production):
-
-| Variable | Value |
-|---|---|
-| `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` | Web3Forms key for the contact form |
-
-`NEXT_PUBLIC_*` variables are baked in at **build time** — after adding or changing one, **redeploy** (Deployments → latest → Redeploy) or the live site keeps the old value.
-
----
-
 ## Local Build Test
 
 ```bash

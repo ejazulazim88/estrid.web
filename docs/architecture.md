@@ -10,7 +10,6 @@
 | Animation | Framer Motion v11 |
 | Icons | Lucide React |
 | WebGL | OGL (Plasma background) |
-| Forms | Web3Forms API |
 | Hosting | Vercel (static export, auto-deploys `main`) |
 
 ## Project Structure
@@ -115,11 +114,5 @@ Alternating `bg-black/80` (opaque glass) and `bg-black/10` (near-transparent) le
 - The static HTML is always BM; a stored choice (`localStorage["estrid-lang"]`) is applied after mount. SEO metadata is BM-only.
 - Anything that depends on the browser (stored language, today's date for past shows, the release pop-up) is read in `useEffect`, so the static HTML and the first client render always match.
 - The BM | EN toggle sits in the desktop nav from 1024px (`lg`); below that it is at the bottom of the hamburger menu.
-
-## Environment Variables
-
-| Variable | Purpose |
-|---|---|
-| `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` | Web3Forms API key for contact form email delivery. Set in Vercel → Settings → Environment Variables (Production); redeploy after changing it. |
 
 Images in `public/images/` are referenced by absolute path (`"/images/…"`); the site is served from the domain root.
