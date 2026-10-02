@@ -5,8 +5,11 @@ import { useRef } from "react";
 import SectionHeader from "@/components/ui/SectionHeader";
 import CornerBrackets from "@/components/ui/CornerBrackets";
 import { NEWS } from "@/content/news";
+import { UI } from "@/content/ui";
+import { useLang } from "@/lib/i18n";
 
 export default function News() {
+  const { t, formatDate } = useLang();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [featured, ...rest] = NEWS;
@@ -18,7 +21,13 @@ export default function News() {
       ref={ref}
     >
       <div className="container mx-auto px-4 relative z-10">
-        <SectionHeader number="05" eyebrow="Terkini" title="Berita" accent="Kami" inView={isInView} />
+        <SectionHeader
+          number="05"
+          eyebrow={t(UI.news.header.eyebrow)}
+          title={t(UI.news.header.title)}
+          accent={t(UI.news.header.accent)}
+          inView={isInView}
+        />
 
         {/* Featured Story */}
         <motion.article
@@ -32,7 +41,7 @@ export default function News() {
             <div className="relative aspect-video overflow-hidden">
               <img
                 src={featured.image}
-                alt={featured.title}
+                alt={t(featured.title)}
                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -40,14 +49,14 @@ export default function News() {
           </div>
 
           <div className="max-w-3xl">
-            <time className="block text-accent/60 text-xs uppercase tracking-[0.3em] mb-4 font-mono">
-              {featured.date}
+            <time dateTime={featured.date} className="block text-accent/60 text-xs uppercase tracking-[0.3em] mb-4 font-mono">
+              {formatDate(featured.date)}
             </time>
             <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tight font-display mb-5 hover:text-accent transition-colors cursor-default leading-tight">
-              {featured.title}
+              {t(featured.title)}
             </h3>
             <p className="text-white/50 text-sm leading-relaxed max-w-2xl mb-6">
-              {featured.excerpt}
+              {t(featured.excerpt)}
             </p>
             <a
               href={featured.link}
@@ -55,7 +64,7 @@ export default function News() {
               rel="noopener noreferrer"
               className="text-accent text-xs uppercase tracking-[0.3em] font-semibold hover:text-white transition-colors"
             >
-              Baca Selanjutnya ↗
+              {t(UI.news.readMore)}
             </a>
           </div>
         </motion.article>
@@ -71,7 +80,7 @@ export default function News() {
               className="flex items-center gap-6 mb-8"
             >
               <span className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-display shrink-0">
-                Berita Lain
+                {t(UI.news.moreNews)}
               </span>
               <div className="flex-1 h-px bg-white/10" />
             </motion.div>
@@ -80,7 +89,7 @@ export default function News() {
             <div>
               {rest.map((item, index) => (
                 <motion.article
-                  key={item.title}
+                  key={item.date}
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.45 + index * 0.1 }}
@@ -91,12 +100,12 @@ export default function News() {
                     rel="noopener noreferrer"
                     className="group border-b border-white/10 py-5 flex gap-6 items-start hover:bg-white/[0.02] transition-colors px-2"
                   >
-                    <time className="text-accent/40 text-xs font-mono w-28 shrink-0 mt-1 uppercase tracking-wider">
-                      {item.date}
+                    <time dateTime={item.date} className="text-accent/40 text-xs font-mono w-32 shrink-0 mt-1 uppercase tracking-wider">
+                      {formatDate(item.date)}
                     </time>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-bold uppercase tracking-wider text-sm font-display group-hover:text-accent transition-colors leading-snug">
-                        {item.title}
+                        {t(item.title)}
                       </h3>
                     </div>
                     {/* Arrow — invisible until hover */}
