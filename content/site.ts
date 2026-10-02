@@ -20,7 +20,7 @@ export const SITE = {
     merch: "https://wa.me/60173308974?text=Hi%2C%20I%20want%20to%20order%20ESTRID%20merch",
   },
   themeColor: "#DC2626",
-  ogImage: "/images/og-image.png",
+  ogImage: "/images/og-image.jpg",
 };
 
 /** Page sections in scroll order — drives the nav and footer links */
