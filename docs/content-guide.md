@@ -6,6 +6,19 @@ How to update the website content without touching the layout or design.
 
 Images go in `public/images/…` and are referenced as `"/images/…"`. File names with spaces should be written as `%20` (e.g. `Guitar%201.jpg`).
 
+### Image sizes
+
+Resize photos before adding them — a phone photo straight off the camera is 3–5MB and slows the page for everyone. Save as JPG (quality ~80) at this longest side:
+
+| Where | Longest side |
+|---|---|
+| Gallery (also opens full-screen) | 1600px |
+| Band members | 800px |
+| Band photo, release artwork, news | 1200–1280px |
+| Past release artwork | 600px |
+
+On a Mac: `sips -Z 1600 -s format jpeg -s formatOptions 80 photo.png --out photo.jpg`
+
 ### Two languages (BM / EN)
 
 Anything visitors read is written in both languages as `{ ms: "...", en: "..." }`. The build fails if one is missing. Names (venues, members, song titles) are plain strings. Buttons and headings live in `content/ui.ts`.
