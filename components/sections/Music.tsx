@@ -5,9 +5,12 @@ import { useRef } from "react";
 import SectionHeader from "@/components/ui/SectionHeader";
 import CornerBrackets from "@/components/ui/CornerBrackets";
 import LabelDivider from "@/components/ui/LabelDivider";
-import { FEATURED_RELEASE, MUSIC_VIDEO, PLATFORMS } from "@/content/music";
+import { FEATURED_RELEASE, MUSIC_VIDEO, PAST_RELEASES, PLATFORMS } from "@/content/music";
+import { UI } from "@/content/ui";
+import { useLang } from "@/lib/i18n";
 
 export default function Music() {
+  const { t } = useLang();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [titleStart, titleEnd] = FEATURED_RELEASE.title;
@@ -16,9 +19,9 @@ export default function Music() {
     <section id="music" className="py-24 md:py-32 bg-black/10 overflow-hidden" ref={ref}>
       <SectionHeader
         number="02"
-        eyebrow="Dengar Kami"
-        title="Muzik"
-        accent="Kami"
+        eyebrow={t(UI.music.header.eyebrow)}
+        title={t(UI.music.header.title)}
+        accent={t(UI.music.header.accent)}
         inView={isInView}
         className="container mx-auto px-4"
       />
@@ -31,7 +34,7 @@ export default function Music() {
           transition={{ duration: 0.5, delay: 0.15 }}
           className="text-accent/50 uppercase tracking-[0.4em] text-[10px] font-semibold mb-4"
         >
-          — Keluaran Terkini
+          {t(UI.music.latestRelease)}
         </motion.p>
 
         <motion.div
@@ -69,13 +72,13 @@ export default function Music() {
                 <span className="text-accent">{titleEnd}</span>
               </h3>
               <p className="text-white/50 leading-relaxed text-sm max-w-sm">
-                {FEATURED_RELEASE.description}
+                {t(FEATURED_RELEASE.description)}
               </p>
             </div>
 
             {/* Spotify embed */}
             <div>
-              <p className="text-white/30 uppercase tracking-[0.3em] text-[9px] mb-3">Dengar sekarang</p>
+              <p className="text-white/30 uppercase tracking-[0.3em] text-[9px] mb-3">{t(UI.music.listenNow)}</p>
               <iframe
                 style={{ borderRadius: '8px', display: 'block' }}
                 src={FEATURED_RELEASE.spotifyEmbed}
@@ -94,7 +97,7 @@ export default function Music() {
       {/* ── Divider ── */}
       <div className="container mx-auto px-4 mb-16">
         <LabelDivider
-          label="Video Muzik Rasmi"
+          label={t(UI.music.officialVideo)}
           className="origin-left"
           initial={{ scaleX: 0 }}
           animate={isInView ? { scaleX: 1 } : {}}
@@ -126,7 +129,7 @@ export default function Music() {
               <iframe
                 className="absolute top-0 left-0 w-full h-full"
                 src={`https://www.youtube.com/embed/${MUSIC_VIDEO.youtubeId}`}
-                title={`${MUSIC_VIDEO.title} - Video Muzik Rasmi`}
+                title={`${MUSIC_VIDEO.title} - ${t(UI.music.officialVideo)}`}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
@@ -134,6 +137,60 @@ export default function Music() {
           </div>
         </motion.div>
       </div>
+
+      {/* ── Previous Releases ── */}
+      {PAST_RELEASES.length > 0 && (
+        <div className="container mx-auto px-4 mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            className="max-w-4xl mx-auto"
+          >
+            <LabelDivider label={t(UI.music.previousReleases)} className="mb-6" />
+            <div className="space-y-3">
+              {PAST_RELEASES.map((release) => (
+                <div
+                  key={release.title}
+                  className="group flex items-center gap-5 border border-white/10 hover:border-accent/40 bg-black/40 p-3 transition-colors duration-300"
+                >
+                  <img
+                    src={release.artwork}
+                    alt={release.title}
+                    className="w-16 h-16 md:w-20 md:h-20 object-cover grayscale group-hover:grayscale-0 transition-all duration-500 shrink-0"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-base md:text-lg font-black uppercase tracking-widest font-display leading-tight truncate">
+                      {release.title}
+                    </p>
+                    <p className="text-white/40 uppercase tracking-[0.25em] text-[9px] font-semibold mt-1">
+                      {release.label}
+                    </p>
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 shrink-0 pr-2">
+                    <a
+                      href={release.spotifyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white/50 hover:text-accent uppercase tracking-widest text-xs font-semibold font-display transition-colors"
+                    >
+                      Spotify ↗
+                    </a>
+                    <a
+                      href={release.youtubeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white/50 hover:text-accent uppercase tracking-widest text-xs font-semibold font-display transition-colors"
+                    >
+                      YouTube ↗
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      )}
 
       {/* ── Platforms strip ── */}
       <div className="container mx-auto px-4">
@@ -143,10 +200,10 @@ export default function Music() {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="border-t border-white/10 pt-10"
         >
-          <p className="text-white/30 uppercase tracking-[0.4em] text-[9px] font-semibold mb-6">Tersedia Di</p>
+          <p className="text-white/30 uppercase tracking-[0.4em] text-[9px] font-semibold mb-6">{t(UI.music.availableOn)}</p>
           <div className="flex flex-wrap items-center gap-0">
             {PLATFORMS.map((platform) => (
-              <motion.a
+              <a
                 key={platform.name}
                 href={platform.url}
                 target="_blank"
@@ -158,7 +215,7 @@ export default function Music() {
                   {platform.name}
                 </span>
                 <span className="text-accent opacity-0 group-hover:opacity-100 transition-opacity text-xs ml-1">↗</span>
-              </motion.a>
+              </a>
             ))}
           </div>
         </motion.div>
