@@ -100,7 +100,7 @@ Both use an inline WhatsApp SVG icon in `components/ui/WhatsAppIcon.tsx`, becaus
 | Field | Value |
 |---|---|
 | title | `["Akhir", "."]` (dot in red) |
-| label | **"Single · 2026"** ⚠️ default, confirm |
+| label | "Single · 2026" (confirmed) |
 | artwork | `akhir-artwork.jpg` |
 | description | Localized; I draft it |
 | spotifyEmbed | `https://open.spotify.com/embed/track/0DKpL2GNJ5gcWxRAP1guXO?utm_source=generator&theme=0` |
@@ -113,7 +113,7 @@ Both use an inline WhatsApp SVG icon in `components/ui/WhatsAppIcon.tsx`, becaus
   - Uses a `LabelDivider` "Keluaran Terdahulu / Previous Releases".
   - Each row: small artwork (80px), title, label, and Spotify ↗ / YouTube ↗ links.
 
-**News** ⚠️ default, confirm: add a featured item "Single Baharu 'Akhir.' Kini Tersedia! / New Single 'Akhir.' Out Now!" that links to the MV and uses the Akhir artwork. The Narsistik item moves into "Berita Lain", which becomes visible again. Its date is release day, which the user must give or confirm.
+**News** (confirmed): add a featured item "Single Baharu 'Akhir.' Kini Tersedia! / New Single 'Akhir.' Out Now!" that links to the MV and uses the Akhir artwork. The Narsistik item moves into "Berita Lain", which becomes visible again. The Akhir item is dated 26 September 2026 (release day; stored as `"2026-09-26"` and formatted with `Intl` like show dates). Narsistik keeps 16 Ogos 2025.
 
 ---
 
