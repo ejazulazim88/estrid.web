@@ -81,21 +81,6 @@ export const UI = {
     location: { ms: "Lokasi", en: "Location" },
     whatsappUs: { ms: "WhatsApp Kami", en: "WhatsApp Us" },
     orderMerch: { ms: "Tempah Merch", en: "Order Merch" },
-    nameLabel: { ms: "Nama", en: "Name" },
-    namePlaceholder: { ms: "Nama anda", en: "Your name" },
-    emailPlaceholder: { ms: "anda@email.com", en: "you@email.com" },
-    messageLabel: { ms: "Mesej", en: "Message" },
-    messagePlaceholder: { ms: "Mesej anda...", en: "Your message..." },
-    send: { ms: "Hantar Mesej", en: "Send Message" },
-    sending: { ms: "Menghantar...", en: "Sending..." },
-    success: {
-      ms: "Mesej berjaya dihantar! Kami akan menghubungi anda tidak lama lagi.",
-      en: "Message sent! We'll get back to you soon.",
-    },
-    error: {
-      ms: "Maaf, terdapat masalah menghantar mesej. Sila cuba lagi.",
-      en: "Sorry, something went wrong sending your message. Please try again.",
-    },
   },
   footer: {
     links: { ms: "Pautan", en: "Links" },
