@@ -40,7 +40,7 @@ export const PAST_RELEASES = [
   {
     title: "Narsistik",
     label: "Single · 2025",
-    artwork: "/images/narsistik artwork.png",
+    artwork: "/images/narsistik-artwork.jpg",
     spotifyUrl: "https://open.spotify.com/track/10qy02MuJQsxXM4sAOwo1A",
     youtubeUrl: "https://youtu.be/Pw14pde3heQ",
   },
