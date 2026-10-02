@@ -36,7 +36,7 @@ export const NEWS: NewsItem[] = [
       ms: "Single pertama kami akhirnya hadir. Dengar 'Narsistik' sekarang di semua platform muzik utama dan rasai tenaga mentah Estrid yang tidak berkompromi.",
       en: "Our first single is finally here. Listen to 'Narsistik' now on all major music platforms and feel Estrid's raw, uncompromising energy.",
     },
-    image: "/images/estrid-2026.png",
+    image: "/images/estrid-2026.jpg",
     link: "https://musicaddicts.my/estrid-meledak-lembaran-baharu-muzik-rock-alternatif-tempatan-dengan-narsistik/",
   },
 ];
