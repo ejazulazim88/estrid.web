@@ -18,6 +18,7 @@ const particles = Array.from({ length: 12 }, (_, i) => ({
 
 export default function Hero() {
   const { t } = useLang();
+  const tagline = t(SITE.tagline);
   return (
     <section
       id="home"
@@ -85,9 +86,9 @@ export default function Hero() {
 
         {/* Tagline — word-by-word blur reveal */}
         <div className="text-base sm:text-lg md:text-2xl lg:text-3xl text-gray-300 mb-2 flex flex-wrap justify-center gap-x-2">
-          {t(SITE.tagline).split(" ").map((word, wi) => (
+          {tagline.split(" ").map((word, wi) => (
             <motion.span
-              key={`${t(SITE.tagline)}-${wi}`}
+              key={`${tagline}-${wi}`}
               initial={{ opacity: 0, filter: "blur(8px)", y: 10 }}
               animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 + wi * 0.08, ease: "easeOut" }}

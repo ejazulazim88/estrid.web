@@ -73,7 +73,7 @@ export default function Navigation() {
             </motion.a>
 
             {/* Desktop Nav */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
               {NAV_SECTIONS.map((item, index) => {
                 const isActive = activeSection === item.id;
                 return (
@@ -102,12 +102,13 @@ export default function Navigation() {
                   </motion.a>
                 );
               })}
-              <LanguageToggle className="pt-3 pl-8 border-l border-white/10" />
+              {/* pt-3 matches the links' pt-3 so text baselines align */}
+              <LanguageToggle className="pt-3 pl-6 xl:pl-8 border-l border-white/10" />
             </div>
 
             {/* Mobile hamburger toggle */}
             <button
-              className="md:hidden text-foreground hover:text-accent transition-colors z-50"
+              className="lg:hidden text-foreground hover:text-accent transition-colors z-50"
               onClick={() => setIsOpen(!isOpen)}
               aria-label={t(UI.nav.toggleMenu)}
             >
@@ -122,7 +123,7 @@ export default function Navigation() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-lg md:hidden flex flex-col items-center justify-center grain"
+            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-lg lg:hidden flex flex-col items-center justify-center grain"
             initial={{ opacity: 0, clipPath: "circle(0% at 95% 5%)" }}
             animate={{ opacity: 1, clipPath: "circle(150% at 95% 5%)" }}
             exit={{ opacity: 0, clipPath: "circle(0% at 95% 5%)" }}
@@ -154,7 +155,7 @@ export default function Navigation() {
                 );
               })}
             </div>
-            <LanguageToggle className="mt-14 text-base" />
+            <LanguageToggle className="mt-14 text-base [&_button]:px-3 [&_button]:py-2" />
           </motion.div>
         )}
       </AnimatePresence>

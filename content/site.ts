@@ -23,7 +23,7 @@ export const SITE = {
   ogImage: "/images/og-image.png",
 };
 
-/** Page sections in scroll order — drives the nav, footer links and sitemap */
+/** Page sections in scroll order — drives the nav and footer links */
 export const NAV_SECTIONS: { id: string; label: Localized }[] = [
   { id: "home", label: { ms: "Laman Utama", en: "Home" } },
   { id: "about", label: { ms: "Tentang", en: "About" } },
