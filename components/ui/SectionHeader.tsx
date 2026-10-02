@@ -37,13 +37,13 @@ export default function SectionHeader({
         <span
           // Size classes must come before leading-none — twMerge lets a later text-size drop it
           className={cn(
-            compact ? "text-[5rem] shrink-0" : "text-[7rem]",
+            "text-[4.5rem] shrink-0",
             "md:text-[10rem] font-black leading-none select-none font-display text-accent/[0.12]"
           )}
         >
           {number}
         </span>
-        <div className="pb-4">
+        <div className="pb-4 min-w-0">
           <p className="text-accent uppercase tracking-[0.35em] text-xs font-semibold mb-1">
             {eyebrow}
           </p>
@@ -52,7 +52,7 @@ export default function SectionHeader({
               "font-black uppercase font-display md:text-6xl",
               compact
                 ? "text-2xl tracking-wide md:tracking-widest leading-tight"
-                : "text-4xl tracking-widest leading-none"
+                : "text-2xl tracking-wider md:tracking-widest leading-none"
             )}
           >
             {title} <span className="text-accent">{accent}</span>
