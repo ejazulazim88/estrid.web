@@ -81,7 +81,7 @@ export default function Hero() {
           <h1>
             <img
               src={"/images/estrid-logo.png"}
-              alt="ESTRID — Band Rock Malaysia"
+              alt="ESTRID"
               className="h-72 sm:h-64 md:h-80 lg:h-[28rem] w-auto object-contain"
             />
           </h1>
