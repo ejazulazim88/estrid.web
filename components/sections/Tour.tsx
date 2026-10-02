@@ -7,7 +7,8 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import LabelDivider from "@/components/ui/LabelDivider";
 import { SHOWS, type Show } from "@/content/shows";
 import { UI } from "@/content/ui";
-import { useLang, parseIsoDate } from "@/lib/i18n";
+import { useLang } from "@/lib/i18n";
+import { parseIsoDate } from "@/lib/dates";
 import { orderShows } from "@/lib/shows";
 import { cn, scrollToId } from "@/lib/utils";
 
@@ -92,7 +93,7 @@ function ShowRow({ show, isPast, index, inView }: { show: Show; isPast: boolean;
   return (
     <motion.div
       initial={{ opacity: 0, x: -40 }}
-      animate={inView ? { opacity: isPast ? 0.5 : 1, x: 0 } : {}}
+      animate={inView ? { opacity: isPast ? 0.6 : 1, x: 0 } : {}}
       transition={{ duration: 0.6, delay: 0.15 + index * 0.1 }}
       className={cn(
         "group flex items-stretch border border-white/10 bg-black/40 transition-all duration-300",
@@ -103,6 +104,7 @@ function ShowRow({ show, isPast, index, inView }: { show: Show; isPast: boolean;
       <div className={cn("w-1 flex-shrink-0", isPast ? "bg-white/20" : "bg-accent")} />
 
       <div className="flex-1 flex flex-col md:flex-row md:items-center gap-4 md:gap-8 px-6 py-5">
+        {isPast && <span className="sr-only">{t(UI.tour.pastShow)}</span>}
 
         {/* Date — LEFT */}
         <div className="flex-shrink-0 md:w-48">

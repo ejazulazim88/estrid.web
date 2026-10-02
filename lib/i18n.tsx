@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { formatDateIn, formatMonthYearIn } from "@/lib/dates";
 
 export type Lang = "ms" | "en";
 
@@ -8,7 +9,6 @@ export type Lang = "ms" | "en";
 export type Localized = { ms: string; en: string };
 
 const STORAGE_KEY = "estrid-lang";
-const INTL_LOCALE: Record<Lang, string> = { ms: "ms-MY", en: "en-GB" };
 
 type LangContextValue = {
   lang: Lang;
@@ -21,25 +21,6 @@ type LangContextValue = {
 };
 
 const LangContext = createContext<LangContextValue | null>(null);
-
-/** Parse "YYYY-MM-DD" as a local calendar date (not UTC midnight) */
-export function parseIsoDate(isoDate: string) {
-  const [y, m, d] = isoDate.split("-").map(Number);
-  return new Date(y, m - 1, d);
-}
-
-export function formatDateIn(isoDate: string, lang: Lang) {
-  return new Intl.DateTimeFormat(INTL_LOCALE[lang], {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(parseIsoDate(isoDate));
-}
-
-/** "2026-10-24" → "Oktober 2026" / "October 2026" */
-export function formatMonthYearIn(isoDate: string, lang: Lang) {
-  return new Intl.DateTimeFormat(INTL_LOCALE[lang], { month: "long", year: "numeric" }).format(parseIsoDate(isoDate));
-}
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   // Static HTML is always rendered in BM; a stored preference is applied after mount

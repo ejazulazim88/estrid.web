@@ -41,6 +41,7 @@ export const UI = {
     availableOn: { ms: "Tersedia Di", en: "Available On" },
   },
   tour: {
+    pastShow: { ms: "Persembahan telah berlalu", en: "Past show" },
     header: {
       eyebrow: { ms: "Jumpa Kami", en: "See Us Live" },
       title: { ms: "Tarikh", en: "Show" },

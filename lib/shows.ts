@@ -1,5 +1,5 @@
 import type { Show } from "@/content/shows";
-import { parseIsoDate } from "@/lib/i18n";
+import { parseIsoDate } from "@/lib/dates";
 
 /** A show is past once its date is before today (a show today still counts as upcoming) */
 export function isPast(show: Show, today: Date) {
