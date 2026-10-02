@@ -42,7 +42,7 @@ export function buildJsonLd() {
       name: show.venue,
       address: { "@type": "PostalAddress", addressLocality: show.city, addressCountry: "MY" },
     },
-    performer: { "@id": BAND_ID },
+    performer: { "@type": "MusicGroup", "@id": BAND_ID, name: SITE.name },
     image,
     ...(show.link && { url: show.link }),
   }));
