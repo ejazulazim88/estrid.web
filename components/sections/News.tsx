@@ -60,50 +60,55 @@ export default function News() {
           </div>
         </motion.article>
 
-        {/* Divider with label */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.35 }}
-          className="flex items-center gap-6 mb-8"
-        >
-          <span className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-display shrink-0">
-            Berita Lain
-          </span>
-          <div className="flex-1 h-px bg-white/10" />
-        </motion.div>
-
-        {/* Secondary Stories — table/list layout */}
-        <div>
-          {rest.map((item, index) => (
-            <motion.article
-              key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.45 + index * 0.1 }}
+        {/* Other stories — only rendered when there is more than the featured one */}
+        {rest.length > 0 && (
+          <>
+            {/* Divider with label */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.5, delay: 0.35 }}
+              className="flex items-center gap-6 mb-8"
             >
-              <a
-                href={item.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group border-b border-white/10 py-5 flex gap-6 items-start hover:bg-white/[0.02] transition-colors px-2"
-              >
-                <time className="text-accent/40 text-xs font-mono w-28 shrink-0 mt-1 uppercase tracking-wider">
-                  {item.date}
-                </time>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-bold uppercase tracking-wider text-sm font-display group-hover:text-accent transition-colors leading-snug">
-                    {item.title}
-                  </h3>
-                </div>
-                {/* Arrow — invisible until hover */}
-                <span className="text-accent text-sm opacity-0 group-hover:opacity-100 transition-opacity shrink-0 mt-0.5">
-                  ↗
-                </span>
-              </a>
-            </motion.article>
-          ))}
-        </div>
+              <span className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-display shrink-0">
+                Berita Lain
+              </span>
+              <div className="flex-1 h-px bg-white/10" />
+            </motion.div>
+
+            {/* Secondary Stories — table/list layout */}
+            <div>
+              {rest.map((item, index) => (
+                <motion.article
+                  key={item.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.45 + index * 0.1 }}
+                >
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group border-b border-white/10 py-5 flex gap-6 items-start hover:bg-white/[0.02] transition-colors px-2"
+                  >
+                    <time className="text-accent/40 text-xs font-mono w-28 shrink-0 mt-1 uppercase tracking-wider">
+                      {item.date}
+                    </time>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-bold uppercase tracking-wider text-sm font-display group-hover:text-accent transition-colors leading-snug">
+                        {item.title}
+                      </h3>
+                    </div>
+                    {/* Arrow — invisible until hover */}
+                    <span className="text-accent text-sm opacity-0 group-hover:opacity-100 transition-opacity shrink-0 mt-0.5">
+                      ↗
+                    </span>
+                  </a>
+                </motion.article>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );
