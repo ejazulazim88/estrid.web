@@ -69,6 +69,18 @@
   }
 }
 
+/* Respect the OS "Reduce Motion" setting: no smooth scroll, particles hold still */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .particle {
+    animation: none;
+    opacity: 0.4;
+  }
+}
+
 @keyframes float-particle {
   0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.3; }
   25% { transform: translateY(-20px) translateX(10px); opacity: 0.6; }

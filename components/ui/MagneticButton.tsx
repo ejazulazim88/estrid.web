@@ -1,9 +1,9 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { useRef } from "react";
 
-/** Link that drifts toward the cursor while hovered */
+/** Link that drifts toward the cursor while hovered (stays put under reduced motion) */
 export default function MagneticButton({ children, className, href, onClick }: {
   children: React.ReactNode;
   className: string;
@@ -15,8 +15,10 @@ export default function MagneticButton({ children, className, href, onClick }: {
   const y = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 300, damping: 20 });
   const springY = useSpring(y, { stiffness: 300, damping: 20 });
+  const reduceMotion = useReducedMotion();
 
   const handleMouseMove = (e: React.MouseEvent) => {
+    if (reduceMotion) return;
     const rect = ref.current?.getBoundingClientRect();
     if (!rect) return;
     const cx = rect.left + rect.width / 2;

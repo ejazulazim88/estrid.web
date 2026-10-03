@@ -10,25 +10,28 @@ import News from "@/components/sections/News";
 import Contact from "@/components/sections/Contact";
 import ReleaseModal from "@/components/ui/ReleaseModal";
 import { LanguageProvider } from "@/lib/i18n";
+import MotionProvider from "@/components/layout/MotionProvider";
 
 export default function Home() {
   return (
     <LanguageProvider>
-      <PlasmaBackground />
+      <MotionProvider>
+        <PlasmaBackground />
 
-      <main className="relative z-10 min-h-screen">
-        <Navigation />
-        <Hero />
-        <About />
-        <Music />
-        <Tour />
-        <Gallery />
-        <News />
-        <Contact />
-        <Footer />
-      </main>
+        <main className="relative z-10 min-h-screen">
+          <Navigation />
+          <Hero />
+          <About />
+          <Music />
+          <Tour />
+          <Gallery />
+          <News />
+          <Contact />
+          <Footer />
+        </main>
 
-      <ReleaseModal />
+        <ReleaseModal />
+      </MotionProvider>
     </LanguageProvider>
   );
 }

@@ -177,23 +177,20 @@ export const Plasma = ({
       const res = program.uniforms.iResolution.value as Float32Array;
       res[0] = gl.drawingBufferWidth;
       res[1] = gl.drawingBufferHeight;
+      // Resizing clears the canvas — repaint the still frame when not animating
+      if (reducedMotion.matches) draw(stillTime);
     };
-
-    const ro = new ResizeObserver(setSize);
-    ro.observe(containerEl);
-    setSize();
 
     let raf = 0;
     let lastFrameTime = 0;
     let paused = false;
     const t0 = performance.now();
+    // "Reduce Motion" on: show a single still frame instead of a running loop.
+    // stillTime is frozen so resizes (e.g. mobile toolbar) repaint the same frame.
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let stillTime = t0;
 
-    const loop = (t: number) => {
-      raf = requestAnimationFrame(loop);
-      if (paused) return;
-      if (t - lastFrameTime < frameInterval) return;
-      lastFrameTime = t;
-
+    const draw = (t: number) => {
       let timeValue = (t - t0) * 0.001;
       if (direction === 'pingpong') {
         const pingpongDuration = 10;
@@ -209,7 +206,30 @@ export const Plasma = ({
       }
       renderer.render({ scene: mesh });
     };
-    raf = requestAnimationFrame(loop);
+
+    const loop = (t: number) => {
+      raf = requestAnimationFrame(loop);
+      if (paused) return;
+      if (t - lastFrameTime < frameInterval) return;
+      lastFrameTime = t;
+      draw(t);
+    };
+
+    const applyMotionPreference = () => {
+      cancelAnimationFrame(raf);
+      if (reducedMotion.matches) {
+        stillTime = performance.now();
+        draw(stillTime);
+      } else {
+        raf = requestAnimationFrame(loop);
+      }
+    };
+
+    const ro = new ResizeObserver(setSize);
+    ro.observe(containerEl);
+    setSize();
+    applyMotionPreference();
+    reducedMotion.addEventListener('change', applyMotionPreference);
 
     const handleVisibility = () => {
       paused = document.hidden;
@@ -219,6 +239,7 @@ export const Plasma = ({
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
+      reducedMotion.removeEventListener('change', applyMotionPreference);
       document.removeEventListener('visibilitychange', handleVisibility);
       if (mouseInteractive && containerEl) {
         containerEl.removeEventListener('mousemove', handleMouseMove);
