@@ -35,7 +35,8 @@ estrid.web/
 ├── components/
 │   ├── layout/
 │   │   ├── Navigation.tsx  # Sticky nav (desktop links from 1024px / lg; hamburger menu below)
-│   │   └── Footer.tsx      # Brand, section links, social icons
+│   │   ├── Footer.tsx      # Brand, section links, social icons
+│   │   └── MotionProvider.tsx # MotionConfig reducedMotion="user" around the page
 │   ├── sections/           # One file per page section, in page order
 │   │   ├── Hero.tsx        # #home
 │   │   ├── About.tsx       # #about
@@ -89,6 +90,8 @@ PlasmaBackground (fixed, z-0, pointer-events-none)
 ```
 
 Alternating `bg-black/80` (opaque glass) and `bg-black/10` (near-transparent) lets the Plasma background bleed through. Each section sets its own background class; there is no global `section` rule.
+
+**Reduce Motion:** the OS `prefers-reduced-motion` setting is honoured everywhere. Plasma draws one still frame instead of looping; `MotionProvider` makes framer-motion skip transforms (fades remain); `MagneticButton` stays put; `globals.css` stops smooth scroll and the Hero particles; `scrollToId` jumps instead of smooth-scrolling. New animations should go through framer-motion or add a `prefers-reduced-motion` rule.
 
 ## Design System
 
