@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Fragment } from "react";
 import { usePathname } from "next/navigation";
 import { NAV_SECTIONS, SITE, SOCIAL_LINKS } from "@/content/site";
 import { UI } from "@/content/ui";
@@ -39,19 +40,23 @@ export default function Footer() {
           {/* Center — Nav links */}
           <nav className="flex flex-col gap-0">
             <p className="text-white/20 uppercase tracking-[0.35em] text-[10px] mb-4">{t(UI.footer.links)}</p>
+            {/* Each section, followed by its sub-pages (Muzik → Lirik) */}
             {footerLinks.map((link) => (
-              <a
-                key={link.id}
-                href={`/#${link.id}`}
-                className={linkClass}
-                onClick={(e) => { if (!onHome) return; e.preventDefault(); scrollToId(link.id); }}
-              >
-                {t(link.label)}
-              </a>
+              <Fragment key={link.id}>
+                <a
+                  href={`/#${link.id}`}
+                  className={linkClass}
+                  onClick={(e) => { if (!onHome) return; e.preventDefault(); scrollToId(link.id); }}
+                >
+                  {t(link.label)}
+                </a>
+                {link.children?.map((child) => (
+                  <a key={child.href} href={child.href} className={linkClass}>
+                    {t(child.label)}
+                  </a>
+                ))}
+              </Fragment>
             ))}
-            <a href="/lirik/" className={linkClass}>
-              {t(UI.lyrics.lyrics)}
-            </a>
           </nav>
 
           {/* Right — Social */}
