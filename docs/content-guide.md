@@ -145,4 +145,4 @@ One place for things used across the site:
 - `SITE` — name, URL, tagline, description (SEO), email, Linktree, location
 - `SOCIAL_LINKS` — used by **both** the Contact section and the Footer
 - `SITE.whatsapp` — the two WhatsApp buttons in Hubungi Kami (`contact`, `merch`). Format: `https://wa.me/60XXXXXXXXX?text=<url-encoded message>`
-- `NAV_SECTIONS` — menu labels; also drives the footer links
+- `NAV_SECTIONS` — menu labels; also drives the footer links. An item's `children` become a header sub-menu (e.g. Muzik → Lirik)

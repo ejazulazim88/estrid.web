@@ -12,11 +12,15 @@ import { cn, scrollToId } from "@/lib/utils";
 
 export default function Navigation() {
   const { t } = useLang();
-  // Off the home page (e.g. /lirik/) links are plain "/#id" page loads, and no section is active
-  const onHome = usePathname() === "/";
+  // Off the home page (e.g. /lirik/) links are plain "/#id" page loads.
+  // There, the section owning the current sub-page (Lirik → Muzik) is shown as active.
+  const pathname = usePathname();
+  const onHome = pathname === "/";
+  const isCurrentPage = (href: string) => pathname.startsWith(href.replace(/\/$/, ""));
+  const parentSection = NAV_SECTIONS.find((s) => s.children?.some((c) => isCurrentPage(c.href)))?.id ?? "";
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState(onHome ? "home" : "");
+  const [activeSection, setActiveSection] = useState(onHome ? "home" : parentSection);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -82,29 +86,49 @@ export default function Navigation() {
               {NAV_SECTIONS.map((item, index) => {
                 const isActive = activeSection === item.id;
                 return (
-                  <motion.a
-                    key={item.id}
-                    href={`/#${item.id}`}
-                    className={cn(
-                      "relative text-sm uppercase tracking-widest font-medium transition-colors duration-300 pt-3",
-                      isActive ? "text-accent" : "text-foreground hover:text-accent"
+                  <div key={item.id} className="relative group">
+                    <motion.a
+                      href={`/#${item.id}`}
+                      className={cn(
+                        "relative block text-sm uppercase tracking-widest font-medium transition-colors duration-300 pt-3",
+                        isActive ? "text-accent" : "text-foreground hover:text-accent"
+                      )}
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.08 }}
+                      onClick={(e) => goTo(e, item.id)}
+                    >
+                      {/* Active indicator — small red square dot above text */}
+                      {isActive && (
+                        <motion.span
+                          layoutId="nav-indicator"
+                          className="absolute -top-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-accent"
+                          style={{ borderRadius: 0 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                        />
+                      )}
+                      {t(item.label)}
+                    </motion.a>
+                    {/* Sub-menu — opens on hover or keyboard focus; pt-3 bridges the gap so hover isn't lost */}
+                    {item.children && (
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-opacity duration-200">
+                        <div className="bg-black/90 border border-white/10 py-2 min-w-[9rem]">
+                          {item.children.map((child) => (
+                            <a
+                              key={child.href}
+                              href={child.href}
+                              className={cn(
+                                "block px-5 py-2 text-xs uppercase tracking-widest font-medium text-center transition-colors duration-300",
+                                isCurrentPage(child.href) ? "text-accent" : "text-foreground/80 hover:text-accent"
+                              )}
+                            >
+                              {t(child.label)}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
                     )}
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.08 }}
-                    onClick={(e) => goTo(e, item.id)}
-                  >
-                    {/* Active indicator — small red square dot above text */}
-                    {isActive && (
-                      <motion.span
-                        layoutId="nav-indicator"
-                        className="absolute -top-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-accent"
-                        style={{ borderRadius: 0 }}
-                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                      />
-                    )}
-                    {t(item.label)}
-                  </motion.a>
+                  </div>
                 );
               })}
               {/* pt-3 matches the links' pt-3 so text baselines align */}
@@ -138,25 +162,43 @@ export default function Navigation() {
               {NAV_SECTIONS.map((item, index) => {
                 const isActive = activeSection === item.id;
                 return (
-                  <motion.a
-                    key={item.id}
-                    href={`/#${item.id}`}
-                    className={cn(
-                      "group flex items-baseline gap-3 text-3xl font-bold uppercase tracking-widest transition-colors duration-300",
-                      isActive ? "text-accent" : "text-foreground hover:text-accent"
-                    )}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 0.1 + index * 0.07 }}
-                    onClick={(e) => goTo(e, item.id)}
-                  >
-                    {/* Numeric index prefix */}
-                    <span className="text-sm font-mono tracking-widest tabular-nums text-accent opacity-70">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <span className="text-white/30 text-base font-light">—</span>
-                    <span>{t(item.label)}</span>
-                  </motion.a>
+                  <div key={item.id} className="flex flex-col items-center">
+                    <motion.a
+                      href={`/#${item.id}`}
+                      className={cn(
+                        "group flex items-baseline gap-3 text-3xl font-bold uppercase tracking-widest transition-colors duration-300",
+                        isActive ? "text-accent" : "text-foreground hover:text-accent"
+                      )}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: 0.1 + index * 0.07 }}
+                      onClick={(e) => goTo(e, item.id)}
+                    >
+                      {/* Numeric index prefix */}
+                      <span className="text-sm font-mono tracking-widest tabular-nums text-accent opacity-70">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <span className="text-white/30 text-base font-light">—</span>
+                      <span>{t(item.label)}</span>
+                    </motion.a>
+                    {item.children?.map((child) => (
+                      <motion.a
+                        key={child.href}
+                        href={child.href}
+                        className={cn(
+                          "mt-3 text-base uppercase tracking-[0.3em] font-semibold transition-colors duration-300",
+                          isCurrentPage(child.href) ? "text-accent" : "text-white/50 hover:text-accent"
+                        )}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: 0.1 + index * 0.07 }}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <span className="text-accent/70" aria-hidden="true">↳ </span>
+                        {t(child.label)}
+                      </motion.a>
+                    ))}
+                  </div>
                 );
               })}
             </div>

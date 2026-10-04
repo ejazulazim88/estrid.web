@@ -23,11 +23,15 @@ export const SITE = {
   ogImage: "/images/og-image.jpg",
 };
 
-/** Page sections in scroll order — drives the nav and footer links */
-export const NAV_SECTIONS: { id: string; label: Localized }[] = [
+/** Page sections in scroll order — drives the nav and footer links. `children` = header sub-menu pages. */
+export const NAV_SECTIONS: { id: string; label: Localized; children?: { href: string; label: Localized }[] }[] = [
   { id: "home", label: { ms: "Laman Utama", en: "Home" } },
   { id: "about", label: { ms: "Tentang", en: "About" } },
-  { id: "music", label: { ms: "Muzik", en: "Music" } },
+  {
+    id: "music",
+    label: { ms: "Muzik", en: "Music" },
+    children: [{ href: "/lirik/", label: { ms: "Lirik", en: "Lyrics" } }],
+  },
   { id: "tour", label: { ms: "Persembahan", en: "Shows" } },
   { id: "gallery", label: { ms: "Galeri", en: "Gallery" } },
   { id: "berita", label: { ms: "Berita", en: "News" } },
