@@ -1,15 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 import { NAV_SECTIONS, SITE, SOCIAL_LINKS } from "@/content/site";
 import { UI } from "@/content/ui";
 import { useLang } from "@/lib/i18n";
 import { scrollToId } from "@/lib/utils";
 
 const footerLinks = NAV_SECTIONS.filter((section) => section.id !== "home");
+const linkClass = "text-white/40 hover:text-accent uppercase tracking-widest text-xs transition-colors py-1 font-display";
 
 export default function Footer() {
   const { t } = useLang();
+  const onHome = usePathname() === "/";
   const currentYear = new Date().getFullYear();
 
   return (
@@ -39,13 +42,16 @@ export default function Footer() {
             {footerLinks.map((link) => (
               <a
                 key={link.id}
-                href={`#${link.id}`}
-                className="text-white/40 hover:text-accent uppercase tracking-widest text-xs transition-colors py-1 font-display"
-                onClick={(e) => { e.preventDefault(); scrollToId(link.id); }}
+                href={`/#${link.id}`}
+                className={linkClass}
+                onClick={(e) => { if (!onHome) return; e.preventDefault(); scrollToId(link.id); }}
               >
                 {t(link.label)}
               </a>
             ))}
+            <a href="/lirik/" className={linkClass}>
+              {t(UI.lyrics.lyrics)}
+            </a>
           </nav>
 
           {/* Right — Social */}

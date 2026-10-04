@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 import LanguageToggle from "@/components/ui/LanguageToggle";
 import { NAV_SECTIONS } from "@/content/site";
 import { UI } from "@/content/ui";
@@ -11,9 +12,11 @@ import { cn, scrollToId } from "@/lib/utils";
 
 export default function Navigation() {
   const { t } = useLang();
+  // Off the home page (e.g. /lirik/) links are plain "/#id" page loads, and no section is active
+  const onHome = usePathname() === "/";
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [activeSection, setActiveSection] = useState(onHome ? "home" : "");
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -39,10 +42,12 @@ export default function Navigation() {
     return () => observers.forEach(o => o.disconnect());
   }, []);
 
-  const goTo = useCallback((id: string) => {
-    scrollToId(id);
+  const goTo = useCallback((e: React.MouseEvent, id: string) => {
     setIsOpen(false);
-  }, []);
+    if (!onHome) return;
+    e.preventDefault();
+    scrollToId(id);
+  }, [onHome]);
 
   return (
     <>
@@ -58,12 +63,12 @@ export default function Navigation() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <motion.a
-              href="#home"
+              href="/"
               className="flex items-center"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              onClick={(e) => { e.preventDefault(); goTo("home"); }}
+              onClick={(e) => goTo(e, "home")}
             >
               <img
                 src={"/images/estrid-logo.png"}
@@ -79,7 +84,7 @@ export default function Navigation() {
                 return (
                   <motion.a
                     key={item.id}
-                    href={`#${item.id}`}
+                    href={`/#${item.id}`}
                     className={cn(
                       "relative text-sm uppercase tracking-widest font-medium transition-colors duration-300 pt-3",
                       isActive ? "text-accent" : "text-foreground hover:text-accent"
@@ -87,7 +92,7 @@ export default function Navigation() {
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.08 }}
-                    onClick={(e) => { e.preventDefault(); goTo(item.id); }}
+                    onClick={(e) => goTo(e, item.id)}
                   >
                     {/* Active indicator — small red square dot above text */}
                     {isActive && (
@@ -135,7 +140,7 @@ export default function Navigation() {
                 return (
                   <motion.a
                     key={item.id}
-                    href={`#${item.id}`}
+                    href={`/#${item.id}`}
                     className={cn(
                       "group flex items-baseline gap-3 text-3xl font-bold uppercase tracking-widest transition-colors duration-300",
                       isActive ? "text-accent" : "text-foreground hover:text-accent"
@@ -143,7 +148,7 @@ export default function Navigation() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.1 + index * 0.07 }}
-                    onClick={(e) => { e.preventDefault(); goTo(item.id); }}
+                    onClick={(e) => goTo(e, item.id)}
                   >
                     {/* Numeric index prefix */}
                     <span className="text-sm font-mono tracking-widest tabular-nums text-accent opacity-70">

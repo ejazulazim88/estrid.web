@@ -8,6 +8,7 @@ import LabelDivider from "@/components/ui/LabelDivider";
 import { FEATURED_RELEASE, MUSIC_VIDEO, PAST_RELEASES, PLATFORMS } from "@/content/music";
 import { UI } from "@/content/ui";
 import { useLang } from "@/lib/i18n";
+import { hasLyrics, lyricsPath } from "@/lib/songs";
 
 export default function Music() {
   const { t } = useLang();
@@ -76,6 +77,14 @@ export default function Music() {
               <p className="text-white/50 leading-relaxed text-sm max-w-sm">
                 {t(FEATURED_RELEASE.description)}
               </p>
+              {hasLyrics(FEATURED_RELEASE.slug) && (
+                <a
+                  href={lyricsPath(FEATURED_RELEASE.slug)}
+                  className="inline-block mt-6 text-white/50 hover:text-accent uppercase tracking-widest text-xs font-semibold font-display transition-colors"
+                >
+                  {t(UI.lyrics.readLyrics)}
+                </a>
+              )}
             </div>
 
             {/* Spotify embed */}
@@ -173,6 +182,15 @@ export default function Music() {
                     </p>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 shrink-0 pr-2">
+                    {hasLyrics(release.slug) && (
+                      <a
+                        href={lyricsPath(release.slug)}
+                        aria-label={`${t(UI.lyrics.lyrics)} ${release.title}`}
+                        className="text-white/50 hover:text-accent uppercase tracking-widest text-xs font-semibold font-display transition-colors"
+                      >
+                        {t(UI.lyrics.lyrics)}
+                      </a>
+                    )}
                     <a
                       href={release.spotifyUrl}
                       aria-label={`${release.title} — Spotify`}
