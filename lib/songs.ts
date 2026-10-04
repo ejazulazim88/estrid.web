@@ -7,6 +7,8 @@ export type Song = SongLyrics & {
   artwork: string;
   spotifyUrl: string;
   youtubeUrl: string;
+  /** Spotify player iframe src, built from spotifyUrl's track id */
+  spotifyEmbed: string;
   path: string;
 };
 
@@ -31,7 +33,9 @@ export const SONGS: Song[] = LYRICS.map((song) => {
   // Fails the build rather than shipping a lyrics page without artwork or links
   if (!release) throw new Error(`content/lyrics.ts: no release in content/music.ts with slug "${song.slug}"`);
   const { label, artwork, spotifyUrl, youtubeUrl } = release;
-  return { ...song, label, artwork, spotifyUrl, youtubeUrl, path: lyricsPath(song.slug) };
+  const trackUrl = spotifyUrl.split("?")[0]; // drop ?si=… from links copied out of the app
+  const spotifyEmbed = `${trackUrl.replace("/track/", "/embed/track/")}?utm_source=generator&theme=0`;
+  return { ...song, label, artwork, spotifyUrl, youtubeUrl, spotifyEmbed, path: lyricsPath(song.slug) };
 });
 
 export const getSong = (slug: string) => SONGS.find((song) => song.slug === slug);

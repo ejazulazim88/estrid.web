@@ -94,9 +94,20 @@ export default async function LyricsPage({ params }: Props) {
               </span>{" "}
               <span className="block text-5xl md:text-7xl leading-[0.9] tracking-tight">{song.title}</span>
             </h1>
-            <p className="text-white/40 uppercase tracking-[0.25em] text-[10px] font-semibold mb-12">
+            <p className="text-white/40 uppercase tracking-[0.25em] text-[10px] font-semibold mb-8">
               {SITE.name} · {song.label}
             </p>
+
+            {/* Play while reading — full track if signed in to Spotify, otherwise a 30s preview */}
+            <iframe
+              src={song.spotifyEmbed}
+              title={`${song.title} — Spotify`}
+              width="100%"
+              height="152"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+              className="block rounded-xl border-0 mb-12"
+            />
 
             <div className="space-y-8 text-white/80 text-base md:text-lg leading-relaxed">
               {toVerses(song.lyrics).map((lines, i) => (
