@@ -101,14 +101,40 @@ Leave out `image` to show a placeholder icon.
 
 ## Music — `content/music.ts`
 
-- **`FEATURED_RELEASE`** — the big card: title (two parts; the second is shown in red), label, artwork, `description` (BM/EN), and `spotifyEmbed` (Spotify → Share → Embed track → copy the `src` URL)
+- **`FEATURED_RELEASE`** — the big card: `slug` (lowercase URL id, e.g. `akhir`), title (two parts; the second is shown in red), label, artwork, `description` (BM/EN), `spotifyEmbed` (Spotify → Share → Embed track → copy the `src` URL) and `spotifyUrl` (the plain track link)
 - **`MUSIC_VIDEO`** — `youtubeId` is the part after `youtu.be/` or `watch?v=`
-- **`NEW_RELEASE`** — the pop-up shown once per visit. It reuses the featured release; change `slug` when a new song comes out so returning visitors see the pop-up again
-- **`PAST_RELEASES`** — older singles shown as small rows (newest first). When a new single comes out, move the current featured one here
+- **`NEW_RELEASE`** — the pop-up shown once per visit. It reuses the featured release (and its `slug`), so a new featured song automatically shows the pop-up again
+- **`PAST_RELEASES`** — older singles shown as small rows (newest first). When a new single comes out, move the current featured one here — keep its `slug`, and use its `spotifyUrl` and `https://youtu.be/<id>` as the links
 - **`PLATFORMS`** — streaming links in the "Tersedia Di" strip
 
 Artwork tip: resize big exports before adding them, e.g.
 `sips -s format jpeg -s formatOptions 82 -Z 1200 "artwork.png" --out public/images/name.jpg`
+
+---
+
+## Lyrics / Lirik — `content/lyrics.ts`
+
+Each song here gets its own page at `/lirik/<slug>/` (e.g. `estrid.my/lirik/akhir/`), is listed on `/lirik/`, appears in the sitemap, and gets a "Lirik" link in the Music section. These pages are what Google shows for searches like "lirik akhir estrid".
+
+```ts
+{
+  slug: "akhir",              // must match the release's slug in content/music.ts
+  title: "Akhir",
+  credits: [
+    { role: "composer", names: ["Ejazul Azim"] },
+    { role: "lyricist", names: ["Mono"] },
+    // also: "arranger", "producer", "mixMaster"
+  ],
+  lyrics: `First line
+Second line
+
+A blank line starts a new verse`,
+},
+```
+
+- Paste the official lyrics exactly — spelling and line breaks are shown as written
+- The build fails if a `slug` has no matching release in `content/music.ts` (artwork and Spotify/YouTube links come from there)
+- After publishing a new song's lyrics, ask Google to index it: Search Console → URL inspection → `https://estrid.my/lirik/<slug>/` → Request indexing
 
 ---
 

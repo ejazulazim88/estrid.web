@@ -19,8 +19,12 @@ estrid.web/
 ├── app/
 │   ├── layout.tsx          # Root layout — fonts, metadata, JSON-LD (from lib/structuredData.ts)
 │   ├── page.tsx            # Server component — mounts the background + all sections
+│   ├── lirik/              # Lyrics pages (static, one per song in content/lyrics.ts)
+│   │   ├── layout.tsx      # Nav + Plasma + footer shell (no release pop-up)
+│   │   ├── page.tsx        # /lirik/ — list of songs
+│   │   └── [slug]/page.tsx # /lirik/<slug>/ — lyrics, credits, own metadata + JSON-LD
 │   ├── robots.ts           # robots.txt (static)
-│   ├── sitemap.ts          # sitemap.xml (root URL only)
+│   ├── sitemap.ts          # sitemap.xml (home, /lirik/, each song)
 │   └── globals.css         # CSS variables, .grain / .bg-noise / .particle utilities
 │
 ├── content/                # ← All editable site content lives here (see content-guide.md)
@@ -28,6 +32,7 @@ estrid.web/
 │   ├── site.ts             # Name, URL, tagline, contact info, NAV_SECTIONS, SOCIAL_LINKS
 │   ├── about.ts            # Story, stats, band members
 │   ├── music.ts            # Featured release, music video, streaming platforms
+│   ├── lyrics.ts           # Song lyrics + credits (one /lirik/<slug>/ page each)
 │   ├── shows.ts            # Show dates
 │   ├── gallery.ts          # Gallery photos
 │   └── news.ts             # News items
@@ -50,6 +55,7 @@ estrid.web/
 │   │   ├── CornerBrackets.tsx  # Red corner brackets: "frame" or "hover" variant
 │   │   ├── LabelDivider.tsx    # Red bar + small label + hairline rule
 │   │   ├── LanguageToggle.tsx  # BM | EN switch
+│   │   ├── T.tsx               # <T v={…}/> — translated text inside server components
 │   │   ├── ReleaseModal.tsx    # New-release pop-up (once per session)
 │   │   ├── WhatsAppIcon.tsx    # Brand icon (Lucide has none)
 │   │   └── MagneticButton.tsx  # Cursor-following CTA link (Hero)
@@ -60,8 +66,10 @@ estrid.web/
 ├── lib/
 │   ├── dates.ts            # Pure date parsing/formatting (ms-MY / en-GB)
 │   ├── i18n.tsx            # LanguageProvider, useLang(), Localized, date formatting
+│   ├── metadata.ts         # pageMetadata() — full title/canonical/OG/Twitter for non-home pages
+│   ├── songs.ts            # Lyrics joined with release data (artwork, links), verse splitting
 │   ├── shows.ts            # Past/upcoming ordering
-│   ├── structuredData.ts   # JSON-LD (band, members, tracks, shows) built from content/
+│   ├── structuredData.ts   # JSON-LD (band, members, tracks, shows; per-song lyrics) built from content/
 │   └── utils.ts            # cn(), scrollToId()
 │
 ├── public/images/          # Logo, photos, Bandmates/, Galeri/
@@ -90,6 +98,8 @@ PlasmaBackground (fixed, z-0, pointer-events-none)
 ```
 
 Alternating `bg-black/80` (opaque glass) and `bg-black/10` (near-transparent) lets the Plasma background bleed through. Each section sets its own background class; there is no global `section` rule.
+
+**Lyrics pages:** `/lirik/` and `/lirik/<slug>/` reuse Navigation and Footer, whose links are `/#section`. On home they smooth-scroll (`preventDefault` + `scrollToId`); elsewhere they are normal page loads. Lyrics, title and credits are server-rendered without motion so crawlers read them directly. Each page sets its full metadata via `pageMetadata()`: Next merges metadata shallowly, so the root's canonical `/` would otherwise apply.
 
 **Reduce Motion:** the OS `prefers-reduced-motion` setting is honoured everywhere. Plasma draws one still frame instead of looping; `MotionProvider` makes framer-motion skip transforms (fades remain); `MagneticButton` stays put; `globals.css` stops smooth scroll and the Hero particles; `scrollToId` jumps instead of smooth-scrolling. New animations should go through framer-motion or add a `prefers-reduced-motion` rule.
 
