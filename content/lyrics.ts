@@ -76,7 +76,7 @@ Padamu`,
       { role: "lyricist", names: ["Mono"] },
       { role: "arranger", names: ["Ejazul Azim", "Fairuz Rahman"] },
       { role: "producer", names: ["Estrid"] },
-      { role: "mixMaster", names: ["Moe Husaini"] },
+      { role: "mixMaster", names: ["Moe Hussaini"] },
     ],
     lyrics: `Kau dan Ku..
 Tidak kita dicipta ‘tuk Bersama
