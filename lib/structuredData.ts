@@ -1,7 +1,9 @@
 import { MEMBERS } from "@/content/about";
+import type { CreditRole } from "@/content/lyrics";
 import { FEATURED_RELEASE, NEW_RELEASE, PAST_RELEASES } from "@/content/music";
 import { SHOWS } from "@/content/shows";
 import { SITE, SOCIAL_LINKS } from "@/content/site";
+import type { Song } from "@/lib/songs";
 
 /**
  * schema.org JSON-LD for search engines, built from content/ so new shows,
@@ -48,4 +50,43 @@ export function buildJsonLd() {
   }));
 
   return { "@context": "https://schema.org", "@graph": [band, ...events] };
+}
+
+/** schema.org JSON-LD for one lyrics page: the song (with lyrics and writers) plus its breadcrumb */
+export function buildSongJsonLd(song: Song) {
+  const url = `${SITE.url}${song.path}`;
+  const people = (role: CreditRole) =>
+    song.credits
+      .filter((c) => c.role === role)
+      .flatMap((c) => c.names)
+      .map((name) => ({ "@type": "Person", name }));
+
+  const composition = {
+    "@type": "MusicComposition",
+    "@id": `${url}#song`,
+    name: song.title,
+    url,
+    inLanguage: "ms",
+    composer: people("composer"),
+    lyricist: people("lyricist"),
+    lyrics: { "@type": "CreativeWork", text: song.lyrics },
+    recordedAs: {
+      "@type": "MusicRecording",
+      name: song.title,
+      byArtist: { "@id": BAND_ID },
+      image: `${SITE.url}${song.artwork}`,
+      url: song.youtubeUrl,
+    },
+  };
+
+  const breadcrumb = {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: SITE.name, item: `${SITE.url}/` },
+      { "@type": "ListItem", position: 2, name: "Lirik", item: `${SITE.url}/lirik/` },
+      { "@type": "ListItem", position: 3, name: song.title, item: url },
+    ],
+  };
+
+  return { "@context": "https://schema.org", "@graph": [composition, breadcrumb] };
 }

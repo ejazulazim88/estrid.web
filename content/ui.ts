@@ -1,3 +1,4 @@
+import type { CreditRole } from "@/content/lyrics";
 import type { Localized } from "@/lib/i18n";
 
 type Header = { eyebrow: Localized; title: Localized; accent: Localized };
@@ -89,5 +90,20 @@ export const UI = {
     eyebrow: { ms: "Lagu Baharu", en: "New Release" },
     subtitle: { ms: "Kini di semua platform", en: "Out now on all platforms" },
     watchMv: { ms: "Tonton MV ↗", en: "Watch MV ↗" },
+  },
+  lyrics: {
+    lyrics: { ms: "Lirik", en: "Lyrics" },
+    songLyrics: { ms: "Lirik Lagu", en: "Song Lyrics" },
+    indexIntro: { ms: "Lirik rasmi lagu-lagu ESTRID.", en: "Official lyrics for every ESTRID song." },
+    allLyrics: { ms: "Semua Lirik", en: "All Lyrics" },
+    credits: { ms: "Kredit", en: "Credits" },
+    readLyrics: { ms: "Baca Lirik →", en: "Read Lyrics →" },
+    roles: {
+      composer: { ms: "Komposer", en: "Composer" },
+      lyricist: { ms: "Lirik", en: "Lyrics" },
+      arranger: { ms: "Susunan", en: "Arrangement" },
+      producer: { ms: "Produser", en: "Producer" },
+      mixMaster: { ms: "Mix / Master", en: "Mix / Master" },
+    } satisfies Record<CreditRole, Localized>,
   },
 };

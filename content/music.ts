@@ -3,12 +3,16 @@ import type { Localized } from "@/lib/i18n";
 
 /** The big card at the top of the Music section */
 export const FEATURED_RELEASE: {
+  /** URL-safe id — links the release to its lyrics in content/lyrics.ts */
+  slug: string;
   title: [string, string];
   label: string;
   artwork: string;
   description: Localized;
   spotifyEmbed: string;
+  spotifyUrl: string;
 } = {
+  slug: "akhir",
   /** Rendered as one word; the second part is shown in red */
   title: ["Akhir", "."],
   label: "Single · 2026",
@@ -19,6 +23,7 @@ export const FEATURED_RELEASE: {
   },
   /** Spotify → Share → Embed track → copy the src URL */
   spotifyEmbed: "https://open.spotify.com/embed/track/0DKpL2GNJ5gcWxRAP1guXO?utm_source=generator&theme=0",
+  spotifyUrl: "https://open.spotify.com/track/0DKpL2GNJ5gcWxRAP1guXO",
 };
 
 export const MUSIC_VIDEO = {
@@ -27,9 +32,9 @@ export const MUSIC_VIDEO = {
   youtubeId: "pLnVxlmiMF4",
 };
 
-/** Pop-up shown once per session. Change `slug` for the next release so it shows again. */
+/** Pop-up shown once per session, keyed by slug — a new featured release shows it again */
 export const NEW_RELEASE = {
-  slug: "akhir",
+  slug: FEATURED_RELEASE.slug,
   title: FEATURED_RELEASE.title,
   artwork: FEATURED_RELEASE.artwork,
   youtubeUrl: `https://youtu.be/${MUSIC_VIDEO.youtubeId}`,
@@ -38,6 +43,7 @@ export const NEW_RELEASE = {
 /** Older releases, newest first — compact rows under the music video */
 export const PAST_RELEASES = [
   {
+    slug: "narsistik",
     title: "Narsistik",
     label: "Single · 2025",
     artwork: "/images/narsistik-artwork.jpg",
